@@ -2,7 +2,6 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:elostaz_app/share/components/indi_deal_card_with_discount.dart';
 import 'package:flutter/material.dart';
 
-import '../../share/components/custom_app_bar.dart';
 import '../../share/constants/colors.dart';
 import '../../share/utils/screen_utils.dart';
 
@@ -16,14 +15,14 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'All Products',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             //HorizontalFruitsScroll(),
@@ -45,9 +44,9 @@ class HomeScreen extends StatelessWidget {
                     addHandler: () {
                       Flushbar(
                         flushbarPosition: FlushbarPosition.TOP,
-                        duration: Duration(seconds: 3),
+                        duration: const Duration(seconds: 3),
                         backgroundColor: kPrimaryRed,
-                        icon: Image.asset('assets/images/delivery.png'),
+                        icon: const Icon(Icons.car_crash),
                         padding: EdgeInsets.symmetric(
                           vertical: getProportionateScreenHeight(24.0),
                         ),
@@ -58,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         message:
                             'Free shipping with a minimum purchase of \$ 100',
-                      )..show(context);
+                      ).show(context);
                     },
                   ),
                 ),

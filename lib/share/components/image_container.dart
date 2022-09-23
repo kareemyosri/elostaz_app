@@ -30,7 +30,10 @@ class ImageContainer extends StatelessWidget {
                 shape: CircleBorder(),
                 color: kPrimaryGreen,
               ),
-              child: Image.asset('assets/images/camera.png'),
+              child: Icon(
+                Icons.camera_alt,
+                color: Theme.of(context).cardColor,
+              ),
             ),
           )
         ],
