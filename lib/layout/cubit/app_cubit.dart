@@ -12,7 +12,7 @@ class AppCubit extends Cubit<AppState> {
   static AppCubit get(context) => BlocProvider.of(context);
   int currentIndex = 0;
 
-  List<Widget> Screens = const [
+  List<Widget> screens = const [
     HomeScreen(),
     SearchScreen(),
     CartScreen(),

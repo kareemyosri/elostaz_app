@@ -1,10 +1,11 @@
+import 'package:elostaz_app/layout/app_layout.dart';
 import 'package:elostaz_app/layout/bloc/auth_bloc.dart';
+import 'package:elostaz_app/layout/cubit/app_cubit.dart';
 import 'package:elostaz_app/repo/auth.dart';
 import 'package:elostaz_app/share/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'layout/app_layout.dart';
 import 'modules/login/login_screen.dart';
 import 'share/utils/custom_theme.dart';
 
@@ -32,21 +33,12 @@ class MyApp extends StatelessWidget {
             elevatedButtonTheme: customTheme.elevatedButtonTheme(),
             outlinedButtonTheme: customTheme.outlinedButtonTheme(),
           ),
-          home: const App(),
+          home: BlocProvider(
+            create: (context) => AuthBloc(authRepo: AuthRepo()),
+            child: const Wrapper(),
+          ),
         );
       },
-    );
-  }
-}
-
-class App extends StatelessWidget {
-  const App({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthBloc(authRepo: AuthRepo()),
-      child: const Wrapper(),
     );
   }
 }
@@ -59,12 +51,23 @@ class Wrapper extends StatelessWidget {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         if (state.status == AuthStatus.authenticated) {
-          return LayotScreen();
+          return const HomePage();
         } else if (state.status == AuthStatus.unauthenticated) {
           return const LoginScreen();
         }
         return Container();
       },
     );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      BlocProvider<AppCubit>(create: ((context) => AppCubit())),
+    ], child: const LayoutScreen());
   }
 }
