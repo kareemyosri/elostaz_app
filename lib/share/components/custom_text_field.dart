@@ -6,14 +6,20 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     Key? key,
     required this.hint,
+    required this.onChanged,
+    this.errorText,
     this.icon,
   }) : super(key: key);
   final String hint;
+  final Function(String)? onChanged;
+  final String? errorText;
   final Widget? icon;
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: onChanged,
       decoration: InputDecoration(
+        errorText: errorText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
             getProportionateScreenWidth(8),
