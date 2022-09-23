@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "318085728548",
+    "project_id": "elostazapp",
+    "storage_bucket": "elostazapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318085728548:android:3ee6b8d6881ac245fbcbb1",
+        "android_client_info": {
+          "package_name": "com.example.elostaz_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318085728548-lr5lou7i04hg2jgh9c55k724a7hje9oh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.elostaz_app",
+            "certificate_hash": "bb7618b15002ac16cbf8f76e2b0f4cae60f3e61c"
+          }
+        },
+        {
+          "client_id": "318085728548-73h2kh70ic4lvdsasvbsbht7af8driuj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC2wlqNvO_B7xHJCL_ObcBICUbP7O6Ym8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "318085728548-73h2kh70ic4lvdsasvbsbht7af8driuj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
