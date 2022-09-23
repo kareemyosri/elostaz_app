@@ -2,7 +2,9 @@ import 'package:elostaz_app/layout/cubit/app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LayotScreen extends StatelessWidget {
+class LayoutScreen extends StatelessWidget {
+  const LayoutScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
@@ -13,11 +15,12 @@ class LayotScreen extends StatelessWidget {
           appBar: AppBar(
             title: Text(cubit.titles[cubit.currentIndex]),
             actions: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.notification_add)),
-              IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+              IconButton(
+                  onPressed: () {}, icon: const Icon(Icons.notification_add)),
+              IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
             ],
           ),
-          body: cubit.Screens[cubit.currentIndex],
+          body: cubit.screens[cubit.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: cubit.currentIndex,
             onTap: (index) {
@@ -25,25 +28,25 @@ class LayotScreen extends StatelessWidget {
             },
             items: [
               BottomNavigationBarItem(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.home,
                   ),
-                  label: 'Home'),
+                  label: cubit.titles[cubit.currentIndex]),
               BottomNavigationBarItem(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.search,
                   ),
-                  label: 'Search'),
+                  label: cubit.titles[cubit.currentIndex]),
               BottomNavigationBarItem(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.shopping_cart,
                   ),
-                  label: 'Cart'),
+                  label: cubit.titles[cubit.currentIndex]),
               BottomNavigationBarItem(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.person,
                   ),
-                  label: 'Profile'),
+                  label: cubit.titles[cubit.currentIndex]),
             ],
           ),
         );
