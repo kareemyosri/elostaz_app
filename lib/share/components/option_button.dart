@@ -4,9 +4,13 @@ import '../constants/colors.dart';
 class OptionButton extends StatelessWidget {
   final String desc;
   final String method;
-  final Function onPressHandler;
+  final VoidCallback onPressHandler;
 
-  const OptionButton({this.desc, this.method, this.onPressHandler});
+  const OptionButton(
+      {super.key,
+      required this.desc,
+      required this.method,
+      required this.onPressHandler});
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -18,7 +22,7 @@ class OptionButton extends StatelessWidget {
             TextSpan(text: desc),
             TextSpan(
               text: method,
-              style: Theme.of(context).textTheme.bodyText2.copyWith(
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(
                     color: kPrimaryGreen,
                     fontWeight: FontWeight.bold,
                   ),

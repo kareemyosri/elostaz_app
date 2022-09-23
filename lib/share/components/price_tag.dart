@@ -4,7 +4,7 @@ import '../utils/screen_utils.dart';
 
 class PriceTag extends StatelessWidget {
   const PriceTag({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class PriceTag extends StatelessWidget {
       ),
       child: Text(
         '\$56',
-        style: Theme.of(context).textTheme.headline3.copyWith(
+        style: Theme.of(context).textTheme.headline3!.copyWith(
               color: kPrimaryGreen,
             ),
       ),

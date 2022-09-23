@@ -4,8 +4,9 @@ import '../utils/screen_utils.dart';
 
 class SocialMediaLogin extends StatelessWidget {
   const SocialMediaLogin({
-    this.method,
-  });
+    Key? key,
+    required this.method,
+  }) : super(key: key);
 
   final String method;
 

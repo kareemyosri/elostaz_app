@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import '../screens/tab_screen.dart';
-import '../screens/home_screen.dart';
 
-import './signup_screen.dart';
-import '../constants/colors.dart';
-import '../utils/screen_utils.dart';
-import '../widgets/back_button_ls.dart';
-import '../widgets/custom_text_field.dart';
-import '../widgets/option_button.dart';
-import '../widgets/or_row.dart';
-import '../widgets/social_media.dart';
+import '../../share/components/back_button_ls.dart';
+import '../../share/components/custom_text_field.dart';
+import '../../share/components/option_button.dart';
+import '../../share/components/or_row.dart';
+import '../../share/components/social_media.dart';
+import '../../share/constants/colors.dart';
+import '../../share/utils/screen_utils.dart';
 
 class LoginScreen extends StatelessWidget {
-  static const routeName = '/loginScreen';
+  const LoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
@@ -33,24 +31,24 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Log In Continue!',
-                        style: Theme.of(context).textTheme.headline3.copyWith(
+                        style: Theme.of(context).textTheme.headline3!.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                       ),
                     ],
                   ),
-                  Spacer(),
-                  SocialMediaLogin(
+                  const Spacer(),
+                  const SocialMediaLogin(
                     method: 'Login',
                   ),
-                  Spacer(),
-                  OrRow(),
-                  Spacer(),
-                  TextFields(),
-                  Spacer(),
+                  const Spacer(),
+                  const OrRow(),
+                  const Spacer(),
+                  const TextFields(),
+                  const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
+                    children: const [
                       Text(
                         'Forgot Password?',
                         style: TextStyle(
@@ -60,24 +58,24 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed(TabScreen.routeName);
+                      // Navigator.of(context).pushNamed(TabScreen.routeName);
                     },
-                    child: Text('Login'),
+                    child: const Text('Login'),
                   ),
-                  Spacer(
+                  const Spacer(
                     flex: 4,
                   ),
                   OptionButton(
                     desc: 'Don\'t have an account? ',
                     method: 'Sign Up',
                     onPressHandler: () {
-                      Navigator.of(context).pushNamed(SignupScreen.routeName);
+                      // Navigator.of(context).pushNamed(SignupScreen.routeName);
                     },
                   ),
-                  Spacer(),
+                  const Spacer(),
                 ],
               ),
             ),
@@ -90,14 +88,14 @@ class LoginScreen extends StatelessWidget {
 
 class TextFields extends StatelessWidget {
   const TextFields({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomTextField(
+        const CustomTextField(
           hint: 'Email Address',
         ),
         SizedBox(

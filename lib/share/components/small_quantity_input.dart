@@ -4,8 +4,8 @@ import '../utils/screen_utils.dart';
 
 class SmallQuantityInput extends StatelessWidget {
   const SmallQuantityInput({
-    Key key,
-    @required this.textController,
+    Key? key,
+    required this.textController,
   }) : super(key: key);
 
   final TextEditingController textController;
@@ -22,7 +22,7 @@ class SmallQuantityInput extends StatelessWidget {
             borderRadius: BorderRadius.circular(
               getProportionateScreenWidth(8),
             ),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: kGreyShade3,
             ),
           ),
@@ -30,7 +30,7 @@ class SmallQuantityInput extends StatelessWidget {
             borderRadius: BorderRadius.circular(
               getProportionateScreenWidth(8),
             ),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: kGreyShade3,
             ),
           ),

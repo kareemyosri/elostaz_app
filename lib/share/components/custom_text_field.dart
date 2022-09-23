@@ -4,11 +4,12 @@ import '../utils/screen_utils.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
-    this.hint,
+    Key? key,
+    required this.hint,
     this.icon,
-  });
+  }) : super(key: key);
   final String hint;
-  final Widget icon;
+  final Widget? icon;
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -17,7 +18,7 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(
             getProportionateScreenWidth(8),
           ),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: kGreyShade3,
           ),
         ),
@@ -25,12 +26,12 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(
             getProportionateScreenWidth(8),
           ),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: kGreyShade3,
           ),
         ),
         hintText: hint,
-        hintStyle: Theme.of(context).textTheme.headline4.copyWith(
+        hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
               color: kGreyShade3,
             ),
         suffixIcon: icon,

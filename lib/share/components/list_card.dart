@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
-import '../widgets/discount_text.dart';
+import 'discount_text.dart';
 
 class ListCard extends StatelessWidget {
   final bool isSelected;
   final bool isDiscount;
 
-  const ListCard({this.isDiscount, this.isSelected});
+  const ListCard(
+      {super.key, required this.isDiscount, required this.isSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class ListCard extends StatelessWidget {
                   ),
                   blurRadius: 80,
                 )
-              : BoxShadow(color: Colors.transparent),
+              : const BoxShadow(color: Colors.transparent),
         ],
       ),
       child: Row(
@@ -57,15 +58,15 @@ class ListCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (isDiscount) DiscoutText(),
-                if (isDiscount) Spacer(),
+                if (isDiscount) const DiscoutText(),
+                if (isDiscount) const Spacer(),
                 Text(
                   'Dragon Fruit',
-                  style: Theme.of(context).textTheme.headline4.copyWith(
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
                   '200gr',
                   style: TextStyle(
@@ -73,7 +74,7 @@ class ListCard extends StatelessWidget {
                     color: kTextColorAccent,
                   ),
                 ),
-                if (!isDiscount) Spacer(),
+                if (!isDiscount) const Spacer(),
               ],
             ),
           ),
@@ -83,12 +84,12 @@ class ListCard extends StatelessWidget {
             children: [
               if (isDiscount)
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/images/Divider.png'),
                     ),
                   ),
-                  child: Text(
+                  child: const Text(
                     '\$90',
                     style: TextStyle(
                       color: kTextColorAccent,

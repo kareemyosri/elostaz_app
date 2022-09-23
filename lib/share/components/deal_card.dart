@@ -4,9 +4,11 @@ import '../utils/screen_utils.dart';
 
 class DealCard extends StatelessWidget {
   final bool isHorizontalScrolling;
-  final Function onTap;
+  final VoidCallback onTap;
 
-  const DealCard({this.onTap, this.isHorizontalScrolling = true});
+  const DealCard(
+      {Key? key, required this.onTap, this.isHorizontalScrolling = true})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

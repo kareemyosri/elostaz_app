@@ -3,9 +3,9 @@ import '../constants/colors.dart';
 
 class PriceBreakdown extends StatelessWidget {
   const PriceBreakdown({
-    Key key,
-    this.title,
-    this.price,
+    Key? key,
+    required this.title,
+    required this.price,
   }) : super(key: key);
 
   final String title;
@@ -17,14 +17,14 @@ class PriceBreakdown extends StatelessWidget {
       children: [
         Text(
           title,
-          style: Theme.of(context).textTheme.headline4.copyWith(
+          style: Theme.of(context).textTheme.headline4!.copyWith(
                 color: kTextColorAccent,
               ),
         ),
         Spacer(),
         Text(
           price,
-          style: Theme.of(context).textTheme.headline4.copyWith(
+          style: Theme.of(context).textTheme.headline4!.copyWith(
                 color: kTextColor,
                 fontWeight: FontWeight.w700,
               ),
