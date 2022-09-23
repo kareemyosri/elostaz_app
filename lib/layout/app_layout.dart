@@ -31,22 +31,22 @@ class LayoutScreen extends StatelessWidget {
                   icon: const Icon(
                     Icons.home,
                   ),
-                  label: cubit.titles[cubit.currentIndex]),
+                  label: cubit.titles[0]),
               BottomNavigationBarItem(
                   icon: const Icon(
                     Icons.search,
                   ),
-                  label: cubit.titles[cubit.currentIndex]),
+                  label: cubit.titles[1]),
               BottomNavigationBarItem(
                   icon: const Icon(
                     Icons.shopping_cart,
                   ),
-                  label: cubit.titles[cubit.currentIndex]),
+                  label: cubit.titles[2]),
               BottomNavigationBarItem(
                   icon: const Icon(
                     Icons.person,
                   ),
-                  label: cubit.titles[cubit.currentIndex]),
+                  label: cubit.titles[3]),
             ],
           ),
         );
