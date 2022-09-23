@@ -5,10 +5,8 @@ import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 
 class FruitTitle extends StatelessWidget {
-  const FruitTitle({
-    Key key,
-    String title,
-  })  : _title = title,
+  const FruitTitle({Key? key, required String title})
+      : _title = title,
         super(key: key);
 
   final String _title;
@@ -19,7 +17,7 @@ class FruitTitle extends StatelessWidget {
         Expanded(
           child: Text(
             _title,
-            style: Theme.of(context).textTheme.headline3.copyWith(
+            style: Theme.of(context).textTheme.headline3!.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
           ),

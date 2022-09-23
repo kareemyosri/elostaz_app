@@ -3,6 +3,8 @@ import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 
 class OrRow extends StatelessWidget {
+  const OrRow({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -13,7 +15,7 @@ class OrRow extends StatelessWidget {
               SizedBox(
                 height: getProportionateScreenHeight(8),
               ),
-              Divider(),
+              const Divider(),
               SizedBox(
                 height: getProportionateScreenHeight(8),
               )
@@ -28,7 +30,7 @@ class OrRow extends StatelessWidget {
             'OR',
             style: Theme.of(context)
                 .textTheme
-                .headline4
+                .headline4!
                 .copyWith(color: kTextColorAccent),
           ),
         ),
@@ -38,7 +40,7 @@ class OrRow extends StatelessWidget {
               SizedBox(
                 height: getProportionateScreenHeight(8),
               ),
-              Divider(),
+              const Divider(),
               SizedBox(
                 height: getProportionateScreenHeight(8),
               )

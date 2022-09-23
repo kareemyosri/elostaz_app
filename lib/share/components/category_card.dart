@@ -5,9 +5,7 @@ import '../models/category.dart';
 class CategoryCard extends StatelessWidget {
   final Category category;
 
-  const CategoryCard(
-    this.category,
-  );
+  const CategoryCard(this.category, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

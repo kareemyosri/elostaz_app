@@ -6,10 +6,13 @@ class IndiDealCard extends StatelessWidget {
   final bool isLeft;
   final bool isSelected;
   final bool noPadding;
-  final Function addHandler;
+  final VoidCallback addHandler;
 
   const IndiDealCard(
-      {this.isLeft, this.isSelected, this.addHandler, this.noPadding = false});
+      {required this.isLeft,
+      required this.isSelected,
+      required this.addHandler,
+      this.noPadding = false});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class IndiDealCard extends StatelessWidget {
               left: isLeft ? getProportionateScreenWidth(16.0) : 0,
               right: isLeft ? 0 : getProportionateScreenWidth(16.0),
             )
-          : EdgeInsets.all(0),
+          : const EdgeInsets.all(0),
       child: Container(
         padding: EdgeInsets.all(
           getProportionateScreenWidth(8.0),
@@ -41,7 +44,7 @@ class IndiDealCard extends StatelessWidget {
                     ),
                     blurRadius: 80,
                   )
-                : BoxShadow(color: Colors.transparent),
+                : const BoxShadow(color: Colors.transparent),
           ],
         ),
         child: Column(
@@ -63,11 +66,11 @@ class IndiDealCard extends StatelessWidget {
                 children: [
                   Text(
                     'Dragon Fruit',
-                    style: Theme.of(context).textTheme.headline4.copyWith(
+                    style: Theme.of(context).textTheme.headline4!.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
                     '200gr',
                     style: TextStyle(
@@ -75,7 +78,7 @@ class IndiDealCard extends StatelessWidget {
                       color: kTextColorAccent,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     children: [
                       Expanded(
@@ -99,7 +102,7 @@ class IndiDealCard extends StatelessWidget {
                           ),
                         ),
                         elevation: 0,
-                        child: Icon(
+                        child: const Icon(
                           Icons.add,
                           color: Colors.white,
                         ),

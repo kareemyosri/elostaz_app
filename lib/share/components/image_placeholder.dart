@@ -3,9 +3,7 @@ import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 
 class ImagePlaceholder extends StatelessWidget {
-  const ImagePlaceholder({
-    Key key,
-  }) : super(key: key);
+  const ImagePlaceholder({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

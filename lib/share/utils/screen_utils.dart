@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class ScreenUtils {
-  static MediaQueryData? _mediaQueryData;
-  static double? screenWidth;
-  static double? screenHeight;
-  static double? defaultSize;
-  static Orientation? orientation;
+  static late MediaQueryData _mediaQueryData;
+  static late double screenWidth;
+  static late double screenHeight;
+  static late double defaultSize;
+  static late Orientation orientation;
 
   void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
-    screenWidth = _mediaQueryData?.size.width;
-    screenHeight = _mediaQueryData?.size.height;
-    orientation = _mediaQueryData?.orientation;
+    screenWidth = _mediaQueryData.size.width;
+    screenHeight = _mediaQueryData.size.height;
+    orientation = _mediaQueryData.orientation;
   }
 }
 
@@ -19,12 +19,12 @@ class ScreenUtils {
 double getProportionateScreenHeight(double inputHeight) {
   double? screenHeight = ScreenUtils.screenHeight;
   // 812 is the layout height that designer use
-  return (inputHeight / 812.0) * screenHeight!;
+  return (inputHeight / 812.0) * screenHeight;
 }
 
 // Get the proportionate height as per screen size
 double getProportionateScreenWidth(double inputWidth) {
   double? screenWidth = ScreenUtils.screenWidth;
   // 375 is the layout width that designer use
-  return (inputWidth / 375.0) * screenWidth!;
+  return (inputWidth / 375.0) * screenWidth;
 }

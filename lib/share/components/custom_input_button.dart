@@ -4,10 +4,11 @@ import '../utils/screen_utils.dart';
 
 class CustomIconButton extends StatelessWidget {
   final IconData icon;
-  final Function onPress;
+  final VoidCallback onPress;
   final double size;
 
-  const CustomIconButton(this.icon, this.onPress, {this.size = 40});
+  const CustomIconButton(this.icon, this.onPress, {this.size = 40, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

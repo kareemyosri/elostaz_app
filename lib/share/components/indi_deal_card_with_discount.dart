@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/discount_text.dart';
 import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
+import 'discount_text.dart';
 
 class IndiDealCardWithDiscount extends StatelessWidget {
   final bool isLeft;
   final bool isSelected;
-  final Function addHandler;
+  final VoidCallback addHandler;
 
-  const IndiDealCardWithDiscount(
-      {this.isLeft, this.isSelected, this.addHandler});
+  const IndiDealCardWithDiscount(this.isLeft, this.isSelected, this.addHandler,
+      {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class IndiDealCardWithDiscount extends StatelessWidget {
                     ),
                     blurRadius: 80,
                   )
-                : BoxShadow(color: Colors.transparent),
+                : const BoxShadow(color: Colors.transparent),
           ],
         ),
         child: Column(
@@ -63,15 +64,15 @@ class IndiDealCardWithDiscount extends StatelessWidget {
                   SizedBox(
                     height: getProportionateScreenHeight(8.0),
                   ),
-                  DiscoutText(),
-                  Spacer(),
+                  const DiscoutText(),
+                  const Spacer(),
                   Text(
                     'Dragon Fruit',
-                    style: Theme.of(context).textTheme.headline4.copyWith(
+                    style: Theme.of(context).textTheme.headline4!.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
                     '200gr',
                     style: TextStyle(
@@ -79,16 +80,16 @@ class IndiDealCardWithDiscount extends StatelessWidget {
                       color: kTextColorAccent,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     children: [
                       Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage('assets/images/Divider.png'),
                           ),
                         ),
-                        child: Text(
+                        child: const Text(
                           '\$90',
                           style: TextStyle(
                             color: kTextColorAccent,
@@ -120,7 +121,7 @@ class IndiDealCardWithDiscount extends StatelessWidget {
                           ),
                         ),
                         elevation: 0,
-                        child: Icon(
+                        child: const Icon(
                           Icons.add,
                           color: Colors.white,
                         ),

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import '../utils/screen_utils.dart';
-import '../widgets/back_button_text.dart';
+import 'back_button_text.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String title;
   final List<Widget> actions;
-  const CustomAppBar(this.title, this.actions);
+  const CustomAppBar(this.title, this.actions, {super.key});
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: BackButtonText()),
+        const Expanded(child: BackButtonText()),
         Text(
           title,
           style: TextStyle(

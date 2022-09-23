@@ -4,9 +4,7 @@ import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 
 class DiscoutText extends StatelessWidget {
-  const DiscoutText({
-    Key key,
-  }) : super(key: key);
+  const DiscoutText({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +12,11 @@ class DiscoutText extends StatelessWidget {
       padding: EdgeInsets.symmetric(
         horizontal: getProportionateScreenWidth(4),
       ),
-      decoration: ShapeDecoration(
+      decoration: const ShapeDecoration(
         shape: StadiumBorder(),
         color: kAlertColor,
       ),
-      child: Text(
+      child: const Text(
         'Disc 40%',
         style: TextStyle(
           color: Colors.white,

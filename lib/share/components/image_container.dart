@@ -4,7 +4,7 @@ import '../utils/screen_utils.dart';
 
 class ImageContainer extends StatelessWidget {
   const ImageContainer({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -15,7 +15,7 @@ class ImageContainer extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            decoration: ShapeDecoration(
+            decoration: const ShapeDecoration(
               shape: CircleBorder(),
               color: kGreyShade5,
             ),
@@ -26,7 +26,7 @@ class ImageContainer extends StatelessWidget {
               padding: EdgeInsets.all(
                 getProportionateScreenWidth(8),
               ),
-              decoration: ShapeDecoration(
+              decoration: const ShapeDecoration(
                 shape: CircleBorder(),
                 color: kPrimaryGreen,
               ),
