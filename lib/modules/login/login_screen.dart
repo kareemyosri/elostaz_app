@@ -84,6 +84,12 @@ class LoginScreenBody extends StatelessWidget {
                           text: state.errorMessage ?? 'Authentication Failure',
                           state: ToastStates.ERROR,
                         );
+                      } else if (state.status ==
+                          FormzStatus.submissionSuccess) {
+                        showtoast(
+                          text: 'Logged In Sucessfully',
+                          state: ToastStates.SUCCESS,
+                        );
                       }
                     },
                     builder: (context, state) {

@@ -137,7 +137,7 @@ class Password extends FormzInput<String, PasswordValidationError> {
 
   @override
   PasswordValidationError? validator(String? value) {
-    return _passwordRegExp.hasMatch(value ?? '')
+    return value!.length > 3 // _passwordRegExp.hasMatch(value ?? '')
         ? null
         : PasswordValidationError.invalid;
   }
