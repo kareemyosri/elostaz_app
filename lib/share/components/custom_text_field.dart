@@ -5,11 +5,11 @@ import '../utils/screen_utils.dart';
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     Key? key,
-    this.hint,
+    required this.hint,
     this.icon,
   }) : super(key: key);
   final String hint;
-  final Widget icon;
+  final Widget? icon;
   @override
   Widget build(BuildContext context) {
     return TextField(
