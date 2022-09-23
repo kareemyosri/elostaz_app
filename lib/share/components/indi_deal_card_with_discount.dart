@@ -9,9 +9,12 @@ class IndiDealCardWithDiscount extends StatelessWidget {
   final bool isSelected;
   final VoidCallback addHandler;
 
-  const IndiDealCardWithDiscount(this.isLeft, this.isSelected, this.addHandler,
-      {Key? key})
-      : super(key: key);
+  const IndiDealCardWithDiscount({
+    Key? key,
+    required this.isLeft,
+    required this.isSelected,
+    required this.addHandler,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

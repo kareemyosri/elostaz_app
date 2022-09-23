@@ -1,4 +1,5 @@
 import 'package:elostaz_app/layout/cubit/app_cubit.dart';
+import 'package:elostaz_app/share/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,12 +27,16 @@ class LayoutScreen extends StatelessWidget {
             onTap: (index) {
               cubit.changeindex(index);
             },
+            selectedItemColor: kPrimaryGreen,
+            unselectedItemColor: kGreyShade1,
+            type: BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(
-                  icon: const Icon(
-                    Icons.home,
-                  ),
-                  label: cubit.titles[0]),
+                icon: const Icon(
+                  Icons.home,
+                ),
+                label: cubit.titles[0],
+              ),
               BottomNavigationBarItem(
                   icon: const Icon(
                     Icons.search,
