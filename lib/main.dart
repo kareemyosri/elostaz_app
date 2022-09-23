@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'modules/login/login_screen.dart';
+import 'share/utils/custom_theme.dart';
 
 void main() {
   Bloc.observer = AppBlocObserver();
@@ -15,9 +16,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        print(constraints.maxWidth);
+        final customTheme = CustomTheme(constraints);
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Series 2 Ecommerce',
+          theme: ThemeData(
+            primarySwatch: Colors.green,
+            textTheme: customTheme.nunito(),
+            elevatedButtonTheme: customTheme.elevatedButtonTheme(),
+            outlinedButtonTheme: customTheme.outlinedButtonTheme(),
+          ),
+          home: LoginScreen(),
+        );
+      },
     );
   }
 }
