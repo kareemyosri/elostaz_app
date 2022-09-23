@@ -1,38 +1,31 @@
-class SocialUserModel {
-  String? email;
-  String? uid;
-  String? name;
-  String? phone;
-  String? image;
-  String? address;
+import 'package:equatable/equatable.dart';
 
-  SocialUserModel({
-    this.email,
+class UserModel extends Equatable {
+  final String uid;
+  final String email;
+
+  final String? name;
+  final String? phone;
+  final String? image;
+  final String? address;
+
+  const UserModel({
+    required this.uid,
+    required this.email,
     this.name,
     this.phone,
-    this.uid,
     this.address,
     this.image,
   });
 
-  SocialUserModel.fromJson(Map<String, dynamic> json) {
-    email = json['email'];
-    name = json['name'];
-    phone = json['phone'];
-    uid = json['uid'];
-    address = json['address'];
-    image = json['image'];
-  }
+  static const empty = UserModel(uid: '', email: '');
 
-  Map<String, dynamic> tomap() {
-    return {
-      'name': name,
-      'email': email,
-      'phone': phone,
-      'phone': phone,
-      'address': address,
-      'image': image,
-      'uid': uid,
-    };
-  }
+  /// Convenience getter to determine whether the current user is empty.
+  bool get isEmpty => this == UserModel.empty;
+
+  /// Convenience getter to determine whether the current user is not empty.
+  bool get isNotEmpty => this != UserModel.empty;
+
+  @override
+  List<Object?> get props => [uid, name, email, phone, address, image];
 }
