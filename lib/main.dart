@@ -4,6 +4,7 @@ import 'package:elostaz_app/share/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'layout/app_layout.dart';
 import 'modules/login/login_screen.dart';
 import 'share/utils/custom_theme.dart';
 
@@ -58,31 +59,12 @@ class Wrapper extends StatelessWidget {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         if (state.status == AuthStatus.authenticated) {
-          return const Home();
+          return LayotScreen();
         } else if (state.status == AuthStatus.unauthenticated) {
           return const LoginScreen();
         }
         return Container();
       },
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: TextButton(
-              onPressed: () {
-                context.read<AuthBloc>().add(AppLogoutRequested());
-              },
-              child: const Text(
-                'Log out',
-                style: TextStyle(fontSize: 30),
-              ))),
     );
   }
 }
