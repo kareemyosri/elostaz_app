@@ -30,8 +30,8 @@ class DatabaseRepo {
   }
 
   /// fetch current user data.
-  Stream<UserModel> userData(String uid) {
-    return _usersCollection.doc(uid).snapshots().map(UserModel.fromSnapshot);
+  Stream<UserModel> userData() {
+    return _usersCollection.doc(_uid).snapshots().map(UserModel.fromSnapshot);
   }
 
   /// Function to Update User data

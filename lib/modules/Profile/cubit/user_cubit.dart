@@ -18,8 +18,7 @@ class UserCubit extends Cubit<UserDataState> {
   StreamSubscription<UserModel>? streamSubscription;
 
   StreamSubscription<UserModel> monitorUserData() {
-    return streamSubscription =
-        _databaseRepo.userData(_databaseRepo.currentUid).listen((user) {
+    return streamSubscription = _databaseRepo.userData().listen((user) {
       emit(const UserDataLoading());
       emitUserDataLoaded(user);
     }, onError: (error) => emitUserDataNotLoaded(error));

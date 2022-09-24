@@ -49,11 +49,12 @@ class UserModel extends Equatable {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
 
     return UserModel(
-        uid: snapshot.id,
-        name: data['name'],
-        email: data['email'],
-        image: data['image'],
-        phone: data['phone'],
-        address: data['defaultAddress']);
+      uid: snapshot.id,
+      name: data['name'],
+      email: data['email'],
+      image: data['image'],
+      phone: data['phone'],
+      address: data['defaultAddress'],
+    );
   }
 }

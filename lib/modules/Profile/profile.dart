@@ -14,7 +14,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserModel user = context.watch<UserCubit>().state.user;
-    print(user.image);
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(
