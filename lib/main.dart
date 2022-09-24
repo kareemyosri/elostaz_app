@@ -1,7 +1,9 @@
 import 'package:elostaz_app/layout/app_layout.dart';
 import 'package:elostaz_app/layout/bloc/auth_bloc.dart';
 import 'package:elostaz_app/layout/cubit/app_cubit.dart';
+import 'package:elostaz_app/modules/Profile/cubit/user_cubit.dart';
 import 'package:elostaz_app/repo/auth.dart';
+import 'package:elostaz_app/repo/db.dart';
 import 'package:elostaz_app/share/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -66,8 +68,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String uid = context.read<AuthBloc>().state.user.uid;
+    final DatabaseRepo databaseRepo = DatabaseRepo(uid: uid);
+
     return MultiBlocProvider(providers: [
       BlocProvider<AppCubit>(create: ((context) => AppCubit())),
+      BlocProvider<UserCubit>(
+          create: ((context) => UserCubit(databaseRepo: databaseRepo))),
     ], child: const LayoutScreen());
   }
 }

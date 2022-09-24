@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 
-class ImageContainer extends StatelessWidget {
-  const ImageContainer({
+class UserProfileImage extends StatelessWidget {
+  final String imageUrl;
+  const UserProfileImage({
+    required this.imageUrl,
     Key? key,
   }) : super(key: key);
 
@@ -15,10 +17,10 @@ class ImageContainer extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            decoration: const ShapeDecoration(
-              shape: CircleBorder(),
-              color: kGreyShade5,
-            ),
+            decoration: ShapeDecoration(
+                shape: const CircleBorder(),
+                color: kGreyShade5,
+                image: DecorationImage(image: NetworkImage(imageUrl))),
           ),
           Align(
             alignment: Alignment.bottomRight,

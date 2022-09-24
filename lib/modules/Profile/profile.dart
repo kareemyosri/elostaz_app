@@ -1,10 +1,11 @@
 import 'package:elostaz_app/models/user/userModel.dart';
+import 'package:elostaz_app/modules/Profile/cubit/user_cubit.dart';
 import 'package:elostaz_app/share/utils/screen_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../layout/bloc/auth_bloc.dart';
-import '../../share/components/image_container.dart';
+import '../../share/components/user_profile_image.dart';
 import '../../share/constants/colors.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -12,7 +13,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserModel user = context.watch<AuthBloc>().state.user;
+    UserModel user = context.watch<UserCubit>().state.user;
+    print(user.image);
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -23,21 +25,32 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),
-            const ImageContainer(),
-            SizedBox(
-              height: getProportionateScreenHeight(8.0),
-            ),
-            Text(
-              'User name',
-              style: Theme.of(context).textTheme.headline3!.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-            ),
-            Text(
-              user.email,
-              style: Theme.of(context).textTheme.headline4!.copyWith(
-                    color: kTextColorAccent,
-                  ),
+            BlocBuilder<UserCubit, UserDataState>(
+              builder: (context, state) {
+                if (state is UserDataLoaded) {
+                  return Column(
+                    children: [
+                      UserProfileImage(imageUrl: user.image!),
+                      SizedBox(
+                        height: getProportionateScreenHeight(8.0),
+                      ),
+                      Text(
+                        user.name!,
+                        style: Theme.of(context).textTheme.headline3!.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
+                      ),
+                      Text(
+                        user.email,
+                        style: Theme.of(context).textTheme.headline4!.copyWith(
+                              color: kTextColorAccent,
+                            ),
+                      ),
+                    ],
+                  );
+                }
+                return const CircularProgressIndicator();
+              },
             ),
             Divider(
               height: getProportionateScreenHeight(32.0),
@@ -46,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
               icon: Icons.person,
               color: kAccentGreen,
               title: 'My profile',
-              tapHandler: () {
+              onTap: () {
                 // Navigator.of(context).pushNamed(MyProfileScreen.routeName);
               },
             ),
@@ -78,15 +91,14 @@ class ProfileScreen extends StatelessWidget {
               height: getProportionateScreenHeight(8.0),
             ),
             ProfileCard(
-              icon: Icons.person,
+              icon: Icons.logout,
               color: kAccentRed,
               title: 'Log out',
-              tapHandler: () =>
-                  context.read<AuthBloc>().add(AppLogoutRequested()),
+              onTap: () => context.read<AuthBloc>().add(AppLogoutRequested()),
             ),
             const Spacer(),
             Text(
-              'ver 1.01',
+              'ver. 1.01',
               style: Theme.of(context).textTheme.headline4!.copyWith(
                     color: kTextColorAccent,
                   ),
@@ -106,19 +118,19 @@ class ProfileCard extends StatelessWidget {
     Key? key,
     required this.icon,
     required this.title,
-    this.tapHandler,
+    this.onTap,
     required this.color,
   }) : super(key: key);
 
   final IconData icon;
   final String title;
-  final VoidCallback? tapHandler;
+  final VoidCallback? onTap;
   final Color color;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: tapHandler,
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(
           getProportionateScreenWidth(8.0),
