@@ -1,5 +1,6 @@
 import 'package:elostaz_app/modules/login/login_screen.dart';
 import 'package:elostaz_app/modules/register/register_cubit.dart';
+import 'package:elostaz_app/repo/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -7,12 +8,24 @@ import 'package:formz/formz.dart';
 import '../../share/components/back_button_ls.dart';
 import '../../share/components/custom_text_field.dart';
 import '../../share/components/option_button.dart';
-import '../../share/components/or_row.dart';
-import '../../share/components/social_media.dart';
+
 import '../../share/utils/screen_utils.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final AuthRepo authRepo = AuthRepo();
+    return BlocProvider<RegisterCubit>(
+      create: (context) => RegisterCubit(authRepo),
+      child: const SignupScreenBody(),
+    );
+  }
+}
+
+class SignupScreenBody extends StatelessWidget {
+  const SignupScreenBody({super.key});
 
 //
   @override
