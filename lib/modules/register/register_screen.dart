@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-import '../../share/components/back_button_ls.dart';
 import '../../share/components/custom_text_field.dart';
 import '../../share/components/option_button.dart';
 
@@ -14,6 +13,9 @@ import '../../share/utils/screen_utils.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
+  static Route<void> route() {
+    return MaterialPageRoute<void>(builder: (_) => const SignupScreen());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -143,18 +145,11 @@ class SignupScreenBody extends StatelessWidget {
                     ),
                     const Spacer(),
                     OptionButton(
-                      desc: 'Have an account? ',
-                      method: 'Login',
-                      onPressHandler: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginScreen()),
-                        );
-                        // Navigator.of(context)
-                        //     .pushReplacementNamed(LoginScreen.routeName);
-                      },
-                    ),
+                        desc: 'Have an account? ',
+                        method: 'Login',
+                        onPressHandler: () => Navigator.of(context)
+                            .pop() // Navigator.of(context).push<void>(LoginScreen.page()),
+                        ),
                     const Spacer(),
                   ],
                 ),

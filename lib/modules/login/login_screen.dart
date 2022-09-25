@@ -6,16 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-import '../../share/components/back_button_ls.dart';
 import '../../share/components/custom_text_field.dart';
 import '../../share/components/option_button.dart';
-import '../../share/components/or_row.dart';
-import '../../share/components/social_media.dart';
+
 import '../../share/constants/colors.dart';
 import '../../share/utils/screen_utils.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+  static Page<void> page() => const MaterialPage<void>(child: LoginScreen());
 
   @override
   Widget build(BuildContext context) {
@@ -112,14 +111,8 @@ class LoginScreenBody extends StatelessWidget {
                   OptionButton(
                     desc: 'Don\'t have an account? ',
                     method: 'Sign Up',
-                    onPressHandler: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignupScreen()),
-                      );
-                      // Navigator.of(context).pushNamed(SignupScreen.routeName);
-                    },
+                    onPressHandler: () =>
+                        Navigator.of(context).push<void>(SignupScreen.route()),
                   ),
                   const Spacer(),
                 ],
