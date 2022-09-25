@@ -1,4 +1,3 @@
-import 'package:elostaz_app/modules/login/login_screen.dart';
 import 'package:elostaz_app/modules/register/register_cubit.dart';
 import 'package:elostaz_app/repo/auth.dart';
 import 'package:elostaz_app/share/components/custom_toast_message.dart';
@@ -30,7 +29,6 @@ class SignupScreen extends StatelessWidget {
 class SignupScreenBody extends StatelessWidget {
   const SignupScreenBody({super.key});
 
-//
   @override
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
