@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:elostaz_app/models/user/userModel.dart';
 import 'package:elostaz_app/repo/auth.dart';
 import 'package:elostaz_app/repo/db.dart';
@@ -10,9 +9,7 @@ import 'package:formz/formz.dart';
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<SignUpState> {
-  RegisterCubit(this._authRepo, this._databaseRepo)
-      : super(const SignUpState());
-  final DatabaseRepo _databaseRepo;
+  RegisterCubit(this._authRepo) : super(const SignUpState());
   final AuthRepo _authRepo;
   void nameChanged(String value) {
     final name = Name.dirty(value);
