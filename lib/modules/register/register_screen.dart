@@ -122,6 +122,8 @@ class SignupScreenBody extends StatelessWidget {
                           );
                         } else if (state.status ==
                             FormzStatus.submissionSuccess) {
+                          Navigator.of(context).pop();
+
                           showtoast(
                             text: 'Registered Successfully',
                             state: ToastStates.SUCCESS,
@@ -130,11 +132,13 @@ class SignupScreenBody extends StatelessWidget {
                       },
                       builder: (context, state) {
                         return ElevatedButton(
-                          onPressed: () => state.status.isValidated
-                              ? context
+                          onPressed: () {
+                            if (state.status.isValidated) {
+                              context
                                   .read<RegisterCubit>()
-                                  .signUpFormSubmitted()
-                              : null,
+                                  .signUpFormSubmitted();
+                            }
+                          },
                           child: state.status.isSubmissionInProgress
                               ? const CircularProgressIndicator(
                                   color: Colors.white,
