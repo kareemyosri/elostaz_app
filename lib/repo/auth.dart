@@ -185,35 +185,35 @@ class AuthRepo {
   /// Creates a new user with the provided [email] and [password].
   ///
   /// Throws a [SignUpFailure] if an exception occurs.
-  // Future<void> signUp(
-  //     {required String fullname,
-  //     required String email,
-  //     required String password}) async {
-  //   try {
-  //     await _firebaseAuth
-  //         .createUserWithEmailAndPassword(
-  //       email: email,
-  //       password: password,
-  //     )
-  //         .then((value) async {
-  //       await value.user!.updateDisplayName(fullname);
-  //       final String? tokenUid = _firebaseAuth.currentUser?.uid;
-  //       final DatabaseRepo databaseRepo = DatabaseRepo(uid: tokenUid!);
-  //       User user = User(
-  //           id: tokenUid,
-  //           email: email,
-  //           name: fullname,
-  //           photo: '',
-  //           isActive: true);
-  //       print(user);
-  //       await databaseRepo.addUserData(user);
-  //     });
-  //   } on firebase_auth.FirebaseAuthException catch (e) {
-  //     throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
-  //   } catch (_) {
-  //     throw const SignUpWithEmailAndPasswordFailure();
-  //   }
-  // }
+  Future<void> signUp(
+      {required String fullname,
+      required String email,
+      required String password}) async {
+    try {
+      await _firebaseAuth
+          .createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      )
+          .then((value) async {
+        // await value.user!.updateDisplayName(fullname);
+        // final String? tokenUid = _firebaseAuth.currentUser?.uid;
+        // final DatabaseRepo databaseRepo = DatabaseRepo(uid: tokenUid!);
+        // User user = User(
+        //     id: tokenUid,
+        //     email: email,
+        //     name: fullname,
+        //     photo: '',
+        //     isActive: true);
+        // print(user);
+        // await databaseRepo.addUserData(user);
+      });
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
+    } catch (_) {
+      throw const SignUpWithEmailAndPasswordFailure();
+    }
+  }
 
   Future<void> updatePhotoURL(photoURL) async {
     try {
