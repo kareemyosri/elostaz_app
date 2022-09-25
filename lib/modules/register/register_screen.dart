@@ -111,7 +111,7 @@ class SignupScreenBody extends StatelessWidget {
                     const Spacer(),
                     ElevatedButton(
                       onPressed: () {
-                        if (context.watch<RegisterCubit>().state.status ==
+                        if (context.read<RegisterCubit>().state.status ==
                             FormzStatus.valid) {
                           context.read<RegisterCubit>().signUpFormSubmitted();
                         } else {
