@@ -152,7 +152,7 @@ class TextFields extends StatelessWidget {
             return CustomTextField(
               hint: 'Password',
               // errorText: state.password.invalid ? 'invalid p' : null,
-              icon: Image.asset('assets/images/hide_icon.png'),
+              icon: const Icon(Icons.remove_red_eye),
               onChanged: (value) =>
                   context.read<LoginCubit>().passwordChanged(value),
             );
