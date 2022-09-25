@@ -134,7 +134,9 @@ class SignupScreenBody extends StatelessWidget {
                                   .signUpFormSubmitted()
                               : null,
                           child: state.status.isSubmissionInProgress
-                              ? const CircularProgressIndicator()
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white,
+                                )
                               : const Text('Sign Up'),
                         );
                       },

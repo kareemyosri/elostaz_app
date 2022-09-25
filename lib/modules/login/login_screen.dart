@@ -99,7 +99,9 @@ class LoginScreenBody extends StatelessWidget {
                             ? context.read<LoginCubit>().logInWithCredentials()
                             : null,
                         child: state.status.isSubmissionInProgress
-                            ? const CircularProgressIndicator()
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
                             : const Text('Login'),
                       );
                     },
