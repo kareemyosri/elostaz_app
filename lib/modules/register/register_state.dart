@@ -3,8 +3,8 @@ part of 'register_cubit.dart';
 enum ConfirmPasswordValidationError { invalid }
 
 // ignore: must_be_immutable
-class SignUpState extends Equatable {
-  const SignUpState({
+class RegisterState extends Equatable {
+  const RegisterState({
     this.name = const Name.pure(),
     // this.address = const Name.pure(),
     this.email = const Email.pure(),
@@ -24,7 +24,7 @@ class SignUpState extends Equatable {
   @override
   List<Object> get props => [name, email, phone, password, status];
 
-  SignUpState copyWith({
+  RegisterState copyWith({
     Name? name,
     // Name? address,
     Email? email,
@@ -33,7 +33,7 @@ class SignUpState extends Equatable {
     FormzStatus? status,
     String? errorMessage,
   }) {
-    return SignUpState(
+    return RegisterState(
       name: name ?? this.name,
       email: email ?? this.email,
       // address: address ?? this.address,

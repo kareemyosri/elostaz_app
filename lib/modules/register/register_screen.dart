@@ -1,6 +1,7 @@
 import 'package:elostaz_app/modules/login/login_screen.dart';
 import 'package:elostaz_app/modules/register/register_cubit.dart';
 import 'package:elostaz_app/repo/auth.dart';
+import 'package:elostaz_app/share/components/custom_toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -109,18 +110,34 @@ class SignupScreenBody extends StatelessWidget {
                           context.read<RegisterCubit>().passwordChanged(value),
                     ),
                     const Spacer(),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (context.read<RegisterCubit>().state.status ==
-                            FormzStatus.valid) {
-                          context.read<RegisterCubit>().signUpFormSubmitted();
-                        } else {
-                          print('Data is not valid');
+                    BlocConsumer<RegisterCubit, RegisterState>(
+                      listener: (context, state) {
+                        if (state.status == FormzStatus.submissionFailure) {
+                          showtoast(
+                            text:
+                                state.errorMessage ?? 'Authentication Failure',
+                            state: ToastStates.ERROR,
+                          );
+                        } else if (state.status ==
+                            FormzStatus.submissionSuccess) {
+                          showtoast(
+                            text: 'Registered Successfully',
+                            state: ToastStates.SUCCESS,
+                          );
                         }
-                        // Navigator.of(context)
-                        //     .pushNamed(AddAddressScreen.routeName);
                       },
-                      child: const Text('Sign Up'),
+                      builder: (context, state) {
+                        return ElevatedButton(
+                          onPressed: () => state.status.isValidated
+                              ? context
+                                  .read<RegisterCubit>()
+                                  .signUpFormSubmitted()
+                              : null,
+                          child: state.status.isSubmissionInProgress
+                              ? const CircularProgressIndicator()
+                              : const Text('Sign Up'),
+                        );
+                      },
                     ),
                     const Spacer(),
                     OptionButton(

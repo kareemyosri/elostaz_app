@@ -8,8 +8,8 @@ import 'package:formz/formz.dart';
 
 part 'register_state.dart';
 
-class RegisterCubit extends Cubit<SignUpState> {
-  RegisterCubit(this._authRepo) : super(const SignUpState());
+class RegisterCubit extends Cubit<RegisterState> {
+  RegisterCubit(this._authRepo) : super(const RegisterState());
   final AuthRepo _authRepo;
   void nameChanged(String value) {
     final name = Name.dirty(value);
