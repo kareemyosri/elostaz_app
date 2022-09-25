@@ -10,6 +10,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtils().init(context);
     return Scaffold(
       body: SafeArea(
         child: Column(

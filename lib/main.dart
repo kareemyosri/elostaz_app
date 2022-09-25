@@ -63,7 +63,6 @@ class Wrapper extends StatelessWidget {
         );
       },
     );
-    return MaterialApp();
   }
 }
 
