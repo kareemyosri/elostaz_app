@@ -37,7 +37,7 @@ class SignupScreenBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BackButtonLS(),
+            // BackButtonLS(),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(

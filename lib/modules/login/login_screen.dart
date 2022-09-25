@@ -38,7 +38,7 @@ class LoginScreenBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BackButtonLS(),
+          // BackButtonLS(),
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -56,12 +56,12 @@ class LoginScreenBody extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Spacer(),
-                  const SocialMediaLogin(
-                    method: 'Login',
-                  ),
-                  const Spacer(),
-                  const OrRow(),
+                  // const Spacer(),
+                  // const SocialMediaLogin(
+                  //   method: 'Login',
+                  // ),
+                  // const Spacer(),
+                  // const OrRow(),
                   const Spacer(),
                   const TextFields(),
                   const Spacer(),
