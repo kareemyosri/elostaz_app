@@ -87,7 +87,7 @@ class LoginScreenBody extends StatelessWidget {
                       } else if (state.status ==
                           FormzStatus.submissionSuccess) {
                         showtoast(
-                          text: 'Logged In Sucessfully',
+                          text: 'Logged In Successfully',
                           state: ToastStates.SUCCESS,
                         );
                       }
