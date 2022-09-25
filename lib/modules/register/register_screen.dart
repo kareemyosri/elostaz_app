@@ -1,3 +1,4 @@
+import 'package:elostaz_app/modules/login/login_screen.dart';
 import 'package:elostaz_app/modules/register/register_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -113,6 +114,11 @@ class SignupScreen extends StatelessWidget {
                       desc: 'Have an account? ',
                       method: 'Login',
                       onPressHandler: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginScreen()),
+                        );
                         // Navigator.of(context)
                         //     .pushReplacementNamed(LoginScreen.routeName);
                       },
