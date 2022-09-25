@@ -57,7 +57,7 @@ enum PasswordValidationError {
 /// {@template password}
 /// Form input for an password input.
 /// {@endtemplate}
-class Password extends FormzInput<String, PasswordValidationError> {
+class Password extends FormzInput<String, PhoneValidationError> {
   /// {@macro password}
   const Password.pure() : super.pure('');
 
@@ -68,36 +68,35 @@ class Password extends FormzInput<String, PasswordValidationError> {
   //     RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
 
   @override
-  PasswordValidationError? validator(String? value) {
+  PhoneValidationError? validator(String? value) {
     return value!.length > 3 // _passwordRegExp.hasMatch(value ?? '')
         ? null
-        : PasswordValidationError.invalid;
+        : PhoneValidationError.invalid;
   }
 }
 
-/// Validation errors for the [ConfirmedPassword] [FormzInput].
-enum ConfirmedPasswordValidationError {
+// Validation errors for the [Password] [FormzInput].
+enum PhoneValidationError {
   /// Generic invalid error.
   invalid
 }
 
-/// {@template confirmed_password}
-/// Form input for a confirmed password input.
+/// {@template password}
+/// Form input for an password input.
 /// {@endtemplate}
-class ConfirmedPassword
-    extends FormzInput<String, ConfirmedPasswordValidationError> {
-  /// {@macro confirmed_password}
-  const ConfirmedPassword.pure({this.password = ''}) : super.pure('');
+class Phone extends FormzInput<String, PhoneValidationError> {
+  /// {@macro password}
+  const Phone.pure() : super.pure('');
 
-  /// {@macro confirmed_password}
-  const ConfirmedPassword.dirty({required this.password, String value = ''})
-      : super.dirty(value);
+  /// {@macro password}
+  const Phone.dirty([String value = '']) : super.dirty(value);
 
-  /// The original password.
-  final String password;
+  static final _phoneRegExp = RegExp(r'^01[0125][0-9]{8}$');
 
   @override
-  ConfirmedPasswordValidationError? validator(String? value) {
-    return password == value ? null : ConfirmedPasswordValidationError.invalid;
+  PhoneValidationError? validator(String? value) {
+    return _phoneRegExp.hasMatch(value ?? '')
+        ? null
+        : PhoneValidationError.invalid;
   }
 }

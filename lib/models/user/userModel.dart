@@ -3,9 +3,8 @@ import 'package:equatable/equatable.dart';
 
 class UserModel extends Equatable {
   final String uid;
-  final String email;
-
   final String? name;
+  final String email;
   final String? phone;
   final String? image;
   final Map<String, dynamic>? address;

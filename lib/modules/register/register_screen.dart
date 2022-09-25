@@ -1,4 +1,7 @@
+import 'package:elostaz_app/modules/register/register_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 import '../../share/components/back_button_ls.dart';
 import '../../share/components/custom_text_field.dart';
@@ -7,8 +10,9 @@ import '../../share/components/or_row.dart';
 import '../../share/components/social_media.dart';
 import '../../share/utils/screen_utils.dart';
 
-
 class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
+
 //
   @override
   Widget build(BuildContext context) {
@@ -30,13 +34,14 @@ class SignupScreen extends StatelessWidget {
                       children: [
                         Text(
                           'Sign Up Continue!',
-                          style: Theme.of(context).textTheme.headline3!.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.headline3!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                         ),
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     // SocialMediaLogin(
                     //   method: 'Sign Up',
                     // ),
@@ -44,19 +49,22 @@ class SignupScreen extends StatelessWidget {
                     // OrRow(),
                     // Spacer(),
                     CustomTextField(
-                      hint: 'Your Name', onChanged: (String ) {  },
+                      hint: 'Your Name',
+                      onChanged: (value) =>
+                          context.read<RegisterCubit>().nameChanged(value),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Row(
                       children: [
                         Expanded(
                           flex: 2,
                           child: CustomTextField(
                             hint: '+20',
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.keyboard_arrow_down_rounded,
                               size: 24,
-                            ), onChanged: (String ) {  },
+                            ),
+                            onChanged: (value) => {},
                           ),
                         ),
                         SizedBox(
@@ -65,27 +73,42 @@ class SignupScreen extends StatelessWidget {
                         Expanded(
                           flex: 5,
                           child: CustomTextField(
-                            hint: 'Phone Number', onChanged: (String ) {  },
+                            hint: 'Phone Number',
+                            onChanged: (value) => context
+                                .read<RegisterCubit>()
+                                .phoneChanged(value),
                           ),
                         ),
                       ],
                     ),
-                    Spacer(),
-                    CustomTextField(hint: 'Email Address', onChanged: (String ) {  },),
-                    Spacer(),
+                    const Spacer(),
+                    CustomTextField(
+                      hint: 'Email Address',
+                      onChanged: (value) =>
+                          context.read<RegisterCubit>().emailChanged(value),
+                    ),
+                    const Spacer(),
                     CustomTextField(
                       hint: 'Password',
-                      icon: Image.asset('assets/images/hide_icon.png'), onChanged: (String ) {  },
+                      icon: const Icon(Icons.remove_red_eye),
+                      onChanged: (value) =>
+                          context.read<RegisterCubit>().passwordChanged(value),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     ElevatedButton(
                       onPressed: () {
+                        if (context.watch<RegisterCubit>().state.status ==
+                            FormzStatus.valid) {
+                          context.read<RegisterCubit>().signUpFormSubmitted();
+                        } else {
+                          print('Data is not valid');
+                        }
                         // Navigator.of(context)
                         //     .pushNamed(AddAddressScreen.routeName);
                       },
-                      child: Text('Sign Up'),
+                      child: const Text('Sign Up'),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     OptionButton(
                       desc: 'Have an account? ',
                       method: 'Login',
@@ -94,7 +117,7 @@ class SignupScreen extends StatelessWidget {
                         //     .pushReplacementNamed(LoginScreen.routeName);
                       },
                     ),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 ),
               ),
