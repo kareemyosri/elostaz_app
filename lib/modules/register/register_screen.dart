@@ -146,7 +146,7 @@ class SignupScreenBody extends StatelessWidget {
                       desc: 'Have an account? ',
                       method: 'Login',
                       onPressHandler: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const LoginScreen()),
