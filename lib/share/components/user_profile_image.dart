@@ -28,10 +28,12 @@ class UserProfileImage extends StatelessWidget {
                     shape: const CircleBorder(),
                     color: kGreyShade5,
                     image: DecorationImage(
-                      image: (state.updatedUser.image == null)
-                          ? NetworkImage(state.user.image!)
-                          : FileImage(File(state.updatedUser.image!))
-                              as ImageProvider,
+                      image: NetworkImage(state.user.image!),
+                      // (context.watch<UserCubit>().state.updatedUser.image ==
+                      //         null)
+                      //     ? NetworkImage(state.user.image!)
+                      //     : FileImage(File(state.updatedUser.image!))
+                      //         as ImageProvider,
                       fit: BoxFit.cover,
                     ),
                   ),
