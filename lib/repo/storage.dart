@@ -20,23 +20,6 @@ class StorageRepo {
         contentType: 'image/png',
       );
 
-  Future<List<String>> uploadMultipleFiles({
-    required String postId,
-    required List<File> files,
-  }) async {
-    List<String> urls = [];
-    for (File file in files) {
-      final String attachmentName = DateTime.now().toString();
-      String url = await _upload(
-        file: file,
-        path: '${FirestorePath.attachment(postId)}/$attachmentName',
-        contentType: 'image/png',
-      );
-      urls.add(url);
-    }
-    return urls;
-  }
-
   /// Generic file upload for any [path] and [contentType]
   Future<String> _upload({
     required File file,
@@ -82,7 +65,6 @@ class StorageRepo {
 
 // Utility Class (Pathes to upload files to)
 class FirestorePath {
-  static String avatar(String uid) => 'Files/avatar/$uid';
-  static String attachment(String postId) => 'Files/posts/$postId/comments';
+  static String avatar(String uid) => 'users/$uid';
   // static String chatData() => 'Files/chatData';
 }
