@@ -25,7 +25,10 @@ class ProfileDetailsScreen extends StatelessWidget {
                   height: getProportionateScreenHeight(16.0),
                 ),
                 // ImageContainer(),
-                UserProfileImage(imageUrl: state.user.image!),
+                UserProfileImage(
+                  imageUrl: state.user.image!,
+                  showEditIcon: true,
+                ),
                 SizedBox(
                   height: getProportionateScreenHeight(16.0),
                 ),

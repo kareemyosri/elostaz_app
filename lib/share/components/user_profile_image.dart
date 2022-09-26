@@ -7,8 +7,10 @@ import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 
 class UserProfileImage extends StatelessWidget {
+  final bool showEditIcon;
   final String imageUrl;
   const UserProfileImage({
+    this.showEditIcon = false,
     required this.imageUrl,
     Key? key,
   }) : super(key: key);
@@ -38,25 +40,27 @@ class UserProfileImage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: GestureDetector(
-                    onTap: () => UserCubit.get(context).getProfileImage(),
-                    child: Container(
-                      padding: EdgeInsets.all(
-                        getProportionateScreenWidth(8),
-                      ),
-                      decoration: const ShapeDecoration(
-                        shape: CircleBorder(),
-                        color: kPrimaryGreen,
-                      ),
-                      child: Icon(
-                        Icons.camera_alt,
-                        color: Theme.of(context).cardColor,
-                      ),
-                    ),
-                  ),
-                )
+                showEditIcon
+                    ? Align(
+                        alignment: Alignment.bottomRight,
+                        child: GestureDetector(
+                          onTap: () => UserCubit.get(context).getProfileImage(),
+                          child: Container(
+                            padding: EdgeInsets.all(
+                              getProportionateScreenWidth(8),
+                            ),
+                            decoration: const ShapeDecoration(
+                              shape: CircleBorder(),
+                              color: kPrimaryGreen,
+                            ),
+                            child: Icon(
+                              Icons.camera_alt,
+                              color: Theme.of(context).cardColor,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container()
               ],
             ),
           );
