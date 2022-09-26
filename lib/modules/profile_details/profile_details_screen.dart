@@ -14,13 +14,11 @@ class ProfileDetailsScreen extends StatelessWidget {
   //static const routeName = 'myProfile';
   @override
   Widget build(BuildContext context) {
-    UserModel user = context.watch<UserCubit>().state.user;
-
     return Scaffold(
       body: SafeArea(
         child: BlocBuilder<UserCubit, UserDataState>(
           builder: (BuildContext context, state) {
-            if (user != null) {
+            if (state is UserDataLoaded) {
               return Column(
                 children: [
                   const CustomAppBar('My Profile', []),
@@ -28,7 +26,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                     height: getProportionateScreenHeight(16.0),
                   ),
                   // ImageContainer(),
-                  UserProfileImage(imageUrl: user.image!),
+                  UserProfileImage(imageUrl: state.user.image!),
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: getProportionateScreenWidth(16.0),
@@ -40,7 +38,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                         ),
                         InputFormCard(
                           title: 'Full name',
-                          value: user.name!,
+                          value: state.user.name!,
                         ),
                         // InputFormCard(
                         //   title: 'Birthdate',
@@ -52,12 +50,28 @@ class ProfileDetailsScreen extends StatelessWidget {
                         // ),
                         InputFormCard(
                           title: 'Email',
+<<<<<<< HEAD
                           value: user.email,
+=======
+                          value: state.user.email!,
+>>>>>>> ba061899954528c9da1976846597e3b499d65ce7
                         ),
                         InputFormCard(
                           title: 'Phone number',
-                          value: user.phone!,
+                          value: state.user.phone!,
                         ),
+                        SizedBox(
+                          height: getProportionateScreenHeight(16.0),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            //Navigator.of(context).pushNamed(LoginScreen.routeName);
+                          },
+                          child: Text(
+                            'Update',
+                          ),
+                        ),
+
                       ],
                     ),
                   ),

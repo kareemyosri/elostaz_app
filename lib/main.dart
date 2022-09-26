@@ -42,6 +42,7 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return LayoutBuilder(
       builder: (context, constraints) {
         // print(constraints.maxWidth);
@@ -68,6 +69,14 @@ class Wrapper extends StatelessWidget {
               ),
             ));
       },
+=======
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: FlowBuilder<AuthStatus>(
+        state: context.select((AuthBloc bloc) => bloc.state.status),
+        onGeneratePages: onGenerateAppViewPages,
+      ),
+>>>>>>> ba061899954528c9da1976846597e3b499d65ce7
     );
   }
 }
