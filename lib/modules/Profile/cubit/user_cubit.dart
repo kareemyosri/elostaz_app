@@ -23,13 +23,16 @@ class UserCubit extends Cubit<UserDataState> {
   StreamSubscription<UserModel>? streamSubscription;
 
   StreamSubscription<UserModel> monitorUserData() {
-    return streamSubscription = _databaseRepo.userData().listen((user) {
+    return streamSubscription = _databaseRepo.userData().listen((newuser) {
       emit( UserDataLoading());
-      emitUserDataLoaded(user);
+      emit( UserDataLoaded());
+
+      //emitUserDataLoaded(user);
+      user=newuser;
     }, onError: (error) => emitUserDataNotLoaded(error));
   }
 
-  void emitUserDataLoaded(user) => emit(UserDataLoaded(user: user));
+  //void emitUserDataLoaded(user) => emit(UserDataLoaded(user: user));
   void emitUserDataNotLoaded(e) => emit(UserDataNotLoaded(e: e));
   @override
   Future<void> close() {
@@ -37,6 +40,8 @@ class UserCubit extends Cubit<UserDataState> {
     return super.close();
   }
 
+
+  late UserModel user;
 
   ImagePicker picker = ImagePicker();
 
@@ -56,7 +61,6 @@ class UserCubit extends Cubit<UserDataState> {
     String? name,
     required String email,
     String? phone,
-    required String image,
     required String uid,
 
   })
@@ -73,7 +77,6 @@ class UserCubit extends Cubit<UserDataState> {
           name: name,
           phone: phone,
           email: email,
-          image: image,
           uid:uid,
         );
 

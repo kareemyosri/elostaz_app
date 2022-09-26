@@ -18,63 +18,77 @@ class ProfileDetailsScreen extends StatelessWidget {
       body: SafeArea(
         child: BlocBuilder<UserCubit, UserDataState>(
           builder: (BuildContext context, state) {
-            if (state is UserDataLoaded) {
-              return Column(
-                children: [
-                  CustomAppBar('My Profile', []),
-                  SizedBox(
-                    height: getProportionateScreenHeight(16.0),
-                  ),
-                  // ImageContainer(),
-                  UserProfileImage(imageUrl: state.user.image!),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: getProportionateScreenWidth(16.0),
-                    ),
-                    child: Column(
-                      children: [
-                        Divider(
-                          height: getProportionateScreenHeight(64.0),
-                        ),
-                        InputFormCard(
-                          title: 'Full name',
-                          value: state.user.name!,
-                        ),
-                        // InputFormCard(
-                        //   title: 'Birthdate',
-                        //   value: '29 February 1200',
-                        // ),
-                        // InputFormCard(
-                        //   title: 'Gender',
-                        //   value: 'Male',
-                        // ),
-                        InputFormCard(
-                          title: 'Email',
-                          value: state.user.email!,
-                        ),
-                        InputFormCard(
-                          title: 'Phone number',
-                          value: state.user.phone!,
-                        ),
-                        SizedBox(
-                          height: getProportionateScreenHeight(16.0),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            //Navigator.of(context).pushNamed(LoginScreen.routeName);
-                          },
-                          child: Text(
-                            'Update',
-                          ),
-                        ),
+            var ProfileImage=UserCubit.get(context).ProfileImage;
 
-                      ],
-                    ),
+            return Column(
+              children: [
+                CustomAppBar('My Profile', []),
+                SizedBox(
+                  height: getProportionateScreenHeight(16.0),
+                ),
+                // ImageContainer(),
+                UserProfileImage(imageUrl: UserCubit.get(context).user.image!),
+                SizedBox(
+                  height: getProportionateScreenHeight(16.0),
+                ),
+                if(ProfileImage !=null)
+                  Row(
+                    children: [
+                      Column(
+                        children: [
+                          ElevatedButton(onPressed: (){
+                            UserCubit.get(context).UploadProfileImage(email: UserCubit.get(context).user.email!,  uid: UserCubit.get(context).user.uid!,phone: UserCubit.get(context).user.phone!,name: UserCubit.get(context).user.name!);
+                          },
+                              child: Text('Update Profile')),
+                          if(state is UserUpdateLoadingState)
+                            SizedBox(height: 5,),
+                          if(state is UserUpdateLoadingState)
+                            LinearProgressIndicator(),
+                        ],
+                      ),
+
+
+                    ],
                   ),
-                ],
-              );
-            } else
-              return const CircularProgressIndicator();
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(16.0),
+                  ),
+                  child: Column(
+                    children: [
+                      Divider(
+                        height: getProportionateScreenHeight(64.0),
+                      ),
+                      InputFormCard(
+                        title: 'Full name',
+                        value: UserCubit.get(context).user.name!,
+                      ),
+
+                      InputFormCard(
+                        title: 'Email',
+                        value: UserCubit.get(context).user.email!,
+                      ),
+                      InputFormCard(
+                        title: 'Phone number',
+                        value: UserCubit.get(context).user.phone!,
+                      ),
+                      SizedBox(
+                        height: getProportionateScreenHeight(16.0),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          UserCubit.get(context).updateUser(email:UserCubit.get(context).user.email! , uid: UserCubit.get(context).user.uid!,name:UserCubit.get(context).user.name! ,phone:UserCubit.get(context).user.phone! );
+                        },
+                        child: Text(
+                          'Update',
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
+              ],
+            );
           },
         ),
       ),
