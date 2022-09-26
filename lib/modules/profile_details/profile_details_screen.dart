@@ -23,7 +23,7 @@ class ProfileDetailsScreen extends StatelessWidget {
             if (user != null) {
               return Column(
                 children: [
-                  CustomAppBar('My Profile', []),
+                  const CustomAppBar('My Profile', []),
                   SizedBox(
                     height: getProportionateScreenHeight(16.0),
                   ),
@@ -52,7 +52,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                         // ),
                         InputFormCard(
                           title: 'Email',
-                          value: user.email!,
+                          value: user.email,
                         ),
                         InputFormCard(
                           title: 'Phone number',
