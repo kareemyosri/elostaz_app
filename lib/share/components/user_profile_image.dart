@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:elostaz_app/modules/Profile/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,11 +15,9 @@ class UserProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<UserCubit, UserDataState>(
-      listener: (BuildContext context, state) {},
-      builder: (BuildContext context, Object? state) {
-        var ProfileImage = UserCubit.get(context).ProfileImage;
-        if (state is UserDataLoaded) {
+    return BlocBuilder<UserCubit, UserDataState>(
+      builder: (BuildContext context, state) {
+        if (state.userDataStatus == UserDataStatus.loaded) {
           return Container(
             height: getProportionateScreenWidth(112),
             width: getProportionateScreenWidth(112),
@@ -28,9 +28,10 @@ class UserProfileImage extends StatelessWidget {
                     shape: const CircleBorder(),
                     color: kGreyShade5,
                     image: DecorationImage(
-                      image: (ProfileImage == null)
-                          ? NetworkImage(UserCubit.get(context).user.image!)
-                          : FileImage(ProfileImage) as ImageProvider,
+                      image: (state.updatedUser.image == null)
+                          ? NetworkImage(state.user.image!)
+                          : FileImage(File(state.updatedUser.image!))
+                              as ImageProvider,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -60,7 +61,7 @@ class UserProfileImage extends StatelessWidget {
             ),
           );
         }
-        return Center(child: CircularProgressIndicator());
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }

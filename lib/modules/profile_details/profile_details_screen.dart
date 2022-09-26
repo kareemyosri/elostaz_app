@@ -1,7 +1,7 @@
+import 'package:elostaz_app/models/user/userModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../models/user/userModel.dart';
 import '../../share/components/custom_app_bar.dart';
 import '../../share/components/user_profile_image.dart';
 import '../../share/constants/colors.dart';
@@ -11,16 +11,13 @@ import '../Profile/cubit/user_cubit.dart';
 class ProfileDetailsScreen extends StatelessWidget {
   const ProfileDetailsScreen({super.key});
 
-  //static const routeName = 'myProfile';
-  //hhfghfghfghf
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: BlocBuilder<UserCubit, UserDataState>(
             builder: (BuildContext context, state) {
-          var ProfileImage = UserCubit.get(context).ProfileImage;
-          if (state is UserDataLoaded) {
+          if (state.userDataStatus == UserDataStatus.loaded) {
             return Column(
               children: [
                 CustomAppBar('My Profile', []),
@@ -28,34 +25,10 @@ class ProfileDetailsScreen extends StatelessWidget {
                   height: getProportionateScreenHeight(16.0),
                 ),
                 // ImageContainer(),
-                UserProfileImage(imageUrl: UserCubit.get(context).user.image!),
+                UserProfileImage(imageUrl: state.user.image!),
                 SizedBox(
                   height: getProportionateScreenHeight(16.0),
                 ),
-                if (ProfileImage != null)
-                  Row(
-                    children: [
-                      Column(
-                        children: [
-                          ElevatedButton(
-                              onPressed: () {
-                                UserCubit.get(context).UploadProfileImage(
-                                    email: UserCubit.get(context).user.email!,
-                                    uid: UserCubit.get(context).user.uid!,
-                                    phone: UserCubit.get(context).user.phone!,
-                                    name: UserCubit.get(context).user.name!);
-                              },
-                              child: Text('Update Profile')),
-                          if (state is UserUpdateLoadingState)
-                            SizedBox(
-                              height: 5,
-                            ),
-                          if (state is UserUpdateLoadingState)
-                            LinearProgressIndicator(),
-                        ],
-                      ),
-                    ],
-                  ),
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: getProportionateScreenWidth(16.0),
@@ -67,38 +40,43 @@ class ProfileDetailsScreen extends StatelessWidget {
                       ),
                       InputFormCard(
                         title: 'Full name',
-                        value: UserCubit.get(context).user.name!,
+                        value: state.user.name!,
+                        onChanged: (value) =>
+                            UserCubit.get(context).updateName(value),
                       ),
                       InputFormCard(
                         title: 'Email',
-                        value: UserCubit.get(context).user.email!,
+                        value: state.user.email,
+                        onChanged: (value) =>
+                            UserCubit.get(context).updateEmail(value),
                       ),
                       InputFormCard(
                         title: 'Phone number',
-                        value: UserCubit.get(context).user.phone!,
+                        value: state.user.phone!,
+                        onChanged: (value) =>
+                            UserCubit.get(context).updatePhone(value),
                       ),
                       SizedBox(
                         height: getProportionateScreenHeight(16.0),
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          UserCubit.get(context).updateUser(
-                              email: UserCubit.get(context).user.email!,
-                              uid: UserCubit.get(context).user.uid!,
-                              name: UserCubit.get(context).user.name!,
-                              phone: UserCubit.get(context).user.phone!);
-                        },
-                        child: Text(
-                          'Update',
+                      if (state.updatedUser != UserModel.empty)
+                        ElevatedButton(
+                          onPressed: () =>
+                              UserCubit.get(context).updateUserData(),
+                          child: (state.userUpdateStatus !=
+                                  UserUpdateStatus.loading)
+                              ? const Text('Update')
+                              : const CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
                         ),
-                      ),
                     ],
                   ),
                 ),
               ],
             );
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         }),
       ),
@@ -111,11 +89,12 @@ class InputFormCard extends StatelessWidget {
     Key? key,
     required this.title,
     required this.value,
+    required this.onChanged,
   }) : super(key: key);
 
   final String title;
   final String value;
-
+  final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -132,6 +111,7 @@ class InputFormCard extends StatelessWidget {
         Flexible(
           child: TextFormField(
             initialValue: value,
+            onChanged: onChanged,
             textAlign: TextAlign.right,
             style: TextStyle(
               fontWeight: FontWeight.w700,

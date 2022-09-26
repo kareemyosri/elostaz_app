@@ -25,21 +25,21 @@ class ProfileScreen extends StatelessWidget {
             ),
             BlocBuilder<UserCubit, UserDataState>(
               builder: (context, state) {
-                if (state is UserDataLoaded) {
+                if (state.userDataStatus == UserDataStatus.loaded) {
                   return Column(
                     children: [
-                      UserProfileImage(imageUrl: UserCubit.get(context).user.image!),
+                      UserProfileImage(imageUrl: state.user.image!),
                       SizedBox(
                         height: getProportionateScreenHeight(8.0),
                       ),
                       Text(
-                        UserCubit.get(context).user.name!,
+                        state.user.name!,
                         style: Theme.of(context).textTheme.headline3!.copyWith(
                               fontWeight: FontWeight.w700,
                             ),
                       ),
                       Text(
-                        UserCubit.get(context).user.email!,
+                        state.user.email,
                         style: Theme.of(context).textTheme.headline4!.copyWith(
                               color: kTextColorAccent,
                             ),
