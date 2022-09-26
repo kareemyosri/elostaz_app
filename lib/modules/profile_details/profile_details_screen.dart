@@ -103,7 +103,7 @@ class InputFormCard extends StatelessWidget {
               fontWeight: FontWeight.w700,
               fontSize: getProportionateScreenWidth(17),
             ),
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: InputBorder.none,
             ),
           ),

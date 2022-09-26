@@ -1,6 +1,7 @@
 import 'package:elostaz_app/layout/bloc/auth_bloc.dart';
 import 'package:elostaz_app/main.dart';
 import 'package:elostaz_app/modules/login/login_screen.dart';
+import 'package:elostaz_app/modules/profile_details/profile_details_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -10,10 +11,10 @@ class AppRouter {
       //   return MaterialPageRoute(
       //     builder: (_) => const HomeBody(),
       //   );
-      // case '/SearchPage':
-      //   return MaterialPageRoute(
-      //     builder: (_) => const SearchPage(),
-      //   );
+      case '/ProfileDetailsScreen':
+        return MaterialPageRoute(
+          builder: (_) => const ProfileDetailsScreen(),
+        );
       // case '/SettingsPage':
       //   return MaterialPageRoute(builder: (_) => const SettingsPage());
       // case '/NotificationsPage':
