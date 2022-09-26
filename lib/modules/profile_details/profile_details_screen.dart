@@ -1,51 +1,75 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MyProfileScreen extends StatelessWidget {
-  static const routeName = 'myProfile';
+import '../../models/user/userModel.dart';
+import '../../share/components/custom_app_bar.dart';
+import '../../share/components/user_profile_image.dart';
+import '../../share/constants/colors.dart';
+import '../../share/utils/screen_utils.dart';
+import '../Profile/cubit/user_cubit.dart';
+
+class ProfileDetailsScreen extends StatelessWidget {
+  const ProfileDetailsScreen({super.key});
+
+  //static const routeName = 'myProfile';
   @override
   Widget build(BuildContext context) {
+    UserModel user = context.watch<UserCubit>().state.user;
+
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            CustomAppBar('My Profile', []),
-            SizedBox(
-              height: getProportionateScreenHeight(16.0),
-            ),
-            ImageContainer(),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(16.0),
-              ),
-              child: Column(
-                children: [
-                  Divider(
-                    height: getProportionateScreenHeight(64.0),
-                  ),
-                  InputFormCard(
-                    title: 'Full name',
-                    value: 'Shoo Phar Nhoe',
-                  ),
-                  InputFormCard(
-                    title: 'Birthdate',
-                    value: '29 February 1200',
-                  ),
-                  InputFormCard(
-                    title: 'Gender',
-                    value: 'Male',
-                  ),
-                  InputFormCard(
-                    title: 'Email',
-                    value: 'shoophar@email.com',
-                  ),
-                  InputFormCard(
-                    title: 'Phone number',
-                    value: '(+78) 8989 8787',
-                  ),
-                ],
-              ),
-            ),
-          ],
+        child: BlocBuilder<UserCubit, UserDataState>(
+          builder: (BuildContext context, state) {
+            if (user !=null)
+              {
+                return Column(
+                  children: [
+                    CustomAppBar('My Profile', []),
+                    SizedBox(
+                      height: getProportionateScreenHeight(16.0),
+                    ),
+                    // ImageContainer(),
+                    UserProfileImage(imageUrl: user.image!),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: getProportionateScreenWidth(16.0),
+                      ),
+                      child: Column(
+                        children: [
+                          Divider(
+                            height: getProportionateScreenHeight(64.0),
+                          ),
+                          InputFormCard(
+                            title: 'Full name',
+                            value:user.name!,
+                          ),
+                          // InputFormCard(
+                          //   title: 'Birthdate',
+                          //   value: '29 February 1200',
+                          // ),
+                          // InputFormCard(
+                          //   title: 'Gender',
+                          //   value: 'Male',
+                          // ),
+                          InputFormCard(
+                            title: 'Email',
+                            value: user.email!,
+                          ),
+                          InputFormCard(
+                            title: 'Phone number',
+                            value: user.phone!,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              }
+
+            else
+              return const CircularProgressIndicator();
+          },
+
         ),
       ),
     );
@@ -54,9 +78,9 @@ class MyProfileScreen extends StatelessWidget {
 
 class InputFormCard extends StatelessWidget {
   const InputFormCard({
-    Key key,
-    @required this.title,
-    @required this.value,
+    Key? key,
+    required this.title,
+    required this.value,
   }) : super(key: key);
 
   final String title;
