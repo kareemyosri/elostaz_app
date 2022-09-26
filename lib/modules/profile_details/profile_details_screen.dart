@@ -20,7 +20,7 @@ class ProfileDetailsScreen extends StatelessWidget {
       body: SafeArea(
         child: BlocBuilder<UserCubit, UserDataState>(
           builder: (BuildContext context, state) {
-            if (user != null) {
+            if (state is UserDataLoaded) {
               return Column(
                 children: [
                   CustomAppBar('My Profile', []),
@@ -58,6 +58,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                           title: 'Phone number',
                           value: user.phone!,
                         ),
+
                       ],
                     ),
                   ),
