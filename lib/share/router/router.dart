@@ -10,10 +10,10 @@ class AppRouter {
       //   return MaterialPageRoute(
       //     builder: (_) => const HomeBody(),
       //   );
-      case '/SearchPage':
-        return MaterialPageRoute(
-          builder: (_) => const SearchPage(),
-        );
+      // case '/SearchPage':
+      //   return MaterialPageRoute(
+      //     builder: (_) => const SearchPage(),
+      //   );
       // case '/SettingsPage':
       //   return MaterialPageRoute(builder: (_) => const SettingsPage());
       // case '/NotificationsPage':
