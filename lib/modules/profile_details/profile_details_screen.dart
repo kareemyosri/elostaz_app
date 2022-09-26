@@ -12,15 +12,16 @@ class ProfileDetailsScreen extends StatelessWidget {
   const ProfileDetailsScreen({super.key});
 
   //static const routeName = 'myProfile';
+  //hhfghfghfghf
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: BlocBuilder<UserCubit, UserDataState>(
-          builder: (BuildContext context, state) {
-            var ProfileImage=UserCubit.get(context).ProfileImage;
-            if (state is UserDataLoaded) {
-             return Column(
+            builder: (BuildContext context, state) {
+          var ProfileImage = UserCubit.get(context).ProfileImage;
+          if (state is UserDataLoaded) {
+            return Column(
               children: [
                 CustomAppBar('My Profile', []),
                 SizedBox(
@@ -31,23 +32,28 @@ class ProfileDetailsScreen extends StatelessWidget {
                 SizedBox(
                   height: getProportionateScreenHeight(16.0),
                 ),
-                if(ProfileImage !=null)
+                if (ProfileImage != null)
                   Row(
                     children: [
                       Column(
                         children: [
-                          ElevatedButton(onPressed: (){
-                            UserCubit.get(context).UploadProfileImage(email: UserCubit.get(context).user.email!,  uid: UserCubit.get(context).user.uid!,phone: UserCubit.get(context).user.phone!,name: UserCubit.get(context).user.name!);
-                          },
+                          ElevatedButton(
+                              onPressed: () {
+                                UserCubit.get(context).UploadProfileImage(
+                                    email: UserCubit.get(context).user.email!,
+                                    uid: UserCubit.get(context).user.uid!,
+                                    phone: UserCubit.get(context).user.phone!,
+                                    name: UserCubit.get(context).user.name!);
+                              },
                               child: Text('Update Profile')),
-                          if(state is UserUpdateLoadingState)
-                            SizedBox(height: 5,),
-                          if(state is UserUpdateLoadingState)
+                          if (state is UserUpdateLoadingState)
+                            SizedBox(
+                              height: 5,
+                            ),
+                          if (state is UserUpdateLoadingState)
                             LinearProgressIndicator(),
                         ],
                       ),
-
-
                     ],
                   ),
                 Padding(
@@ -63,7 +69,6 @@ class ProfileDetailsScreen extends StatelessWidget {
                         title: 'Full name',
                         value: UserCubit.get(context).user.name!,
                       ),
-
                       InputFormCard(
                         title: 'Email',
                         value: UserCubit.get(context).user.email!,
@@ -77,24 +82,25 @@ class ProfileDetailsScreen extends StatelessWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          UserCubit.get(context).updateUser(email:UserCubit.get(context).user.email! , uid: UserCubit.get(context).user.uid!,name:UserCubit.get(context).user.name! ,phone:UserCubit.get(context).user.phone! );
+                          UserCubit.get(context).updateUser(
+                              email: UserCubit.get(context).user.email!,
+                              uid: UserCubit.get(context).user.uid!,
+                              name: UserCubit.get(context).user.name!,
+                              phone: UserCubit.get(context).user.phone!);
                         },
                         child: Text(
                           'Update',
                         ),
                       ),
-
                     ],
                   ),
                 ),
               ],
             );
+          } else {
+            return CircularProgressIndicator();
           }
-            else{
-              return CircularProgressIndicator();
-            }
-            }
-        ),
+        }),
       ),
     );
   }
