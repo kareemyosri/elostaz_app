@@ -18,65 +18,9 @@ class ProfileDetailsScreen extends StatelessWidget {
       body: SafeArea(
         child: BlocBuilder<UserCubit, UserDataState>(
           builder: (BuildContext context, state) {
-<<<<<<< HEAD
             var ProfileImage=UserCubit.get(context).ProfileImage;
-=======
             if (state is UserDataLoaded) {
-              return Column(
-                children: [
-                  const CustomAppBar('My Profile', []),
-                  SizedBox(
-                    height: getProportionateScreenHeight(16.0),
-                  ),
-                  // ImageContainer(),
-                  UserProfileImage(imageUrl: state.user.image!),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: getProportionateScreenWidth(16.0),
-                    ),
-                    child: Column(
-                      children: [
-                        Divider(
-                          height: getProportionateScreenHeight(64.0),
-                        ),
-                        InputFormCard(
-                          title: 'Full name',
-                          value: state.user.name!,
-                        ),
-                        // InputFormCard(
-                        //   title: 'Birthdate',
-                        //   value: '29 February 1200',
-                        // ),
-                        // InputFormCard(
-                        //   title: 'Gender',
-                        //   value: 'Male',
-                        // ),
-                        InputFormCard(
-                          title: 'Email',
-<<<<<<< HEAD
-                          value: user.email,
-=======
-                          value: state.user.email!,
->>>>>>> ba061899954528c9da1976846597e3b499d65ce7
-                        ),
-                        InputFormCard(
-                          title: 'Phone number',
-                          value: state.user.phone!,
-                        ),
-                        SizedBox(
-                          height: getProportionateScreenHeight(16.0),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            //Navigator.of(context).pushNamed(LoginScreen.routeName);
-                          },
-                          child: Text(
-                            'Update',
-                          ),
-                        ),
->>>>>>> 63fb0ac5072c54422cf3f480172099395b8312ef
-
-            return Column(
+             return Column(
               children: [
                 CustomAppBar('My Profile', []),
                 SizedBox(
@@ -145,7 +89,11 @@ class ProfileDetailsScreen extends StatelessWidget {
                 ),
               ],
             );
-          },
+          }
+            else{
+              return CircularProgressIndicator();
+            }
+            }
         ),
       ),
     );
