@@ -10,11 +10,11 @@ class UserDataLoading extends UserDataState {
 }
 
 class UserDataLoaded extends UserDataState {
-  final UserModel user;
-  const UserDataLoaded({this.user=UserModel.empty});
 
-  @override
-  List<Object> get props => [user];
+  // const UserDataLoaded({this.user=UserModel.empty});
+  //
+  // @override
+  // List<Object> get props => [user];
 }
 
 class UserDataUpdated extends UserDataState {

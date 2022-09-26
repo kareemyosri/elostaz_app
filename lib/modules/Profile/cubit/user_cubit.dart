@@ -26,13 +26,22 @@ class UserCubit extends Cubit<UserDataState> {
   StreamSubscription<UserModel>? streamSubscription;
 
   StreamSubscription<UserModel> monitorUserData() {
+<<<<<<< HEAD
     return streamSubscription = _databaseRepo.userData().listen((user) {
       emit(UserDataLoading());
       emitUserDataLoaded(user);
+=======
+    return streamSubscription = _databaseRepo.userData().listen((newuser) {
+      emit( UserDataLoading());
+      emit( UserDataLoaded());
+
+      //emitUserDataLoaded(user);
+      user=newuser;
+>>>>>>> 454ad92ef38ba0267bdd23d70cd7ad03c465903e
     }, onError: (error) => emitUserDataNotLoaded(error));
   }
 
-  void emitUserDataLoaded(user) => emit(UserDataLoaded(user: user));
+  //void emitUserDataLoaded(user) => emit(UserDataLoaded(user: user));
   void emitUserDataNotLoaded(e) => emit(UserDataNotLoaded(e: e));
 
   Future<File?> getProfileImage() async {
@@ -115,4 +124,92 @@ class UserCubit extends Cubit<UserDataState> {
     streamSubscription!.cancel();
     return super.close();
   }
+<<<<<<< HEAD
+=======
+
+
+  late UserModel user;
+
+  ImagePicker picker = ImagePicker();
+
+  File? ProfileImage;
+  Future<void> getProfileImage() async {
+    var pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      ProfileImage= File(pickedFile.path);
+      emit(ProfileImagePickedSuccessState());
+    } else {
+      emit(ProfileImageErrorState());
+    }
+  }
+
+
+  void UploadProfileImage({
+    String? name,
+    required String email,
+    String? phone,
+    required String uid,
+
+  })
+  {
+    emit(UserUpdateLoadingState());
+
+    firebase_storage.FirebaseStorage.instance.ref().child('users/${Uri.file(ProfileImage!.path).pathSegments.last}')
+        .putFile(ProfileImage!)
+        .then((value) {
+      value.ref.getDownloadURL()
+          .then((value) {
+        print(value);
+        updateUser(
+          name: name,
+          phone: phone,
+          email: email,
+          uid:uid,
+        );
+
+
+      })
+          .catchError((error){
+        print(error.toString());
+        emit(UploadProfileImageErrorState());
+      });
+    })
+
+        .catchError((error){
+      print(error.toString());
+
+      emit(UploadProfileImageErrorState());
+
+    });
+
+  }
+
+  updateUser({
+     String? name,
+    required String email,
+    required String uid,
+    String? phone,
+    String? image,
+
+  })
+  {
+    UserModel model =UserModel(
+      name: name,
+      phone: phone,
+      email: email,
+      image: image,
+      uid: uid,
+    );
+    FirebaseFirestore.instance.collection('users').doc(uid).update(model.toDocument())
+        .then((value) {
+          emit(UserUpdatedSuccessState());
+    })
+        .catchError((error){
+      print(error.toString());
+      emit(UserUpdateErrorState());
+    });
+
+  }
+
+>>>>>>> 454ad92ef38ba0267bdd23d70cd7ad03c465903e
 }

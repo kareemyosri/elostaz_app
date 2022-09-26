@@ -1,5 +1,6 @@
 import 'package:elostaz_app/modules/Profile/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 
@@ -12,40 +13,55 @@ class UserProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: getProportionateScreenWidth(112),
-      width: getProportionateScreenWidth(112),
-      child: Stack(
-        children: [
-          Container(
-            decoration: ShapeDecoration(
-                shape: const CircleBorder(),
-                color: kGreyShade5,
-                image: DecorationImage(image: NetworkImage(imageUrl))),
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: GestureDetector(
-              onTap: (){
-                UserCubit.get(context).getProfileImage();
-              },
-              child: Container(
-                padding: EdgeInsets.all(
-                  getProportionateScreenWidth(8),
+    return BlocConsumer<UserCubit, UserDataState>(
+      listener: (BuildContext context, state) {},
+      builder: (BuildContext context, Object? state) {
+        var ProfileImage = UserCubit.get(context).ProfileImage;
+        if (state is UserDataLoaded) {
+          return Container(
+            height: getProportionateScreenWidth(112),
+            width: getProportionateScreenWidth(112),
+            child: Stack(
+              children: [
+                Container(
+                  decoration: ShapeDecoration(
+                    shape: const CircleBorder(),
+                    color: kGreyShade5,
+                    image: DecorationImage(
+                      image: (ProfileImage == null)
+                          ? NetworkImage(UserCubit.get(context).user.image!)
+                          : FileImage(ProfileImage) as ImageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-                decoration: const ShapeDecoration(
-                  shape: CircleBorder(),
-                  color: kPrimaryGreen,
-                ),
-                child: Icon(
-                  Icons.camera_alt,
-                  color: Theme.of(context).cardColor,
-                ),
-              ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      UserCubit.get(context).getProfileImage();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(
+                        getProportionateScreenWidth(8),
+                      ),
+                      decoration: const ShapeDecoration(
+                        shape: CircleBorder(),
+                        color: kPrimaryGreen,
+                      ),
+                      child: Icon(
+                        Icons.camera_alt,
+                        color: Theme.of(context).cardColor,
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
+          );
+        }
+        return Center(child: CircularProgressIndicator());
+      },
     );
   }
 }

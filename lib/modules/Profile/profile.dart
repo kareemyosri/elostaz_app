@@ -28,18 +28,18 @@ class ProfileScreen extends StatelessWidget {
                 if (state is UserDataLoaded) {
                   return Column(
                     children: [
-                      UserProfileImage(imageUrl: state.user.image!),
+                      UserProfileImage(imageUrl: UserCubit.get(context).user.image!),
                       SizedBox(
                         height: getProportionateScreenHeight(8.0),
                       ),
                       Text(
-                        state.user.name!,
+                        UserCubit.get(context).user.name!,
                         style: Theme.of(context).textTheme.headline3!.copyWith(
                               fontWeight: FontWeight.w700,
                             ),
                       ),
                       Text(
-                        state.user.email,
+                        UserCubit.get(context).user.email!,
                         style: Theme.of(context).textTheme.headline4!.copyWith(
                               color: kTextColorAccent,
                             ),

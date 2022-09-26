@@ -17,6 +17,7 @@ class ProfileDetailsScreen extends StatelessWidget {
       body: SafeArea(
         child: BlocBuilder<UserCubit, UserDataState>(
           builder: (BuildContext context, state) {
+            var ProfileImage = UserCubit.get(context).ProfileImage;
             if (state is UserDataLoaded) {
               return Column(
                 children: [
