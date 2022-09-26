@@ -81,7 +81,11 @@ class UserCubit extends Cubit<UserDataState> {
             updatedUser: state.updatedUser.copyWith(image: url)));
       }
       await _databaseRepo.updateUserData(state.updatedUser);
-      emit(state.copyWith(userUpdateStatus: UserUpdateStatus.success));
+
+      emit(state.copyWith(
+        updatedUser: UserModel.empty,
+        userUpdateStatus: UserUpdateStatus.success,
+      ));
     } catch (_) {
       emit(state.copyWith(userUpdateStatus: UserUpdateStatus.error));
     }
