@@ -3,6 +3,8 @@ import 'package:elostaz_app/main.dart';
 import 'package:elostaz_app/modules/login/login_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../modules/profile_details/profile_details_screen.dart';
+
 class AppRouter {
   Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -10,9 +12,9 @@ class AppRouter {
       //   return MaterialPageRoute(
       //     builder: (_) => const HomeBody(),
       //   );
-      case '/SearchPage':
+      case '/ProfileDetailsScreen':
         return MaterialPageRoute(
-          builder: (_) => const SearchPage(),
+          builder: (_) => const ProfileDetailsScreen(),
         );
       // case '/SettingsPage':
       //   return MaterialPageRoute(builder: (_) => const SettingsPage());

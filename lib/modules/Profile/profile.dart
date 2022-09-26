@@ -11,7 +11,6 @@ import '../../share/constants/colors.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
-  static const routeName = 'ProfileDetailsScreen';
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +60,7 @@ class ProfileScreen extends StatelessWidget {
               color: kAccentGreen,
               title: 'My profile',
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProfileDetailsScreen()));
-                //Navigator.of(context).pushNamed(routeName);
+                Navigator.of(context).pushNamed('/ProfileDetailsScreen');
               },
             ),
             SizedBox(
