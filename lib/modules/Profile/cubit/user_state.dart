@@ -1,26 +1,46 @@
 part of 'user_cubit.dart';
 
 abstract class UserDataState extends Equatable {
+  const UserDataState();
+  @override
+  List<Object> get props => [];
+}
+
+class UserDataLoading extends UserDataState {
+}
+
+class UserDataLoaded extends UserDataState {
   final UserModel user;
-  const UserDataState(this.user);
+  const UserDataLoaded({this.user=UserModel.empty});
 
   @override
   List<Object> get props => [user];
 }
 
-class UserDataLoading extends UserDataState {
-  const UserDataLoading() : super(UserModel.empty);
-}
-
-class UserDataLoaded extends UserDataState {
-  const UserDataLoaded(super.user) : super();
-}
-
 class UserDataUpdated extends UserDataState {
-  const UserDataUpdated(super.user) : super();
 }
 
 class UserDataNotLoaded extends UserDataState {
   final String? e;
-  const UserDataNotLoaded({this.e}) : super(UserModel.empty);
+  const UserDataNotLoaded({this.e});
+}
+class ProfileImagePickedSuccessState extends UserDataState {
+  const ProfileImagePickedSuccessState();
+}
+class ProfileImageErrorState extends UserDataState {
+  const ProfileImageErrorState();
+}
+
+class UserUpdateLoadingState extends UserDataState {
+  const UserUpdateLoadingState();
+}
+class UploadProfileImageErrorState extends UserDataState {
+  const UploadProfileImageErrorState();
+}
+
+class UserUpdateErrorState extends UserDataState {
+  const UserUpdateErrorState();
+}
+class UserUpdatedSuccessState extends UserDataState {
+  const UserUpdatedSuccessState();
 }

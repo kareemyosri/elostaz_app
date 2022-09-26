@@ -14,7 +14,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserModel user = context.watch<UserCubit>().state.user;
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -30,18 +29,18 @@ class ProfileScreen extends StatelessWidget {
                 if (state is UserDataLoaded) {
                   return Column(
                     children: [
-                      UserProfileImage(imageUrl: user.image!),
+                      UserProfileImage(imageUrl: state.user.image!),
                       SizedBox(
                         height: getProportionateScreenHeight(8.0),
                       ),
                       Text(
-                        user.name!,
+                        state.user.name!,
                         style: Theme.of(context).textTheme.headline3!.copyWith(
                               fontWeight: FontWeight.w700,
                             ),
                       ),
                       Text(
-                        user.email,
+                        state.user.email,
                         style: Theme.of(context).textTheme.headline4!.copyWith(
                               color: kTextColorAccent,
                             ),

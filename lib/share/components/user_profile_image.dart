@@ -1,3 +1,4 @@
+import 'package:elostaz_app/modules/Profile/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
@@ -24,17 +25,22 @@ class UserProfileImage extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.bottomRight,
-            child: Container(
-              padding: EdgeInsets.all(
-                getProportionateScreenWidth(8),
-              ),
-              decoration: const ShapeDecoration(
-                shape: CircleBorder(),
-                color: kPrimaryGreen,
-              ),
-              child: Icon(
-                Icons.camera_alt,
-                color: Theme.of(context).cardColor,
+            child: GestureDetector(
+              onTap: (){
+                UserCubit.get(context).getProfileImage();
+              },
+              child: Container(
+                padding: EdgeInsets.all(
+                  getProportionateScreenWidth(8),
+                ),
+                decoration: const ShapeDecoration(
+                  shape: CircleBorder(),
+                  color: kPrimaryGreen,
+                ),
+                child: Icon(
+                  Icons.camera_alt,
+                  color: Theme.of(context).cardColor,
+                ),
               ),
             ),
           )
