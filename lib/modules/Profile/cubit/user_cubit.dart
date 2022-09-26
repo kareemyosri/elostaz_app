@@ -30,6 +30,7 @@ class UserCubit extends Cubit<UserDataState> {
     return streamSubscription = _databaseRepo.userData().listen((newUser) {
       emit(state.copyWith(
         user: newUser,
+        updatedUser: newUser,
         userDataStatus: UserDataStatus.loaded,
       ));
     },
@@ -45,9 +46,10 @@ class UserCubit extends Cubit<UserDataState> {
     try {
       if (pickedFile != null) {
         emit(state.copyWith(
-          updatedUser: state.user.copyWith(image: pickedFile.path),
+          updatedUser: state.updatedUser.copyWith(image: pickedFile.path),
           profileImagePickedStatus: ProfileImagePickedStatus.loaded,
         ));
+        print(state.updatedUser.image);
       } else {
         emit(state.copyWith(
             profileImagePickedStatus: ProfileImagePickedStatus.empty));
@@ -73,17 +75,17 @@ class UserCubit extends Cubit<UserDataState> {
   Future<void> updateUserData() async {
     try {
       emit(state.copyWith(userUpdateStatus: UserUpdateStatus.loading));
-      if (state.updatedUser.image != null &&
-          state.updatedUser.image!.isNotEmpty) {
+      if (state.updatedUser.image != state.user.image) {
         String url = await _storageRepo.uploadAvatar(
             file: File(state.updatedUser.image!));
         emit(state.copyWith(
             updatedUser: state.updatedUser.copyWith(image: url)));
       }
+      print(state.updatedUser.toDocument());
+
       await _databaseRepo.updateUserData(state.updatedUser);
 
       emit(state.copyWith(
-        updatedUser: UserModel.empty,
         userUpdateStatus: UserUpdateStatus.success,
       ));
     } catch (_) {

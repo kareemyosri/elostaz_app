@@ -29,8 +29,7 @@ class UserProfileImage extends StatelessWidget {
                     color: kGreyShade5,
                     image: DecorationImage(
                       image: NetworkImage(state.user.image!),
-                      // (context.watch<UserCubit>().state.updatedUser.image ==
-                      //         null)
+                      // (state.user.image == state.updatedUser.image)
                       //     ? NetworkImage(state.user.image!)
                       //     : FileImage(File(state.updatedUser.image!))
                       //         as ImageProvider,

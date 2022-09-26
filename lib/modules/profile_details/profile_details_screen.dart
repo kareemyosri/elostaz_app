@@ -59,7 +59,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                       SizedBox(
                         height: getProportionateScreenHeight(16.0),
                       ),
-                      if (state.updatedUser != UserModel.empty)
+                      if (state.updatedUser != state.user)
                         ElevatedButton(
                           onPressed: () =>
                               UserCubit.get(context).updateUserData(),
