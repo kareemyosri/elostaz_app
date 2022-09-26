@@ -20,56 +20,52 @@ class ProfileDetailsScreen extends StatelessWidget {
       body: SafeArea(
         child: BlocBuilder<UserCubit, UserDataState>(
           builder: (BuildContext context, state) {
-            if (user !=null)
-              {
-                return Column(
-                  children: [
-                    CustomAppBar('My Profile', []),
-                    SizedBox(
-                      height: getProportionateScreenHeight(16.0),
+            if (user != null) {
+              return Column(
+                children: [
+                  CustomAppBar('My Profile', []),
+                  SizedBox(
+                    height: getProportionateScreenHeight(16.0),
+                  ),
+                  // ImageContainer(),
+                  UserProfileImage(imageUrl: user.image!),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: getProportionateScreenWidth(16.0),
                     ),
-                    // ImageContainer(),
-                    UserProfileImage(imageUrl: user.image!),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: getProportionateScreenWidth(16.0),
-                      ),
-                      child: Column(
-                        children: [
-                          Divider(
-                            height: getProportionateScreenHeight(64.0),
-                          ),
-                          InputFormCard(
-                            title: 'Full name',
-                            value:user.name!,
-                          ),
-                          // InputFormCard(
-                          //   title: 'Birthdate',
-                          //   value: '29 February 1200',
-                          // ),
-                          // InputFormCard(
-                          //   title: 'Gender',
-                          //   value: 'Male',
-                          // ),
-                          InputFormCard(
-                            title: 'Email',
-                            value: user.email!,
-                          ),
-                          InputFormCard(
-                            title: 'Phone number',
-                            value: user.phone!,
-                          ),
-                        ],
-                      ),
+                    child: Column(
+                      children: [
+                        Divider(
+                          height: getProportionateScreenHeight(64.0),
+                        ),
+                        InputFormCard(
+                          title: 'Full name',
+                          value: user.name!,
+                        ),
+                        // InputFormCard(
+                        //   title: 'Birthdate',
+                        //   value: '29 February 1200',
+                        // ),
+                        // InputFormCard(
+                        //   title: 'Gender',
+                        //   value: 'Male',
+                        // ),
+                        InputFormCard(
+                          title: 'Email',
+                          value: user.email!,
+                        ),
+                        InputFormCard(
+                          title: 'Phone number',
+                          value: user.phone!,
+                        ),
+                      ],
                     ),
-                  ],
-                );
-              }
-
-            else
+                  ),
+                ],
+              );
+            } else
               return const CircularProgressIndicator();
           },
-
         ),
       ),
     );
