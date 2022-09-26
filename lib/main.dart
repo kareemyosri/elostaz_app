@@ -44,24 +44,11 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // print(constraints.maxWidth);
-        final customTheme = CustomTheme(constraints);
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primarySwatch: Colors.green,
-            textTheme: customTheme.nunito(),
-            elevatedButtonTheme: customTheme.elevatedButtonTheme(),
-            outlinedButtonTheme: customTheme.outlinedButtonTheme(),
-          ),
-          home: FlowBuilder<AuthStatus>(
-            state: context.select((AuthBloc bloc) => bloc.state.status),
-            onGeneratePages: onGenerateAppViewPages,
-          ),
-        );
-      },
+    return MaterialApp(
+      home: FlowBuilder<AuthStatus>(
+        state: context.select((AuthBloc bloc) => bloc.state.status),
+        onGeneratePages: onGenerateAppViewPages,
+      ),
     );
   }
 }
@@ -73,16 +60,29 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     String uid = context.read<AuthBloc>().state.user.uid;
     final DatabaseRepo databaseRepo = DatabaseRepo(uid: uid);
-    final AppRouter _appRouter = AppRouter();
+    final AppRouter appRouter = AppRouter();
     return MultiBlocProvider(
         providers: [
           BlocProvider<AppCubit>(create: ((context) => AppCubit())),
           BlocProvider<UserCubit>(
               create: ((context) => UserCubit(databaseRepo: databaseRepo))),
         ],
-        child: MaterialApp(
-          onGenerateRoute: _appRouter.onGenerateRoute,
-          home: const LayoutScreen(),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            // print(constraints.maxWidth);
+            final customTheme = CustomTheme(constraints);
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                primarySwatch: Colors.green,
+                textTheme: customTheme.nunito(),
+                elevatedButtonTheme: customTheme.elevatedButtonTheme(),
+                outlinedButtonTheme: customTheme.outlinedButtonTheme(),
+              ),
+              onGenerateRoute: appRouter.onGenerateRoute,
+              home: const LayoutScreen(),
+            );
+          },
         ));
   }
 }
