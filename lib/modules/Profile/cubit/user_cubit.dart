@@ -49,7 +49,6 @@ class UserCubit extends Cubit<UserDataState> {
           updatedUser: state.updatedUser.copyWith(image: pickedFile.path),
           profileImagePickedStatus: ProfileImagePickedStatus.loaded,
         ));
-        print(state.updatedUser.image);
       } else {
         emit(state.copyWith(
             profileImagePickedStatus: ProfileImagePickedStatus.empty));

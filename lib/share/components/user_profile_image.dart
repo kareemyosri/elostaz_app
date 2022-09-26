@@ -18,6 +18,8 @@ class UserProfileImage extends StatelessWidget {
     return BlocBuilder<UserCubit, UserDataState>(
       builder: (BuildContext context, state) {
         if (state.userDataStatus == UserDataStatus.loaded) {
+          print(
+              'image link: ${state.user.image} || ${state.updatedUser.image}');
           return Container(
             height: getProportionateScreenWidth(112),
             width: getProportionateScreenWidth(112),
@@ -28,11 +30,10 @@ class UserProfileImage extends StatelessWidget {
                     shape: const CircleBorder(),
                     color: kGreyShade5,
                     image: DecorationImage(
-                      image: NetworkImage(state.user.image!),
-                      // (state.user.image == state.updatedUser.image)
-                      //     ? NetworkImage(state.user.image!)
-                      //     : FileImage(File(state.updatedUser.image!))
-                      //         as ImageProvider,
+                      image: (state.updatedUser.image!.startsWith('https://'))
+                          ? NetworkImage(state.user.image!)
+                          : FileImage(File(state.updatedUser.image!))
+                              as ImageProvider,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -40,9 +41,7 @@ class UserProfileImage extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: GestureDetector(
-                    onTap: () {
-                      UserCubit.get(context).getProfileImage();
-                    },
+                    onTap: () => UserCubit.get(context).getProfileImage(),
                     child: Container(
                       padding: EdgeInsets.all(
                         getProportionateScreenWidth(8),
