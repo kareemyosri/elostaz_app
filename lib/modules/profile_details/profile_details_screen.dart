@@ -11,7 +11,6 @@ import '../Profile/cubit/user_cubit.dart';
 class ProfileDetailsScreen extends StatelessWidget {
   const ProfileDetailsScreen({super.key});
 
-  //static const routeName = 'myProfile';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,11 +49,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                         // ),
                         InputFormCard(
                           title: 'Email',
-<<<<<<< HEAD
-                          value: user.email,
-=======
-                          value: state.user.email!,
->>>>>>> ba061899954528c9da1976846597e3b499d65ce7
+                          value: state.user.email,
                         ),
                         InputFormCard(
                           title: 'Phone number',
@@ -67,18 +62,18 @@ class ProfileDetailsScreen extends StatelessWidget {
                           onPressed: () {
                             //Navigator.of(context).pushNamed(LoginScreen.routeName);
                           },
-                          child: Text(
+                          child: const Text(
                             'Update',
                           ),
                         ),
-
                       ],
                     ),
                   ),
                 ],
               );
-            } else
+            } else {
               return const CircularProgressIndicator();
+            }
           },
         ),
       ),

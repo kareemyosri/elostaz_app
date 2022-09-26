@@ -4,6 +4,7 @@ import 'package:elostaz_app/layout/cubit/app_cubit.dart';
 import 'package:elostaz_app/modules/Profile/cubit/user_cubit.dart';
 import 'package:elostaz_app/repo/auth.dart';
 import 'package:elostaz_app/repo/db.dart';
+import 'package:elostaz_app/repo/storage.dart';
 import 'package:elostaz_app/share/observer.dart';
 import 'package:elostaz_app/share/router/router.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -42,7 +43,6 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return LayoutBuilder(
       builder: (context, constraints) {
         // print(constraints.maxWidth);
@@ -69,14 +69,6 @@ class Wrapper extends StatelessWidget {
               ),
             ));
       },
-=======
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: FlowBuilder<AuthStatus>(
-        state: context.select((AuthBloc bloc) => bloc.state.status),
-        onGeneratePages: onGenerateAppViewPages,
-      ),
->>>>>>> ba061899954528c9da1976846597e3b499d65ce7
     );
   }
 }
@@ -88,12 +80,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     String uid = context.read<AuthBloc>().state.user.uid;
     final DatabaseRepo databaseRepo = DatabaseRepo(uid: uid);
+    final StorageRepo storageRepo = StorageRepo(uid: uid);
     final AppRouter appRouter = AppRouter();
     return MultiBlocProvider(
         providers: [
           BlocProvider<AppCubit>(create: ((context) => AppCubit())),
           BlocProvider<UserCubit>(
-              create: ((context) => UserCubit(databaseRepo: databaseRepo))),
+              create: ((context) => UserCubit(
+                    databaseRepo: databaseRepo,
+                    storageRepo: storageRepo,
+                  ))),
         ],
         child: LayoutBuilder(
           builder: (context, constraints) {
