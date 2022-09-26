@@ -73,11 +73,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     String uid = context.read<AuthBloc>().state.user.uid;
     final DatabaseRepo databaseRepo = DatabaseRepo(uid: uid);
-
-    return MultiBlocProvider(providers: [
-      BlocProvider<AppCubit>(create: ((context) => AppCubit())),
-      BlocProvider<UserCubit>(
-          create: ((context) => UserCubit(databaseRepo: databaseRepo))),
-    ], child: const LayoutScreen());
+    final AppRouter _appRouter = AppRouter();
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<AppCubit>(create: ((context) => AppCubit())),
+          BlocProvider<UserCubit>(
+              create: ((context) => UserCubit(databaseRepo: databaseRepo))),
+        ],
+        child: MaterialApp(
+          onGenerateRoute: _appRouter.onGenerateRoute,
+          home: const LayoutScreen(),
+        ));
   }
 }
