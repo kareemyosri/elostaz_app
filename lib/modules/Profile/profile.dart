@@ -1,5 +1,6 @@
 import 'package:elostaz_app/models/user/userModel.dart';
 import 'package:elostaz_app/modules/Profile/cubit/user_cubit.dart';
+import 'package:elostaz_app/modules/profile_details/profile_details_screen.dart';
 import 'package:elostaz_app/share/utils/screen_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import '../../share/constants/colors.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
+  static const routeName = 'ProfileDetailsScreen';
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +61,11 @@ class ProfileScreen extends StatelessWidget {
               color: kAccentGreen,
               title: 'My profile',
               onTap: () {
-                // Navigator.of(context).pushNamed(MyProfileScreen.routeName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProfileDetailsScreen()));
+                //Navigator.of(context).pushNamed(routeName);
               },
             ),
             SizedBox(
