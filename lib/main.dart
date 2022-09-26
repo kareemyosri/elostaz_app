@@ -2,7 +2,6 @@ import 'package:elostaz_app/layout/app_layout.dart';
 import 'package:elostaz_app/layout/bloc/auth_bloc.dart';
 import 'package:elostaz_app/layout/cubit/app_cubit.dart';
 import 'package:elostaz_app/modules/Profile/cubit/user_cubit.dart';
-import 'package:elostaz_app/modules/register/register_screen.dart';
 import 'package:elostaz_app/repo/auth.dart';
 import 'package:elostaz_app/repo/db.dart';
 import 'package:elostaz_app/share/observer.dart';
@@ -11,7 +10,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'modules/login/login_screen.dart';
 import 'share/utils/custom_theme.dart';
 
 void main() async {
@@ -44,12 +42,41 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // print(constraints.maxWidth);
+        final customTheme = CustomTheme(constraints);
+        return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              primarySwatch: Colors.green,
+              textTheme: customTheme.nunito(),
+              elevatedButtonTheme: customTheme.elevatedButtonTheme(),
+              outlinedButtonTheme: customTheme.outlinedButtonTheme(),
+            ),
+            home: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                primarySwatch: Colors.green,
+                textTheme: customTheme.nunito(),
+                elevatedButtonTheme: customTheme.elevatedButtonTheme(),
+                outlinedButtonTheme: customTheme.outlinedButtonTheme(),
+              ),
+              home: FlowBuilder<AuthStatus>(
+                state: context.select((AuthBloc bloc) => bloc.state.status),
+                onGeneratePages: onGenerateAppViewPages,
+              ),
+            ));
+      },
+=======
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FlowBuilder<AuthStatus>(
         state: context.select((AuthBloc bloc) => bloc.state.status),
         onGeneratePages: onGenerateAppViewPages,
       ),
+>>>>>>> ba061899954528c9da1976846597e3b499d65ce7
     );
   }
 }
