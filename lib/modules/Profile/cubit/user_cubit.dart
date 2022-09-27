@@ -78,7 +78,7 @@ class UserCubit extends Cubit<UserDataState> {
   }
 
   void updateEmail(String value) {
-    Email email = Email.dirty(value);
+    Email email = Email.dirty(value.trim());
     emit(state.copyWith(
         updatedEmail: email,
         updatedUserStatus: Formz.validate([
@@ -90,7 +90,7 @@ class UserCubit extends Cubit<UserDataState> {
   }
 
   void updatePhone(String value) {
-    Phone phone = Phone.dirty(value);
+    Phone phone = Phone.dirty(value.trim());
     emit(state.copyWith(
         updatedPhone: phone,
         updatedUserStatus: Formz.validate([
