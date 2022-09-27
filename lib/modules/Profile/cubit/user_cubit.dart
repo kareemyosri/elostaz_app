@@ -4,8 +4,10 @@ import 'dart:io';
 import 'package:elostaz_app/models/user/userModel.dart';
 import 'package:elostaz_app/repo/db.dart';
 import 'package:elostaz_app/repo/storage.dart';
+import 'package:elostaz_app/share/form_validator.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:image_picker/image_picker.dart';
 part 'user_state.dart';
 
@@ -31,6 +33,9 @@ class UserCubit extends Cubit<UserDataState> {
       emit(state.copyWith(
         user: newUser,
         updatedUser: newUser,
+        updatedName: Name.dirty(newUser.name!),
+        updatedEmail: Email.dirty(newUser.email),
+        updatedPhone: Phone.dirty(newUser.phone!),
         userDataStatus: UserDataStatus.loaded,
       ));
     },
@@ -39,9 +44,9 @@ class UserCubit extends Cubit<UserDataState> {
             )));
   }
 
-  ImagePicker picker = ImagePicker();
-
   Future<void> getProfileImage() async {
+    ImagePicker picker = ImagePicker();
+
     var pickedFile = await picker.pickImage(source: ImageSource.gallery);
     try {
       if (pickedFile != null) {
@@ -60,15 +65,40 @@ class UserCubit extends Cubit<UserDataState> {
   }
 
   void updateName(String value) {
-    emit(state.copyWith(updatedUser: state.updatedUser.copyWith(name: value)));
+    Name name = Name.dirty(value);
+
+    emit(state.copyWith(
+        updatedName: name,
+        updatedUserStatus: Formz.validate([
+          name,
+          state.updatedEmail,
+          state.updatedPhone,
+        ]),
+        updatedUser: state.updatedUser.copyWith(name: value)));
   }
 
   void updateEmail(String value) {
-    emit(state.copyWith(updatedUser: state.updatedUser.copyWith(email: value)));
+    Email email = Email.dirty(value);
+    emit(state.copyWith(
+        updatedEmail: email,
+        updatedUserStatus: Formz.validate([
+          state.updatedName,
+          email,
+          state.updatedPhone,
+        ]),
+        updatedUser: state.updatedUser.copyWith(email: value)));
   }
 
   void updatePhone(String value) {
-    emit(state.copyWith(updatedUser: state.updatedUser.copyWith(phone: value)));
+    Phone phone = Phone.dirty(value);
+    emit(state.copyWith(
+        updatedPhone: phone,
+        updatedUserStatus: Formz.validate([
+          state.updatedName,
+          state.updatedEmail,
+          phone,
+        ]),
+        updatedUser: state.updatedUser.copyWith(phone: value)));
   }
 
   Future<void> updateUserData() async {
@@ -88,6 +118,10 @@ class UserCubit extends Cubit<UserDataState> {
     } catch (_) {
       emit(state.copyWith(userUpdateStatus: UserUpdateStatus.error));
     }
+  }
+
+  void initUpdateStatus() {
+    emit(state.copyWith(userUpdateStatus: UserUpdateStatus.inital));
   }
   // void UploadProfileImage({
   //   String? name,

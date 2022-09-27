@@ -10,15 +10,23 @@ enum UserUpdateStatus { inital, loading, success, error }
 class UserDataState extends Equatable {
   final UserModel user;
   final UserModel updatedUser;
+  final FormzStatus updatedUserStatus;
+  final Name updatedName;
+  final Email updatedEmail;
+  final Phone updatedPhone;
   final UserDataStatus userDataStatus;
   final UserUpdateStatus userUpdateStatus;
   final ProfileImagePickedStatus profileImagePickedStatus;
   const UserDataState({
     this.user = UserModel.empty,
     this.updatedUser = UserModel.empty,
+    this.updatedName = const Name.pure(),
+    this.updatedEmail = const Email.pure(),
+    this.updatedPhone = const Phone.pure(),
+    this.updatedUserStatus = FormzStatus.pure,
     this.userDataStatus = UserDataStatus.inital,
-    this.profileImagePickedStatus = ProfileImagePickedStatus.inital,
     this.userUpdateStatus = UserUpdateStatus.inital,
+    this.profileImagePickedStatus = ProfileImagePickedStatus.inital,
   });
 
   @override
@@ -26,14 +34,21 @@ class UserDataState extends Equatable {
         user,
         updatedUser,
         userDataStatus,
+        updatedPhone,
+        updatedEmail,
+        updatedPhone,
+        userUpdateStatus,
+        updatedUserStatus,
         profileImagePickedStatus,
-        userUpdateStatus
       ];
 
   UserDataState copyWith({
     UserModel? user,
     UserModel? updatedUser,
-    String? profileImage,
+    Name? updatedName,
+    Email? updatedEmail,
+    Phone? updatedPhone,
+    FormzStatus? updatedUserStatus,
     UserDataStatus? userDataStatus,
     ProfileImagePickedStatus? profileImagePickedStatus,
     UserUpdateStatus? userUpdateStatus,
@@ -41,7 +56,11 @@ class UserDataState extends Equatable {
     return UserDataState(
       user: user ?? this.user,
       updatedUser: updatedUser ?? this.updatedUser,
+      updatedName: updatedName ?? this.updatedName,
+      updatedEmail: updatedEmail ?? this.updatedEmail,
+      updatedPhone: updatedPhone ?? this.updatedPhone,
       userDataStatus: userDataStatus ?? this.userDataStatus,
+      updatedUserStatus: updatedUserStatus ?? this.updatedUserStatus,
       profileImagePickedStatus:
           profileImagePickedStatus ?? this.profileImagePickedStatus,
       userUpdateStatus: userUpdateStatus ?? this.userUpdateStatus,

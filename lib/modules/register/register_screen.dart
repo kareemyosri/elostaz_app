@@ -147,11 +147,10 @@ class SignupScreenBody extends StatelessWidget {
                     ),
                     const Spacer(),
                     OptionButton(
-                        desc: 'Have an account? ',
-                        method: 'Login',
-                        onPressHandler: () => Navigator.of(context)
-                            .pop() // Navigator.of(context).push<void>(LoginScreen.page()),
-                        ),
+                      desc: 'Have an account? ',
+                      method: 'Login',
+                      onPressHandler: () => Navigator.of(context).pop(),
+                    ),
                     const Spacer(),
                   ],
                 ),
