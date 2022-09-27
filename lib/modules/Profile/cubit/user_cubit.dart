@@ -65,7 +65,7 @@ class UserCubit extends Cubit<UserDataState> {
   }
 
   void updateName(String value) {
-    Name name = Name.dirty(value);
+    Name name = Name.dirty(value.trim());
 
     emit(state.copyWith(
         updatedName: name,

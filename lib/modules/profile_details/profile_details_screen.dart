@@ -79,7 +79,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                         title: 'Phone number',
                         value: state.user.phone!,
                         errorText: state.updatedPhone.invalid
-                            ? 'Wrong phone format (11 chars)'
+                            ? 'Wrong phone format (11 chars is required)'
                             : null,
                         onChanged: (value) =>
                             UserCubit.get(context).updatePhone(value),
