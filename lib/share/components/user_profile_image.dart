@@ -20,8 +20,6 @@ class UserProfileImage extends StatelessWidget {
     return BlocBuilder<UserCubit, UserDataState>(
       builder: (BuildContext context, state) {
         if (state.userDataStatus == UserDataStatus.loaded) {
-          print(
-              'image link: ${state.user.image} || ${state.updatedUser.image}');
           return Container(
             height: getProportionateScreenWidth(112),
             width: getProportionateScreenWidth(112),
@@ -56,6 +54,7 @@ class UserProfileImage extends StatelessWidget {
                             child: Icon(
                               Icons.camera_alt,
                               color: Theme.of(context).cardColor,
+                              size: 20,
                             ),
                           ),
                         ),
