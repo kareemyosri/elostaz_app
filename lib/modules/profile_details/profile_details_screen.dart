@@ -1,4 +1,5 @@
 import 'package:elostaz_app/models/user/userModel.dart';
+import 'package:elostaz_app/share/components/custom_toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +16,18 @@ class ProfileDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: BlocBuilder<UserCubit, UserDataState>(
+        child: BlocConsumer<UserCubit, UserDataState>(
+            listener: (BuildContext context, state){
+              if (state.userUpdateStatus==UserUpdateStatus.success )
+                {
+                  showtoast(text: 'Profile Updated Successfully', state: ToastStates.SUCCESS);
+                  Navigator.pop(context);
+                }
+               else if(state.userUpdateStatus==UserUpdateStatus.error )
+              {
+                showtoast(text: 'Error while updating Profile', state: ToastStates.ERROR);
+              }
+            },
             builder: (BuildContext context, state) {
           if (state.userDataStatus == UserDataStatus.loaded) {
             return Column(
