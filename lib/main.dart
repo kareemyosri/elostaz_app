@@ -14,7 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'share/utils/custom_theme.dart';
 
 void main() async {
-  // Bloc.observer = AppBlocObserver();
+  Bloc.observer = AppBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
