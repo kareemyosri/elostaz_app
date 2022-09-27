@@ -30,10 +30,6 @@ class ProfileDetailsScreen extends StatelessWidget {
           }
         }, builder: (BuildContext context, state) {
           if (state.userDataStatus == UserDataStatus.loaded) {
-            print(state.updatedName);
-            print(state.updatedEmail);
-            print(state.updatedPhone);
-            print(state.updatedUserStatus);
             return Column(
               children: [
                 const CustomAppBar('My Profile', []),
