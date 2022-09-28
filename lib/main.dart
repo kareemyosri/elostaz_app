@@ -84,7 +84,7 @@ class HomePage extends StatelessWidget {
     final AppRouter appRouter = AppRouter();
     return MultiBlocProvider(
         providers: [
-          BlocProvider<AppCubit>(create: ((context) => AppCubit())),
+          BlocProvider<AppCubit>(create: ((context) => AppCubit()..GetAllProducts())),
           BlocProvider<UserCubit>(
               create: ((context) => UserCubit(
                     databaseRepo: databaseRepo,

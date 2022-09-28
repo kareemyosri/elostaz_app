@@ -5,3 +5,4 @@ abstract class AppState {}
 class AppInitial extends AppState {}
 
 class ChangeBottomNacBarState extends AppState {}
+class GetProductSuccessState extends AppState {}
