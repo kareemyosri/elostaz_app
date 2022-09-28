@@ -15,7 +15,7 @@ class BookModel extends Equatable {
   final String? image;
   final int stock;
   final Timestamp? publishedDate;
- // final CategoryModel? category;
+  final CategoryModel? category;
   const BookModel({
     this.description,
     required this.grade,
@@ -25,7 +25,7 @@ class BookModel extends Equatable {
     this.image,
     required this.stock,
     this.publishedDate,
-    //this.category,
+    this.category,
   });
 
   static const empty = BookModel(
@@ -38,8 +38,14 @@ class BookModel extends Equatable {
   bool get isNotEmpty => this != BookModel.empty;
 
   @override
-  List<Object?> get props =>
-      [grade, name, price, stock, publishedDate, ];   //category
+  List<Object?> get props => [
+        grade,
+        name,
+        price,
+        stock,
+        publishedDate,
+        category,
+      ];
 
   factory BookModel.fromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
@@ -78,7 +84,7 @@ class BookModel extends Equatable {
   factory BookModel.fromMap(Map<String, dynamic> map) {
     return BookModel(
       description:
-      map['description'] != null ? map['description'] as String : null,
+          map['description'] != null ? map['description'] as String : null,
       grade: map['grade'] as String,
       name: map['name'] as String,
       old_price: map['old_price'] != null ? map['old_price'] as int : null,
@@ -88,12 +94,35 @@ class BookModel extends Equatable {
       publishedDate: map['publishedDate'] != null
           ? map['publishedDate'] as Timestamp
           : null,
-      // category: map['category'] != null
-      //     ? CategoryModel.fromMap(map['category'] as Map<String, dynamic>)
-      //     : null,
+      category: map['category'] != null
+          ? CategoryModel.fromMap(map['category'] as Map<String, dynamic>)
+          : null,
     );
   }
 
   factory BookModel.fromJson(String source) =>
       BookModel.fromMap(json.decode(source) as Map<String, dynamic>);
+}
+
+class BookModelWithCategory extends Equatable {
+  final BookModel bookModel;
+  final CategoryModel categoryModel;
+
+  const BookModelWithCategory({
+    this.bookModel = BookModel.empty,
+    this.categoryModel = CategoryModel.empty,
+  });
+
+  @override
+  List<Object?> get props => [bookModel, categoryModel];
+
+  BookModelWithCategory copyWith({
+    BookModel? bookModel,
+    CategoryModel? categoryModel,
+  }) {
+    return BookModelWithCategory(
+      bookModel: bookModel ?? this.bookModel,
+      categoryModel: categoryModel ?? this.categoryModel,
+    );
+  }
 }
