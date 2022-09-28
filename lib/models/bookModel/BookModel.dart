@@ -1,6 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+
+import 'package:elostaz_app/models/categoryModel/CategoryModel.dart';
 
 class BookModel extends Equatable {
   final String? description;
@@ -10,7 +14,8 @@ class BookModel extends Equatable {
   final int price;
   final String? image;
   final int stock;
-  final DateTime? publishedDate;
+  final Timestamp? publishedDate;
+ // final CategoryModel? category;
   const BookModel({
     this.description,
     required this.grade,
@@ -20,9 +25,11 @@ class BookModel extends Equatable {
     this.image,
     required this.stock,
     this.publishedDate,
+    //this.category,
   });
 
-  static const empty = BookModel(grade: '', name: '', price: 0, stock: 0);
+  static const empty = BookModel(
+      grade: '', name: '', price: 0, stock: 0); //category: CategoryModel.empty
 
   /// Convenience getter to determine whether the current user is empty.
   bool get isEmpty => this == BookModel.empty;
@@ -31,7 +38,8 @@ class BookModel extends Equatable {
   bool get isNotEmpty => this != BookModel.empty;
 
   @override
-  List<Object?> get props => [grade, name, price, stock, publishedDate];
+  List<Object?> get props =>
+      [grade, name, price, stock, publishedDate, ];   //category
 
   factory BookModel.fromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
@@ -53,7 +61,7 @@ class BookModel extends Equatable {
     int? price,
     String? image,
     int? stock,
-    DateTime? publishedDate,
+    Timestamp? publishedDate,
   }) {
     return BookModel(
       description: description ?? this.description,
@@ -66,4 +74,26 @@ class BookModel extends Equatable {
       publishedDate: publishedDate ?? this.publishedDate,
     );
   }
+
+  factory BookModel.fromMap(Map<String, dynamic> map) {
+    return BookModel(
+      description:
+      map['description'] != null ? map['description'] as String : null,
+      grade: map['grade'] as String,
+      name: map['name'] as String,
+      old_price: map['old_price'] != null ? map['old_price'] as int : null,
+      price: map['price'] as int,
+      image: map['image'] != null ? map['image'] as String : null,
+      stock: map['stock'] as int,
+      publishedDate: map['publishedDate'] != null
+          ? map['publishedDate'] as Timestamp
+          : null,
+      // category: map['category'] != null
+      //     ? CategoryModel.fromMap(map['category'] as Map<String, dynamic>)
+      //     : null,
+    );
+  }
+
+  factory BookModel.fromJson(String source) =>
+      BookModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
