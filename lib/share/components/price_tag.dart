@@ -3,8 +3,10 @@ import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 
 class PriceTag extends StatelessWidget {
+  final int price;
   const PriceTag({
     Key? key,
+    required this.price,
   }) : super(key: key);
 
   @override
@@ -23,7 +25,7 @@ class PriceTag extends StatelessWidget {
         ),
       ),
       child: Text(
-        '\$56',
+        '${price}',
         style: Theme.of(context).textTheme.headline3!.copyWith(
               color: kPrimaryGreen,
             ),

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../share/constants/colors.dart';
 import '../../share/utils/screen_utils.dart';
+import '../product_details/productDetailsScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -44,8 +45,8 @@ class HomeScreen extends StatelessWidget {
                     itemCount: model.length ,
                     itemBuilder: (context, index) => GestureDetector(
                       onTap: () {
-                        // Navigator.of(context)
-                        //     .pushNamed(DragonFruitScreen.routeName);
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(model:model[index] ,)));
+                          
                       },
                       child: IndiDealCardWithDiscount(
                         model: model[index],

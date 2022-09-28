@@ -6,3 +6,7 @@ class AppInitial extends AppState {}
 
 class ChangeBottomNacBarState extends AppState {}
 class GetProductSuccessState extends AppState {}
+
+class minusQuantitySuccessState extends AppState {}
+class plusQuantitySuccessState extends AppState {}
+class changeTabSuccessState extends AppState {}
