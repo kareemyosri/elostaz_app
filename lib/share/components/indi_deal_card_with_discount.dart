@@ -1,3 +1,4 @@
+import 'package:elostaz_app/models/bookModel/BookModel.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
@@ -8,12 +9,14 @@ class IndiDealCardWithDiscount extends StatelessWidget {
   final bool isLeft;
   final bool isSelected;
   final VoidCallback addHandler;
+  final BookModel model;
 
   const IndiDealCardWithDiscount({
     Key? key,
     required this.isLeft,
     required this.isSelected,
     required this.addHandler,
+    required this.model,
   }) : super(key: key);
 
   @override
@@ -70,14 +73,14 @@ class IndiDealCardWithDiscount extends StatelessWidget {
                   const DiscoutText(),
                   const Spacer(),
                   Text(
-                    'Dragon Fruit',
+                    model.name,
                     style: Theme.of(context).textTheme.headline4!.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
                   ),
                   const Spacer(),
                   Text(
-                    '200gr',
+                    model.category!.name,
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(12),
                       color: kTextColorAccent,
@@ -92,8 +95,8 @@ class IndiDealCardWithDiscount extends StatelessWidget {
                             image: AssetImage('assets/images/Divider.png'),
                           ),
                         ),
-                        child: const Text(
-                          '\$90',
+                        child: Text(
+                          '${model.old_price}',
                           style: TextStyle(
                             color: kTextColorAccent,
                           ),
@@ -105,7 +108,7 @@ class IndiDealCardWithDiscount extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: Text(
-                          '\$45',
+                          '${model.price}',
                           style: Theme.of(context).textTheme.headline5,
                         ),
                       ),

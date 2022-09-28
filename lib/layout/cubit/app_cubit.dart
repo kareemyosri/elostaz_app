@@ -55,12 +55,12 @@ class AppCubit extends Cubit<AppState> {
           Map<String, dynamic> data = element.data();
           data.addAll({
             'category':
-                CategoryModel.fromMap(category.data() as Map<String, dynamic>)
+                category.data()
           });
           products.add(BookModel.fromMap(data));
           print(products);
-          // products.add(BookModel.fromMap(element.data()));
-          // print(element.data());
+          emit(GetProductSuccessState());
+
         });
       });
       emit(GetProductSuccessState());
