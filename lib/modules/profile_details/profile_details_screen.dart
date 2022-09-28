@@ -108,7 +108,7 @@ class ProfileDetailsScreen extends StatelessWidget {
     );
   }
 }
-
+// This comment will be deleted
 class InputFormCard extends StatelessWidget {
   const InputFormCard({
     Key? key,
@@ -145,6 +145,7 @@ class InputFormCard extends StatelessWidget {
               fontSize: getProportionateScreenWidth(17),
             ),
             decoration: InputDecoration(
+              errorMaxLines: 2,
               errorText: errorText,
               errorStyle: const TextStyle(color: Colors.red),
               border: InputBorder.none,
