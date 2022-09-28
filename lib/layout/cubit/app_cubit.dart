@@ -40,10 +40,11 @@ class AppCubit extends Cubit<AppState> {
   void GetAllProducts() {
     FirebaseFirestore.instance
         .collection('products')
-        .orderBy('publishedDate')
+        .where('displayDate', isGreaterThanOrEqualTo: Timestamp.now())
+        .orderBy('displayDate')
         .snapshots()
         .listen((event) {
-      BookModelWithCategory;
+      //BookModelWithCategory;
 
       products = [];
       event.docs.forEach((element) async {
@@ -53,17 +54,34 @@ class AppCubit extends Cubit<AppState> {
             .get()
             .then((category) {
           Map<String, dynamic> data = element.data();
-          data.addAll({
-            'category':
-                category.data()
-          });
+          data.addAll({'category': category.data()});
           products.add(BookModel.fromMap(data));
           print(products);
           emit(GetProductSuccessState());
-
         });
       });
-      emit(GetProductSuccessState());
     });
+  }
+
+  int quantity = 0;
+  var textController = TextEditingController(text: '1');
+  void minusQuantity() {
+    quantity = int.parse(textController.text);
+    quantity--;
+    textController.text = quantity.toString();
+    emit(minusQuantitySuccessState());
+  }
+
+  void plusQuantity() {
+    quantity = int.parse(textController.text);
+    quantity++;
+    textController.text = quantity.toString();
+    emit(plusQuantitySuccessState());
+  }
+
+  bool isReviewTab = false;
+  void changeTab() {
+    isReviewTab = !isReviewTab;
+    emit(changeTabSuccessState());
   }
 }
