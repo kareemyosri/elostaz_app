@@ -4,7 +4,8 @@ import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 
 class DiscoutText extends StatelessWidget {
-  const DiscoutText({Key? key}) : super(key: key);
+  final int percent;
+  const DiscoutText({required this.percent, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +17,9 @@ class DiscoutText extends StatelessWidget {
         shape: StadiumBorder(),
         color: kAlertColor,
       ),
-      child: const Text(
-        'Disc 40%',
-        style: TextStyle(
+      child: Text(
+        'Disc $percent%',
+        style: const TextStyle(
           color: Colors.white,
         ),
       ),

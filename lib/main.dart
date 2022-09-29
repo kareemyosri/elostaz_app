@@ -1,7 +1,9 @@
 import 'package:elostaz_app/layout/app_layout.dart';
 import 'package:elostaz_app/layout/bloc/auth_bloc.dart';
 import 'package:elostaz_app/layout/cubit/app_cubit.dart';
+import 'package:elostaz_app/modules/Home/bloc/product_bloc.dart';
 import 'package:elostaz_app/modules/Profile/cubit/user_cubit.dart';
+import 'package:elostaz_app/modules/product_details.dart/cubit/product_count_cubit.dart';
 import 'package:elostaz_app/repo/auth.dart';
 import 'package:elostaz_app/repo/db.dart';
 import 'package:elostaz_app/repo/storage.dart';
@@ -84,7 +86,12 @@ class HomePage extends StatelessWidget {
     final AppRouter appRouter = AppRouter();
     return MultiBlocProvider(
         providers: [
-          BlocProvider<AppCubit>(create: ((context) => AppCubit()..GetAllProducts())),
+          BlocProvider<AppCubit>(create: ((context) => AppCubit())),
+          BlocProvider<ProductBloc>(
+              create: ((context) =>
+                  ProductBloc(databaseRepo: databaseRepo)..add(LoadProduct()))),
+          BlocProvider<ProductCountCubit>(
+              create: ((context) => ProductCountCubit())),
           BlocProvider<UserCubit>(
               create: ((context) => UserCubit(
                     databaseRepo: databaseRepo,

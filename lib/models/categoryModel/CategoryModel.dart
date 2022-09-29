@@ -65,5 +65,6 @@ class CategoryModel extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory CategoryModel.fromJson(String source) => CategoryModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory CategoryModel.fromJson(String source) =>
+      CategoryModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

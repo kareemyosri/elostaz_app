@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:elostaz_app/models/bookModel/BookModel.dart';
+import 'package:elostaz_app/models/categoryModel/CategoryModel.dart';
 import 'package:elostaz_app/models/user/userModel.dart';
 
 /// Thrown if during the Data fetching process if a failure occurs.
@@ -15,8 +17,10 @@ class DatabaseRepo {
   /// collection references
   final CollectionReference _usersCollection =
       FirebaseFirestore.instance.collection('users');
-  // final CollectionReference _friendsCollection =
-  //     FirebaseFirestore.instance.collection('Friends');
+  final CollectionReference _categoriesCollection =
+      FirebaseFirestore.instance.collection('categories');
+  final CollectionReference _productsCollection =
+      FirebaseFirestore.instance.collection('products');
   // final CollectionReference _messagesCollection =
   //     FirebaseFirestore.instance.collection('Messages');
   // final CollectionReference _postsCollection =
@@ -40,4 +44,30 @@ class DatabaseRepo {
 
   /// Function to delete user data
   Future<void> deleteUser() async => _usersCollection.doc(_uid).delete();
+
+  ///  Function to get category data
+  Future<CategoryModel> getCategoryData(String categoryId) {
+    return _categoriesCollection
+        .doc(categoryId)
+        .get()
+        .then(CategoryModel.fromSnapshot);
+  }
+
+  /// Function to get book data
+  Stream<List<Future<BookModelWithCategory>>> getBooksData() {
+    return _productsCollection
+        .where('displayDate', isGreaterThanOrEqualTo: Timestamp.now())
+        .orderBy('displayDate')
+        .snapshots()
+        .map((books) => books.docs.map((book) async {
+              Map<String, dynamic> bookData =
+                  book.data() as Map<String, dynamic>;
+              BookModelWithCategory bookModelWithCategory =
+                  BookModelWithCategory(
+                      bookModel: BookModel.fromSnapshot(book),
+                      categoryModel:
+                          await getCategoryData(bookData['category']));
+              return bookModelWithCategory;
+            }).toList());
+  }
 }

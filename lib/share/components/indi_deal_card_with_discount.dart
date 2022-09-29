@@ -1,3 +1,4 @@
+import 'package:elostaz_app/models/bookModel/BookModel.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
@@ -8,12 +9,14 @@ class IndiDealCardWithDiscount extends StatelessWidget {
   final bool isLeft;
   final bool isSelected;
   final VoidCallback addHandler;
+  final BookModelWithCategory book;
 
   const IndiDealCardWithDiscount({
     Key? key,
     required this.isLeft,
     required this.isSelected,
     required this.addHandler,
+    required this.book,
   }) : super(key: key);
 
   @override
@@ -67,17 +70,17 @@ class IndiDealCardWithDiscount extends StatelessWidget {
                   SizedBox(
                     height: getProportionateScreenHeight(8.0),
                   ),
-                  const DiscoutText(),
+                  DiscoutText(percent: book.bookModel.discountPercent),
                   const Spacer(),
                   Text(
-                    'Dragon Fruit',
+                    book.bookModel.name,
                     style: Theme.of(context).textTheme.headline4!.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
                   ),
                   const Spacer(),
                   Text(
-                    '200gr',
+                    book.categoryModel.name,
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(12),
                       color: kTextColorAccent,
@@ -92,9 +95,9 @@ class IndiDealCardWithDiscount extends StatelessWidget {
                             image: AssetImage('assets/images/Divider.png'),
                           ),
                         ),
-                        child: const Text(
-                          '\$90',
-                          style: TextStyle(
+                        child: Text(
+                          '${book.bookModel.oldPrice}',
+                          style: const TextStyle(
                             color: kTextColorAccent,
                           ),
                         ),
@@ -105,7 +108,7 @@ class IndiDealCardWithDiscount extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: Text(
-                          '\$45',
+                          '${book.bookModel.price}',
                           style: Theme.of(context).textTheme.headline5,
                         ),
                       ),

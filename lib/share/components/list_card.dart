@@ -58,7 +58,7 @@ class ListCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (isDiscount) const DiscoutText(),
+                if (isDiscount) const DiscoutText(percent: 10),
                 if (isDiscount) const Spacer(),
                 Text(
                   'Dragon Fruit',

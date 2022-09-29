@@ -3,7 +3,9 @@ import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 
 class PriceTag extends StatelessWidget {
+  final dynamic price;
   const PriceTag({
+    required this.price,
     Key? key,
   }) : super(key: key);
 
@@ -23,7 +25,7 @@ class PriceTag extends StatelessWidget {
         ),
       ),
       child: Text(
-        '\$56',
+        price.toString(),
         style: Theme.of(context).textTheme.headline3!.copyWith(
               color: kPrimaryGreen,
             ),

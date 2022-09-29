@@ -8,21 +8,24 @@ class CustomAppBar extends StatelessWidget {
   const CustomAppBar(this.title, this.actions, {super.key});
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Expanded(child: BackButtonText()),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: getProportionateScreenWidth(17),
-            fontWeight: FontWeight.w600,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          const Expanded(child: BackButtonText()),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: getProportionateScreenWidth(17),
+              fontWeight: FontWeight.w600,
+            ),
           ),
-        ),
-        Expanded(
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.end, children: actions),
-        ),
-      ],
+          Expanded(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.end, children: actions),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -10,26 +10,30 @@ class BookModel extends Equatable {
   final String? description;
   final String grade;
   final String name;
-  final int? old_price;
-  final int price;
+  final dynamic oldPrice;
+  final dynamic price;
   final String? image;
   final int stock;
   final Timestamp? publishedDate;
-  final CategoryModel? category;
+  // final CategoryModel? category;
   const BookModel({
     this.description,
     required this.grade,
     required this.name,
-    this.old_price,
+    this.oldPrice,
     required this.price,
     this.image,
     required this.stock,
     this.publishedDate,
-    this.category,
+    // this.category,
   });
 
   static const empty = BookModel(
-      grade: '', name: '', price: 0, stock: 0); //category: CategoryModel.empty
+    grade: '',
+    name: '',
+    price: 0.0,
+    stock: 0,
+  ); //category: CategoryModel.empty
 
   /// Convenience getter to determine whether the current user is empty.
   bool get isEmpty => this == BookModel.empty;
@@ -37,6 +41,7 @@ class BookModel extends Equatable {
   /// Convenience getter to determine whether the current user is not empty.
   bool get isNotEmpty => this != BookModel.empty;
 
+  int get discountPercent => (((oldPrice! - price) / oldPrice!) * 100).toInt();
   @override
   List<Object?> get props => [
         grade,
@@ -44,17 +49,20 @@ class BookModel extends Equatable {
         price,
         stock,
         publishedDate,
-        category,
+        // category,
       ];
 
   factory BookModel.fromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
 
     return BookModel(
-      grade: data['grade'],
       name: data['name'],
+      grade: data['grade'],
       price: data['price'],
       stock: data['stock'],
+      image: data['image'],
+      oldPrice: data['old_price'],
+      description: data['description'],
       publishedDate: data['publishedDate'],
     );
   }
@@ -63,8 +71,8 @@ class BookModel extends Equatable {
     String? description,
     String? grade,
     String? name,
-    int? old_price,
-    int? price,
+    double? oldPrice,
+    double? price,
     String? image,
     int? stock,
     Timestamp? publishedDate,
@@ -73,7 +81,7 @@ class BookModel extends Equatable {
       description: description ?? this.description,
       grade: grade ?? this.grade,
       name: name ?? this.name,
-      old_price: old_price ?? this.old_price,
+      oldPrice: oldPrice ?? this.oldPrice,
       price: price ?? this.price,
       image: image ?? this.image,
       stock: stock ?? this.stock,
@@ -87,16 +95,16 @@ class BookModel extends Equatable {
           map['description'] != null ? map['description'] as String : null,
       grade: map['grade'] as String,
       name: map['name'] as String,
-      old_price: map['old_price'] != null ? map['old_price'] as int : null,
-      price: map['price'] as int,
+      oldPrice: map['old_price'] != null ? map['old_price'] as dynamic : null,
+      price: map['price'] as dynamic,
       image: map['image'] != null ? map['image'] as String : null,
       stock: map['stock'] as int,
       publishedDate: map['publishedDate'] != null
           ? map['publishedDate'] as Timestamp
           : null,
-      category: map['category'] != null
-          ? CategoryModel.fromMap(map['category'] as Map<String, dynamic>)
-          : null,
+      // category: map['category'] != null
+      //     ? CategoryModel.fromMap(map['category'] as Map<String, dynamic>)
+      //     : null,
     );
   }
 
