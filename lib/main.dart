@@ -3,7 +3,7 @@ import 'package:elostaz_app/layout/bloc/auth_bloc.dart';
 import 'package:elostaz_app/layout/cubit/app_cubit.dart';
 import 'package:elostaz_app/modules/Home/bloc/product_bloc.dart';
 import 'package:elostaz_app/modules/Profile/cubit/user_cubit.dart';
-import 'package:elostaz_app/modules/product_details.dart/cubit/product_count_cubit.dart';
+import 'package:elostaz_app/modules/product_details/cubit/product_count_cubit.dart';
 import 'package:elostaz_app/repo/auth.dart';
 import 'package:elostaz_app/repo/db.dart';
 import 'package:elostaz_app/repo/storage.dart';

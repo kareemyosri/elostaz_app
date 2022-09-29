@@ -1,7 +1,7 @@
 import 'package:elostaz_app/layout/bloc/auth_bloc.dart';
 import 'package:elostaz_app/main.dart';
 import 'package:elostaz_app/modules/login/login_screen.dart';
-import 'package:elostaz_app/modules/product_details.dart/productDetailsScreen.dart';
+import 'package:elostaz_app/modules/product_details/productDetailsScreen.dart';
 import 'package:elostaz_app/modules/profile_details/profile_details_screen.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,4 @@
 import 'package:elostaz_app/modules/Home/bloc/product_bloc.dart';
-import 'package:elostaz_app/modules/product_details.dart/productDetailsScreen.dart';
 import 'package:elostaz_app/share/components/indi_deal_card_with_discount.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
