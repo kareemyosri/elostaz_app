@@ -125,8 +125,6 @@ class ProductDetailsScreen extends StatelessWidget {
                                         .incrementCount();
 
                                     HapticFeedback.heavyImpact();
-
-                                    // AppCubit.get(context).plusQuantity();
                                   }),
                                 ],
                               ),
@@ -153,17 +151,15 @@ class ProductDetailsScreen extends StatelessWidget {
                                   crossAxisAlignment:
                                       CrossAxisAlignment.stretch,
                                   children: [
-                                    Expanded(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          // AppCubit.get(context).changeTab();
-                                        },
-                                        // child: DetailSelection(
-                                        //   'Description',
-                                        //   !isReviewTab,
-                                        // ),
-                                      ),
-                                    ),
+                                    // Expanded(
+                                    //   child: GestureDetector(
+                                    //     onTap: () {},
+                                    //     child: DetailSelection(
+                                    //       'Description',
+                                    //       !isReviewTab,
+                                    //     ),
+                                    //   ),
+                                    // ),
                                     VerticalDivider(
                                       endIndent:
                                           getProportionateScreenHeight(4),
@@ -408,7 +404,7 @@ class DetailSelection extends StatelessWidget {
   final String text;
   final bool isSelected;
 
-  const DetailSelection(this.text, this.isSelected);
+  const DetailSelection(this.text, this.isSelected, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -422,8 +418,8 @@ class DetailSelection extends StatelessWidget {
                   getProportionateScreenWidth(8.0),
                 ),
               ),
-              shadows: [
-                  const BoxShadow(
+              shadows: const [
+                  BoxShadow(
                     color: kShadowColor,
                     offset: Offset(0, 3),
                     blurRadius: 8,

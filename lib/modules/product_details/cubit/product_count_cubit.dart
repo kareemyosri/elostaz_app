@@ -18,7 +18,9 @@ class ProductCountCubit extends Cubit<int> {
   }
 
   void decrementCount() {
-    emit(state - 1);
-    textController.text = state.toString();
+    if (state > 0) {
+      emit(state - 1);
+      textController.text = state.toString();
+    }
   }
 }
