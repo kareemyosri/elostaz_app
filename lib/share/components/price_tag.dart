@@ -3,10 +3,9 @@ import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 
 class PriceTag extends StatelessWidget {
-  final dynamic price;
   const PriceTag({
-    required this.price,
     Key? key,
+    required this.price,
   }) : super(key: key);
 
   @override

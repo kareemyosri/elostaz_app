@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../share/utils/screen_utils.dart';
+import '../product_details/productDetailsScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
