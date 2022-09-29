@@ -1,38 +1,36 @@
 import 'package:elostaz_app/layout/cubit/app_cubit.dart';
+import 'package:elostaz_app/modules/product_details/cubit/product_count_cubit.dart';
+import 'package:elostaz_app/share/components/book_title.dart';
+import 'package:elostaz_app/share/components/quantity_input.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/bookModel/BookModel.dart';
 import '../../share/components/custom_app_bar.dart';
 import '../../share/components/custom_input_button.dart';
 import '../../share/components/discount_text.dart';
-import '../../share/components/fruit_title.dart';
 import '../../share/components/image_placeholder.dart';
 import '../../share/components/indi_deal_card.dart';
 import '../../share/components/price_tag.dart';
-import '../../share/components/quantity_input.dart';
 import '../../share/components/tab_title.dart';
 import '../../share/constants/colors.dart';
 import '../../share/utils/screen_utils.dart';
 
-
-
 class ProductDetailsScreen extends StatelessWidget {
+  final BookModelWithCategory book;
 
-  final BookModel model;
-
-
-  ProductDetailsScreen({super.key,
-  required this.model,
+  const ProductDetailsScreen({
+    super.key,
+    required this.book,
   });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: BlocConsumer<AppCubit,AppState>(
-          listener: (BuildContext context, state) {  },
-          builder: (BuildContext context, Object? state) {
-            var isReviewTab=AppCubit.get(context).isReviewTab;
+        child: BlocConsumer<AppCubit, AppState>(
+          listener: (BuildContext context, state) {},
+          builder: (BuildContext context, state) {
             return Column(
               children: [
                 Expanded(
@@ -41,19 +39,18 @@ class ProductDetailsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomAppBar(
-                          model.name,
+                          book.bookModel.name,
                           [
                             SizedBox(
-                              width: getProportionateScreenWidth(24),
-                              child: Image.asset(
-                                'assets/images/cart_nav_fill.png',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                                width: getProportionateScreenWidth(24),
+                                child: Icon(
+                                  Icons.shopping_cart,
+                                  color: Theme.of(context).primaryColor,
+                                )),
                             SizedBox(
                               width: getProportionateScreenWidth(16),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.share,
                               color: kPrimaryGreen,
                             ),
@@ -68,7 +65,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         SizedBox(
                           height: getProportionateScreenHeight(300),
                           width: double.infinity,
-                          child: ImagePlaceholder(),
+                          child: const ImagePlaceholder(),
                         ),
                         SizedBox(
                           height: getProportionateScreenHeight(10),
@@ -80,52 +77,56 @@ class ProductDetailsScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              DiscoutText(),
+                              DiscoutText(
+                                  percent: book.bookModel.discountPercent),
                               SizedBox(
                                 height: getProportionateScreenHeight(8),
                               ),
-                              FruitTitle(title: model.name),
+                              BookTitle(title: book.bookModel.name),
                               SizedBox(
                                 height: getProportionateScreenHeight(8),
                               ),
                               Text(
-                                model.category!.name,
-                                style:
-                                Theme.of(context).textTheme.headline4!.copyWith(
-                                  color: kTextColorAccent,
-                                ),
+                                book.categoryModel.name,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline4!
+                                    .copyWith(
+                                      color: kTextColorAccent,
+                                    ),
                               ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  PreviousPriceTag(oldprice: model.old_price!),
+                                  PreviousPriceTag(
+                                      oldprice: book.bookModel.oldPrice!),
                                   SizedBox(
                                     width: getProportionateScreenWidth(8),
                                   ),
-                                  PriceTag(price:model.price),
-                                  Spacer(),
+                                  PriceTag(price: book.bookModel.price),
+                                  const Spacer(),
                                   CustomIconButton(Icons.remove, () {
-                                    // setState(() {
-                                    //   int quantity = int.parse(textController.text);
-                                    //   quantity--;
-                                    //   textController.text = quantity.toString();
-                                    // });
-                                    AppCubit.get(context).minusQuantity();
+                                    ProductCountCubit.get(context)
+                                        .decrementCount();
+                                    HapticFeedback.heavyImpact();
                                   }),
                                   SizedBox(
                                     width: getProportionateScreenWidth(4),
                                   ),
-                                  QuantityInput(textController: AppCubit.get(context).textController),
+                                  QuantityInput(
+                                      textController:
+                                          ProductCountCubit.get(context)
+                                              .textController),
                                   SizedBox(
                                     width: getProportionateScreenWidth(4),
                                   ),
                                   CustomIconButton(Icons.add, () {
-                                    // setState(() {
-                                    //   int quantity = int.parse(textController.text);
-                                    //   quantity++;
-                                    //   textController.text = quantity.toString();
-                                    // });
-                                    AppCubit.get(context).plusQuantity();
+                                    ProductCountCubit.get(context)
+                                        .incrementCount();
+
+                                    HapticFeedback.heavyImpact();
+
+                                    // AppCubit.get(context).plusQuantity();
                                   }),
                                 ],
                               ),
@@ -149,81 +150,73 @@ class ProductDetailsScreen extends StatelessWidget {
                                   ),
                                 ),
                                 child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
                                     Expanded(
                                       child: GestureDetector(
                                         onTap: () {
-                                          if (!isReviewTab) {
-                                            return;
-                                          }
-
-                                          // setState(() {
-                                          //   isReviewTab = !isReviewTab;
-                                          // });
-                                          AppCubit.get(context).changeTab();
+                                          // AppCubit.get(context).changeTab();
                                         },
-                                        child: DetailSelection(
-                                          'Description',
-                                          !isReviewTab,
-                                        ),
+                                        // child: DetailSelection(
+                                        //   'Description',
+                                        //   !isReviewTab,
+                                        // ),
                                       ),
                                     ),
                                     VerticalDivider(
-                                      endIndent: getProportionateScreenHeight(4),
+                                      endIndent:
+                                          getProportionateScreenHeight(4),
                                       indent: getProportionateScreenHeight(4),
                                     ),
-                                    Expanded(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          if (isReviewTab) {
-                                            return;
-                                          }
-
-                                          // setState(() {
-                                          //   isReviewTab = !isReviewTab;
-                                          // });
-                                          AppCubit.get(context).changeTab();
-                                        },
-                                        child: DetailSelection(
-                                          'Reviews',
-                                          isReviewTab,
-                                        ),
-                                      ),
-                                    ),
+                                    // Expanded(
+                                    //   child: GestureDetector(
+                                    //     onTap: () {
+                                    //       // AppCubit.get(context).changeTab();
+                                    //     },
+                                    //     child: DetailSelection(
+                                    //       'Reviews',
+                                    //       isReviewTab,
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),
                               SizedBox(
                                 height: getProportionateScreenHeight(16),
                               ),
-                              !isReviewTab
-                                  ? Text(
-                                model.description!,
+                              // !isReviewTab
+                              // ?
+                              Text(
+                                book.bookModel.description!,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline4!
                                     .copyWith(
-                                  color: kTextColorAccent,
-                                ),
-                              )
-                                  : Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.stretch,
-                                children: [
-                                  ReviewCard(),
-                                  ReviewCard(),
-                                  OutlinedButton(
-                                      onPressed: () {},
-                                      child: Text('See All Reviews'))
-                                ],
+                                      color: kTextColorAccent,
+                                    ),
                               ),
+                              // :
+                              // Column(
+                              //     crossAxisAlignment:
+                              //         CrossAxisAlignment.stretch,
+                              //     children: [
+                              //       const ReviewCard(),
+                              //       const ReviewCard(),
+                              //       OutlinedButton(
+                              //           onPressed: () {},
+                              //           child:
+                              //               const Text('See All Reviews'))
+                              //     ],
+                              //   ),
                               Divider(
                                 height: getProportionateScreenHeight(48),
                               ),
                               TabTitle(
                                 title: 'More Like this',
-                                padding: 0, seeAll: () {  },
+                                padding: 0,
+                                seeAll: () {},
                               ),
                               SizedBox(
                                 height: getProportionateScreenHeight(220),
@@ -234,7 +227,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                         noPadding: true,
                                         isSelected: true,
                                         isLeft: false, //don't know
-                                        addHandler: () {  },
+                                        addHandler: () {},
                                       ),
                                     ),
                                     SizedBox(
@@ -243,7 +236,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                     Expanded(
                                       child: IndiDealCard(
                                         noPadding: true,
-                                        isSelected: false, isLeft: false, addHandler: () {  },
+                                        isSelected: false,
+                                        isLeft: false,
+                                        addHandler: () {},
                                       ),
                                     ),
                                   ],
@@ -262,6 +257,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: getProportionateScreenWidth(16.0),
+                    vertical: getProportionateScreenWidth(10.0),
                   ),
                   child: Row(
                     children: [
@@ -273,10 +269,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           },
                           child: SizedBox(
                             width: getProportionateScreenWidth(32),
-                            child: Image.asset(
-                              'assets/images/cart_nav_fill.png',
-                              fit: BoxFit.cover,
-                            ),
+                            child: const Icon(Icons.shopping_cart),
                           ),
                         ),
                       ),
@@ -287,7 +280,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         flex: 4,
                         child: ElevatedButton(
                           onPressed: () {},
-                          child: Text('Buy Now'),
+                          child: const Text('Buy Now'),
                         ),
                       ),
                     ],
@@ -295,19 +288,16 @@ class ProductDetailsScreen extends StatelessWidget {
                 ),
               ],
             );
-
           },
-
         ),
       ),
     );
   }
 }
 
-
 class ReviewCard extends StatelessWidget {
   const ReviewCard({
-     Key? key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -330,14 +320,14 @@ class ReviewCard extends StatelessWidget {
                     SizedBox(
                       width: getProportionateScreenWidth(8),
                     ),
-                    UserDetails(),
+                    const UserDetails(),
                   ],
                 ),
                 Text(
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
                   style: Theme.of(context).textTheme.headline4!.copyWith(
-                    color: kTextColorAccent,
-                  ),
+                        color: kTextColorAccent,
+                      ),
                 )
               ],
             ),
@@ -368,7 +358,7 @@ class UserDetails extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              Icon(Icons.more_vert_rounded),
+              const Icon(Icons.more_vert_rounded),
             ],
           ),
           Row(
@@ -400,7 +390,7 @@ class UserDetails extends StatelessWidget {
               Image.asset(
                 'assets/images/star_rating.png',
               ),
-              Text(
+              const Text(
                 '29 February, 2099',
                 style: TextStyle(
                   color: kTextColorAccent,
@@ -423,22 +413,22 @@ class DetailSelection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       decoration: isSelected
           ? ShapeDecoration(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              getProportionateScreenWidth(8.0),
-            ),
-          ),
-          shadows: [
-            BoxShadow(
-              color: kShadowColor,
-              offset: Offset(0, 3),
-              blurRadius: 8,
-            )
-          ])
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  getProportionateScreenWidth(8.0),
+                ),
+              ),
+              shadows: [
+                  const BoxShadow(
+                    color: kShadowColor,
+                    offset: Offset(0, 3),
+                    blurRadius: 8,
+                  )
+                ])
           : null,
       alignment: Alignment.center,
       child: Text(
@@ -450,16 +440,13 @@ class DetailSelection extends StatelessWidget {
 }
 
 class PreviousPriceTag extends StatelessWidget {
-  final int oldprice;
-  const PreviousPriceTag({
-    Key? key,
-    required this.oldprice
-  }) : super(key: key);
+  final dynamic oldprice;
+  const PreviousPriceTag({Key? key, required this.oldprice}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/images/Divider2.png'),
         ),
@@ -478,8 +465,8 @@ class PreviousPriceTag extends StatelessWidget {
           ),
         ),
         child: Text(
-          '${oldprice}',
-          style: TextStyle(
+          '$oldprice',
+          style: const TextStyle(
             color: kFailColor,
           ),
         ),
