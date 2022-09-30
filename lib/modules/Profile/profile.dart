@@ -1,4 +1,3 @@
-import 'package:elostaz_app/models/user/userModel.dart';
 import 'package:elostaz_app/modules/Profile/cubit/user_cubit.dart';
 import 'package:elostaz_app/share/utils/screen_utils.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +63,7 @@ class ProfileScreen extends StatelessWidget {
               height: getProportionateScreenHeight(8.0),
             ),
             const ProfileCard(
-              icon: Icons.person,
+              icon: Icons.location_pin,
               color: kAccentTosca,
               title: 'My Address',
             ),
@@ -72,7 +71,7 @@ class ProfileScreen extends StatelessWidget {
               height: getProportionateScreenHeight(8.0),
             ),
             const ProfileCard(
-              icon: Icons.person,
+              icon: Icons.notifications,
               color: kAccentYellow,
               title: 'Notification',
             ),
@@ -80,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
               height: getProportionateScreenHeight(8.0),
             ),
             const ProfileCard(
-              icon: Icons.person,
+              icon: Icons.help_center,
               color: kAccentPurple,
               title: 'Help Center',
             ),
