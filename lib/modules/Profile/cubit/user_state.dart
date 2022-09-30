@@ -23,7 +23,7 @@ class UserDataState extends Equatable {
     this.updatedName = const Name.pure(),
     this.updatedEmail = const Email.pure(),
     this.updatedPhone = const Phone.pure(),
-    this.updatedUserStatus = FormzStatus.pure,
+    this.updatedUserStatus = FormzStatus.valid,
     this.userDataStatus = UserDataStatus.inital,
     this.userUpdateStatus = UserUpdateStatus.inital,
     this.profileImagePickedStatus = ProfileImagePickedStatus.inital,

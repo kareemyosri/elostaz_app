@@ -17,22 +17,30 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'All Products',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
             //HorizontalFruitsScroll(),
             BlocConsumer<ProductBloc, ProductState>(
               listener: (BuildContext context, state) {},
               builder: (BuildContext context, state) {
                 if (state is ProductEmpty) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.clear),
+                      SizedBox(height: 20),
+                      Text('No Products to show.')
+                    ],
+                  );
                 } else if (state is ProductError) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.error),
+                      SizedBox(height: 20),
+                      Text('Unkown error happened.')
+                    ],
+                  );
                 } else if (state is ProductLoaded) {
                   return Expanded(
                     child: GridView.builder(
@@ -46,8 +54,7 @@ class HomeScreen extends StatelessWidget {
                         onTap: () {
                           Navigator.pushNamed(context, '/ProductDetailsScreen',
                               arguments: ProductDetailsScreen(
-                                book: state.books[index],
-                              ));
+                                  book: state.books[index]));
                         },
                         child: IndiDealCardWithDiscount(
                           book: state.books[index],
