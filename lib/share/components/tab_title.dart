@@ -4,13 +4,13 @@ import '../utils/screen_utils.dart';
 class TabTitle extends StatelessWidget {
   final String title;
   final String actionText;
-  final VoidCallback seeAll;
+  final VoidCallback? seeAll;
   final double padding;
 
   const TabTitle(
       {Key? key,
       required this.title,
-      required this.seeAll,
+      this.seeAll,
       this.actionText = 'See All',
       this.padding = 16})
       : super(key: key);

@@ -1,4 +1,4 @@
-import 'package:elostaz_app/modules/Cart/Cart.dart';
+import 'package:elostaz_app/modules/Cart/cart_screen.dart';
 import 'package:elostaz_app/modules/Home/Home.dart';
 import 'package:elostaz_app/modules/Profile/profile.dart';
 import 'package:elostaz_app/modules/Search/Search.dart';

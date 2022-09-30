@@ -1,6 +1,7 @@
 import 'package:elostaz_app/layout/app_layout.dart';
 import 'package:elostaz_app/layout/bloc/auth_bloc.dart';
 import 'package:elostaz_app/layout/cubit/app_cubit.dart';
+import 'package:elostaz_app/modules/Cart/bloc/cart_bloc.dart';
 import 'package:elostaz_app/modules/Home/bloc/product_bloc.dart';
 import 'package:elostaz_app/modules/Profile/cubit/user_cubit.dart';
 import 'package:elostaz_app/modules/product_details/cubit/product_count_cubit.dart';
@@ -92,6 +93,9 @@ class HomePage extends StatelessWidget {
                   ProductBloc(databaseRepo: databaseRepo)..add(LoadProduct()))),
           BlocProvider<ProductCountCubit>(
               create: ((context) => ProductCountCubit())),
+          BlocProvider<CartBloc>(
+              create: ((context) =>
+                  CartBloc(databaseRepo: databaseRepo)..add(LoadCart()))),
           BlocProvider<UserCubit>(
               create: ((context) => UserCubit(
                     databaseRepo: databaseRepo,

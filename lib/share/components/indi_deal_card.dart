@@ -3,15 +3,15 @@ import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 
 class IndiDealCard extends StatelessWidget {
-  final bool isLeft;
+  final bool? isLeft;
   final bool isSelected;
   final bool noPadding;
-  final VoidCallback addHandler;
+  final VoidCallback? addHandler;
 
   const IndiDealCard(
-      {required this.isLeft,
+      {this.isLeft,
       required this.isSelected,
-      required this.addHandler,
+      this.addHandler,
       this.noPadding = false});
 
   @override
@@ -19,8 +19,8 @@ class IndiDealCard extends StatelessWidget {
     return Padding(
       padding: !noPadding
           ? EdgeInsets.only(
-              left: isLeft ? getProportionateScreenWidth(16.0) : 0,
-              right: isLeft ? 0 : getProportionateScreenWidth(16.0),
+              left: isLeft! ? getProportionateScreenWidth(16.0) : 0,
+              right: isLeft! ? 0 : getProportionateScreenWidth(16.0),
             )
           : const EdgeInsets.all(0),
       child: Container(

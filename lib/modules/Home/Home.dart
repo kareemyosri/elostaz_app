@@ -1,5 +1,6 @@
 import 'package:elostaz_app/modules/Home/bloc/product_bloc.dart';
 import 'package:elostaz_app/share/components/indi_deal_card_with_discount.dart';
+import 'package:elostaz_app/share/components/tab_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,7 +9,6 @@ import '../product_details/productDetailsScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-//gggg
   @override
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
@@ -17,6 +17,10 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const TabTitle(
+              title: 'All Products',
+              padding: 0,
+            ),
             //HorizontalFruitsScroll(),
             BlocConsumer<ProductBloc, ProductState>(
               listener: (BuildContext context, state) {},

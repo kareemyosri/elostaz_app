@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:elostaz_app/models/categoryModel/CategoryModel.dart';
 
 class BookModel extends Equatable {
+  final String bookId;
   final String? description;
   final String grade;
   final String name;
@@ -15,8 +16,9 @@ class BookModel extends Equatable {
   final String? image;
   final int stock;
   final Timestamp? publishedDate;
-  // final CategoryModel? category;
+  final int quantity;
   const BookModel({
+    required this.bookId,
     this.description,
     required this.grade,
     required this.name,
@@ -25,10 +27,11 @@ class BookModel extends Equatable {
     this.image,
     required this.stock,
     this.publishedDate,
-    // this.category,
+    this.quantity = 0,
   });
 
   static const empty = BookModel(
+    bookId: '',
     grade: '',
     name: '',
     price: 0.0,
@@ -44,18 +47,20 @@ class BookModel extends Equatable {
   int get discountPercent => (((oldPrice! - price) / oldPrice!) * 100).toInt();
   @override
   List<Object?> get props => [
+        bookId,
         grade,
         name,
         price,
         stock,
+        quantity,
         publishedDate,
-        // category,
       ];
 
   factory BookModel.fromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
 
     return BookModel(
+      bookId: snapshot.id,
       name: data['name'],
       grade: data['grade'],
       price: data['price'],
@@ -68,6 +73,7 @@ class BookModel extends Equatable {
   }
 
   BookModel copyWith({
+    String? bookId,
     String? description,
     String? grade,
     String? name,
@@ -75,9 +81,11 @@ class BookModel extends Equatable {
     double? price,
     String? image,
     int? stock,
+    int? quantity,
     Timestamp? publishedDate,
   }) {
     return BookModel(
+      bookId: bookId ?? this.bookId,
       description: description ?? this.description,
       grade: grade ?? this.grade,
       name: name ?? this.name,
@@ -85,12 +93,14 @@ class BookModel extends Equatable {
       price: price ?? this.price,
       image: image ?? this.image,
       stock: stock ?? this.stock,
+      quantity: quantity ?? this.quantity,
       publishedDate: publishedDate ?? this.publishedDate,
     );
   }
 
   factory BookModel.fromMap(Map<String, dynamic> map) {
     return BookModel(
+      bookId: map['bookId'] as String,
       description:
           map['description'] != null ? map['description'] as String : null,
       grade: map['grade'] as String,
@@ -102,9 +112,6 @@ class BookModel extends Equatable {
       publishedDate: map['publishedDate'] != null
           ? map['publishedDate'] as Timestamp
           : null,
-      // category: map['category'] != null
-      //     ? CategoryModel.fromMap(map['category'] as Map<String, dynamic>)
-      //     : null,
     );
   }
 
@@ -120,7 +127,6 @@ class BookModelWithCategory extends Equatable {
     this.bookModel = BookModel.empty,
     this.categoryModel = CategoryModel.empty,
   });
-
   @override
   List<Object?> get props => [bookModel, categoryModel];
 
@@ -131,6 +137,26 @@ class BookModelWithCategory extends Equatable {
     return BookModelWithCategory(
       bookModel: bookModel ?? this.bookModel,
       categoryModel: categoryModel ?? this.categoryModel,
+    );
+  }
+}
+
+class CartItemModel extends Equatable {
+  final String id;
+  final int quantity;
+  final Timestamp date;
+
+  const CartItemModel(this.id, this.quantity, this.date);
+  @override
+  List<Object?> get props => [id, quantity, date];
+
+  factory CartItemModel.fromSnapshot(DocumentSnapshot snapshot) {
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+
+    return CartItemModel(
+      snapshot.id,
+      data['quantity'],
+      data['date'],
     );
   }
 }

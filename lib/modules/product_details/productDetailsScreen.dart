@@ -1,4 +1,5 @@
 import 'package:elostaz_app/layout/cubit/app_cubit.dart';
+import 'package:elostaz_app/modules/Cart/bloc/cart_bloc.dart';
 import 'package:elostaz_app/modules/product_details/cubit/product_count_cubit.dart';
 import 'package:elostaz_app/share/components/book_title.dart';
 import 'package:elostaz_app/share/components/quantity_input.dart';
@@ -275,7 +276,12 @@ class ProductDetailsScreen extends StatelessWidget {
                       Expanded(
                         flex: 4,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context.read<CartBloc>().add(AddToCart(
+                                  book.bookModel,
+                                  ProductCountCubit.get(context).state,
+                                ));
+                          },
                           child: const Text('Buy Now'),
                         ),
                       ),
