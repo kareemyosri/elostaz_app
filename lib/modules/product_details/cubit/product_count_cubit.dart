@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 part 'product_count_state.dart';
 
 class ProductCountCubit extends Cubit<int> {
-  ProductCountCubit() : super(0) {
+  ProductCountCubit() : super(1) {
     textController = TextEditingController(text: state.toString());
   }
   static ProductCountCubit get(BuildContext context) =>
