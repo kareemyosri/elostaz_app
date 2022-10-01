@@ -36,6 +36,10 @@ class ProductDetailsScreen extends StatelessWidget {
               showtoast(
                   text: 'A new Item has been added to your cart successfully',
                   state: ToastStates.SUCCESS);
+            } else if (state.addToCartStatus == AddToCartStatus.alreadyExists) {
+              showtoast(
+                  text: 'This item already exists in your cart',
+                  state: ToastStates.WARNING);
             } else if (state.addToCartStatus == AddToCartStatus.error) {
               showtoast(
                   text: 'Unkown error happened while adding new item',

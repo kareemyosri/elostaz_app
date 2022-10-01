@@ -54,8 +54,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   Future<void> _onAddToCard(AddToCart event, Emitter<CartState> emit) async {
     try {
       emit(state.copyWith(addToCartStatus: AddToCartStatus.loading));
-      await _databaseRepo.addItemToCart(event.item.bookId, event.quantity);
-      emit(state.copyWith(addToCartStatus: AddToCartStatus.success));
+      if (!state.books.contains(event.item)) {
+        await _databaseRepo.addItemToCart(event.item.bookId, event.quantity);
+        emit(state.copyWith(addToCartStatus: AddToCartStatus.success));
+      } else {
+        emit(state.copyWith(addToCartStatus: AddToCartStatus.alreadyExists));
+      }
     } catch (_) {
       emit(state.copyWith(addToCartStatus: AddToCartStatus.error));
     }

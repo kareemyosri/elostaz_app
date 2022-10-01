@@ -2,7 +2,7 @@ part of 'cart_bloc.dart';
 
 enum CartStatus { inital, loading, loaded, empty, error }
 
-enum AddToCartStatus { initial, loading, success, error }
+enum AddToCartStatus { initial, loading, success, alreadyExists, error }
 
 enum UpdateCartItemStatus { initial, loading, success, error }
 
