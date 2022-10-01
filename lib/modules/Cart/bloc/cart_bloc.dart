@@ -31,17 +31,19 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         bookData = bookData.copyWith(
           bookModel: bookData.bookModel.copyWith(quantity: item.quantity),
         );
-
+        booksData = booksData..add(bookData);
+        int itemCount = booksData.fold<int>(
+            0,
+            (previousValue, element) =>
+                previousValue + element.bookModel.quantity);
+        double totalPrice = booksData.fold<double>(
+            0,
+            (previousValue, element) =>
+                previousValue + element.bookModel.totalPrice);
         emit(state.copyWith(
-          books: booksData..add(bookData),
-          itemCount: booksData.fold<int>(
-              0,
-              (previousValue, element) =>
-                  previousValue + element.bookModel.quantity),
-          totalPrice: booksData.fold<double>(
-              0,
-              (previousValue, element) =>
-                  previousValue + element.bookModel.totalPrice),
+          books: booksData,
+          itemCount: itemCount,
+          totalPrice: totalPrice,
           cartStatus: CartStatus.loaded,
         ));
         // print(booksData);
