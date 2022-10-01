@@ -141,7 +141,6 @@ class ProductDetailsScreen extends StatelessWidget {
                                     CustomIconButton(Icons.add, () {
                                       ProductCountCubit.get(context)
                                           .incrementCount();
-
                                       HapticFeedback.heavyImpact();
                                     }),
                                   ],
@@ -268,42 +267,53 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: getProportionateScreenWidth(16.0),
-                      vertical: getProportionateScreenWidth(10.0),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: OutlinedButton(
-                            onPressed: () {
-                              // Navigator.of(context)
-                              //     .pushNamed(OrderSummaryScreen.routeName);
-                            },
-                            child: SizedBox(
-                              width: getProportionateScreenWidth(32),
-                              child: const Icon(Icons.shopping_cart),
-                            ),
+                  BlocBuilder<CartBloc, CartState>(
+                    bloc: context.read<CartBloc>()
+                      ..add(LoadCart())
+                      ..add(CheckItem(book)),
+                    builder: (context, state) {
+                      print(state.isExists);
+                      if (!state.isExists) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: getProportionateScreenWidth(16.0),
+                            vertical: getProportionateScreenWidth(10.0),
                           ),
-                        ),
-                        SizedBox(
-                          width: getProportionateScreenWidth(16),
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              context.read<CartBloc>().add(AddToCart(
-                                    book.bookModel,
-                                    ProductCountCubit.get(context).state,
-                                  ));
-                            },
-                            child: const Text('Buy Now'),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: OutlinedButton(
+                                  onPressed: () {
+                                    // Navigator.of(context)
+                                    //     .pushNamed(OrderSummaryScreen.routeName);
+                                  },
+                                  child: SizedBox(
+                                    width: getProportionateScreenWidth(32),
+                                    child: const Icon(Icons.shopping_cart),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: getProportionateScreenWidth(16),
+                              ),
+                              Expanded(
+                                flex: 4,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    context.read<CartBloc>().add(AddToCart(
+                                          book.bookModel,
+                                          ProductCountCubit.get(context).state,
+                                        ));
+                                  },
+                                  child: const Text('Buy Now'),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
+                        );
+                      }
+                      return Container();
+                    },
                   ),
                 ],
               );

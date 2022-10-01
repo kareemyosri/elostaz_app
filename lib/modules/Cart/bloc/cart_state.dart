@@ -15,6 +15,7 @@ class CartState extends Equatable {
     this.books = const <BookModelWithCategory>[],
     this.itemCount = 0,
     this.totalPrice = 0.0,
+    this.isExists = false,
     this.cartStatus = CartStatus.inital,
     this.addToCartStatus = AddToCartStatus.initial,
     this.updateCartItemStatus = UpdateCartItemStatus.initial,
@@ -27,12 +28,14 @@ class CartState extends Equatable {
   final AddToCartStatus addToCartStatus;
   final UpdateCartItemStatus updateCartItemStatus;
   final RemoveCartItemStatus removeCartItemStatus;
+  final bool isExists;
   @override
   List<Object> get props => [
         books,
         cartStatus,
         itemCount,
         totalPrice,
+        isExists,
         addToCartStatus,
         updateCartItemStatus,
         removeCartItemStatus
@@ -46,6 +49,7 @@ class CartState extends Equatable {
     RemoveCartItemStatus? removeCartItemStatus,
     int? itemCount,
     double? totalPrice,
+    bool? isExists,
   }) {
     return CartState(
       books: books ?? this.books,
@@ -55,6 +59,7 @@ class CartState extends Equatable {
       addToCartStatus: addToCartStatus ?? this.addToCartStatus,
       updateCartItemStatus: updateCartItemStatus ?? this.updateCartItemStatus,
       removeCartItemStatus: removeCartItemStatus ?? this.removeCartItemStatus,
+      isExists: isExists ?? this.isExists,
     );
   }
 }

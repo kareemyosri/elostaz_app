@@ -14,6 +14,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<AddToCart>(_onAddToCard);
     on<UpdateItemAmount>(_onUpdateItemAmount);
     on<RemoveFromCart>(_onRemoveFromCart);
+    on<CheckItem>(_onCheckItem);
   }
   final DatabaseRepo _databaseRepo;
   Future<void> _onLoadCart(LoadCart event, Emitter<CartState> emit) {
@@ -93,5 +94,15 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     } catch (_) {
       emit(state.copyWith(removeCartItemStatus: RemoveCartItemStatus.error));
     }
+  }
+
+  Future<void> _onCheckItem(CheckItem event, Emitter<CartState> emit) async {
+    for (BookModelWithCategory book in state.books) {
+      if (book.bookModel.bookId == event.item.bookModel.bookId) {
+        emit(state.copyWith(isExists: true));
+        return;
+      }
+    }
+    emit(state.copyWith(isExists: false));
   }
 }

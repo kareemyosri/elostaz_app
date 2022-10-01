@@ -33,3 +33,11 @@ class UpdateItemAmount extends CartEvent {
   @override
   List<Object> get props => [bookId, action];
 }
+
+class CheckItem extends CartEvent {
+  final BookModelWithCategory item;
+
+  const CheckItem(this.item);
+  @override
+  List<Object> get props => [item];
+}
