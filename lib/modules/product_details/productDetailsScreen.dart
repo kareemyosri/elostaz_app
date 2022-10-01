@@ -2,6 +2,7 @@ import 'package:elostaz_app/layout/cubit/app_cubit.dart';
 import 'package:elostaz_app/modules/Cart/bloc/cart_bloc.dart';
 import 'package:elostaz_app/modules/product_details/cubit/product_count_cubit.dart';
 import 'package:elostaz_app/share/components/book_title.dart';
+import 'package:elostaz_app/share/components/custom_toast_message.dart';
 import 'package:elostaz_app/share/components/quantity_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,268 +30,281 @@ class ProductDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: BlocConsumer<AppCubit, AppState>(
-          listener: (BuildContext context, state) {},
-          builder: (BuildContext context, state) {
-            return Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomAppBar(
-                          book.bookModel.name,
-                          [
-                            SizedBox(
-                                width: getProportionateScreenWidth(24),
-                                child: Icon(
-                                  Icons.shopping_cart,
-                                  color: Theme.of(context).primaryColor,
-                                )),
-                            SizedBox(
-                              width: getProportionateScreenWidth(16),
-                            ),
-                            const Icon(
-                              Icons.share,
-                              color: kPrimaryGreen,
-                            ),
-                            SizedBox(
-                              width: getProportionateScreenWidth(16),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: getProportionateScreenHeight(10),
-                        ),
-                        SizedBox(
-                          height: getProportionateScreenHeight(300),
-                          width: double.infinity,
-                          child: const ImagePlaceholder(),
-                        ),
-                        SizedBox(
-                          height: getProportionateScreenHeight(10),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: getProportionateScreenWidth(16.0),
+        child: BlocListener<CartBloc, CartState>(
+          listener: (context, state) {
+            if (state.addToCartStatus == AddToCartStatus.success) {
+              showtoast(
+                  text: 'A new Item has been added to your cart successfully',
+                  state: ToastStates.SUCCESS);
+            } else if (state.addToCartStatus == AddToCartStatus.error) {
+              showtoast(
+                  text: 'Unkown error happened while adding new item',
+                  state: ToastStates.ERROR);
+            }
+          },
+          child: BlocConsumer<AppCubit, AppState>(
+            listener: (BuildContext context, state) {},
+            builder: (BuildContext context, state) {
+              return Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomAppBar(
+                            book.bookModel.name,
+                            [
+                              SizedBox(
+                                  width: getProportionateScreenWidth(24),
+                                  child: Icon(
+                                    Icons.shopping_cart,
+                                    color: Theme.of(context).primaryColor,
+                                  )),
+                              SizedBox(
+                                width: getProportionateScreenWidth(16),
+                              ),
+                              const Icon(
+                                Icons.share,
+                                color: kPrimaryGreen,
+                              ),
+                              SizedBox(
+                                width: getProportionateScreenWidth(16),
+                              ),
+                            ],
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              DiscoutText(
-                                  percent: book.bookModel.discountPercent),
-                              SizedBox(
-                                height: getProportionateScreenHeight(8),
-                              ),
-                              BookTitle(title: book.bookModel.name),
-                              SizedBox(
-                                height: getProportionateScreenHeight(8),
-                              ),
-                              Text(
-                                book.categoryModel.name,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline4!
-                                    .copyWith(
-                                      color: kTextColorAccent,
-                                    ),
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  PreviousPriceTag(
-                                      oldprice: book.bookModel.oldPrice!),
-                                  SizedBox(
-                                    width: getProportionateScreenWidth(8),
-                                  ),
-                                  PriceTag(price: book.bookModel.price),
-                                  const Spacer(),
-                                  CustomIconButton(Icons.remove, () {
-                                    ProductCountCubit.get(context)
-                                        .decrementCount();
-                                    HapticFeedback.heavyImpact();
-                                  }),
-                                  SizedBox(
-                                    width: getProportionateScreenWidth(4),
-                                  ),
-                                  QuantityInput(
-                                      textController:
-                                          ProductCountCubit.get(context)
-                                              .textController),
-                                  SizedBox(
-                                    width: getProportionateScreenWidth(4),
-                                  ),
-                                  CustomIconButton(Icons.add, () {
-                                    ProductCountCubit.get(context)
-                                        .incrementCount();
-
-                                    HapticFeedback.heavyImpact();
-                                  }),
-                                ],
-                              ),
-                              SizedBox(
-                                height: getProportionateScreenHeight(8.0),
-                              ),
-                              Container(
-                                height: getProportionateScreenHeight(
-                                  32,
+                          SizedBox(
+                            height: getProportionateScreenHeight(10),
+                          ),
+                          SizedBox(
+                            height: getProportionateScreenHeight(300),
+                            width: double.infinity,
+                            child: const ImagePlaceholder(),
+                          ),
+                          SizedBox(
+                            height: getProportionateScreenHeight(10),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: getProportionateScreenWidth(16.0),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                DiscoutText(
+                                    percent: book.bookModel.discountPercent),
+                                SizedBox(
+                                  height: getProportionateScreenHeight(8),
                                 ),
-                                padding: EdgeInsets.symmetric(
-                                  vertical: getProportionateScreenHeight(2),
-                                  horizontal: getProportionateScreenWidth(4),
+                                BookTitle(title: book.bookModel.name),
+                                SizedBox(
+                                  height: getProportionateScreenHeight(8),
                                 ),
-                                decoration: ShapeDecoration(
-                                  color: kFillColorThird,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      getProportionateScreenWidth(8.0),
-                                    ),
-                                  ),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    // Expanded(
-                                    //   child: GestureDetector(
-                                    //     onTap: () {},
-                                    //     child: DetailSelection(
-                                    //       'Description',
-                                    //       !isReviewTab,
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                    VerticalDivider(
-                                      endIndent:
-                                          getProportionateScreenHeight(4),
-                                      indent: getProportionateScreenHeight(4),
-                                    ),
-                                    // Expanded(
-                                    //   child: GestureDetector(
-                                    //     onTap: () {
-                                    //       // AppCubit.get(context).changeTab();
-                                    //     },
-                                    //     child: DetailSelection(
-                                    //       'Reviews',
-                                    //       isReviewTab,
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: getProportionateScreenHeight(16),
-                              ),
-                              // !isReviewTab
-                              // ?
-                              Text(
-                                book.bookModel.description!,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline4!
-                                    .copyWith(
-                                      color: kTextColorAccent,
-                                    ),
-                              ),
-                              // :
-                              // Column(
-                              //     crossAxisAlignment:
-                              //         CrossAxisAlignment.stretch,
-                              //     children: [
-                              //       const ReviewCard(),
-                              //       const ReviewCard(),
-                              //       OutlinedButton(
-                              //           onPressed: () {},
-                              //           child:
-                              //               const Text('See All Reviews'))
-                              //     ],
-                              //   ),
-                              Divider(
-                                height: getProportionateScreenHeight(48),
-                              ),
-                              TabTitle(
-                                title: 'More Like this',
-                                padding: 0,
-                                seeAll: () {},
-                              ),
-                              SizedBox(
-                                height: getProportionateScreenHeight(220),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: IndiDealCard(
-                                        noPadding: true,
-                                        isSelected: true,
-                                        isLeft: false, //don't know
-                                        addHandler: () {},
+                                Text(
+                                  book.categoryModel.name,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline4!
+                                      .copyWith(
+                                        color: kTextColorAccent,
                                       ),
-                                    ),
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    PreviousPriceTag(
+                                        oldprice: book.bookModel.oldPrice!),
                                     SizedBox(
                                       width: getProportionateScreenWidth(8),
                                     ),
-                                    Expanded(
-                                      child: IndiDealCard(
-                                        noPadding: true,
-                                        isSelected: false,
-                                        isLeft: false,
-                                        addHandler: () {},
-                                      ),
+                                    PriceTag(price: book.bookModel.price),
+                                    const Spacer(),
+                                    CustomIconButton(Icons.remove, () {
+                                      ProductCountCubit.get(context)
+                                          .decrementCount();
+                                      HapticFeedback.heavyImpact();
+                                    }),
+                                    SizedBox(
+                                      width: getProportionateScreenWidth(4),
                                     ),
+                                    QuantityInput(
+                                        textController:
+                                            ProductCountCubit.get(context)
+                                                .textController),
+                                    SizedBox(
+                                      width: getProportionateScreenWidth(4),
+                                    ),
+                                    CustomIconButton(Icons.add, () {
+                                      ProductCountCubit.get(context)
+                                          .incrementCount();
+
+                                      HapticFeedback.heavyImpact();
+                                    }),
                                   ],
                                 ),
-                              ),
-                              SizedBox(
-                                height: getProportionateScreenHeight(48),
-                              ),
-                            ],
+                                SizedBox(
+                                  height: getProportionateScreenHeight(8.0),
+                                ),
+                                Container(
+                                  height: getProportionateScreenHeight(
+                                    32,
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: getProportionateScreenHeight(2),
+                                    horizontal: getProportionateScreenWidth(4),
+                                  ),
+                                  decoration: ShapeDecoration(
+                                    color: kFillColorThird,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        getProportionateScreenWidth(8.0),
+                                      ),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      // Expanded(
+                                      //   child: GestureDetector(
+                                      //     onTap: () {},
+                                      //     child: DetailSelection(
+                                      //       'Description',
+                                      //       !isReviewTab,
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      VerticalDivider(
+                                        endIndent:
+                                            getProportionateScreenHeight(4),
+                                        indent: getProportionateScreenHeight(4),
+                                      ),
+                                      // Expanded(
+                                      //   child: GestureDetector(
+                                      //     onTap: () {
+                                      //       // AppCubit.get(context).changeTab();
+                                      //     },
+                                      //     child: DetailSelection(
+                                      //       'Reviews',
+                                      //       isReviewTab,
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: getProportionateScreenHeight(16),
+                                ),
+                                // !isReviewTab
+                                // ?
+                                Text(
+                                  book.bookModel.description!,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline4!
+                                      .copyWith(
+                                        color: kTextColorAccent,
+                                      ),
+                                ),
+                                // :
+                                // Column(
+                                //     crossAxisAlignment:
+                                //         CrossAxisAlignment.stretch,
+                                //     children: [
+                                //       const ReviewCard(),
+                                //       const ReviewCard(),
+                                //       OutlinedButton(
+                                //           onPressed: () {},
+                                //           child:
+                                //               const Text('See All Reviews'))
+                                //     ],
+                                //   ),
+                                Divider(
+                                  height: getProportionateScreenHeight(48),
+                                ),
+                                TabTitle(
+                                  title: 'More Like this',
+                                  padding: 0,
+                                  seeAll: () {},
+                                ),
+                                SizedBox(
+                                  height: getProportionateScreenHeight(220),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: IndiDealCard(
+                                          noPadding: true,
+                                          isSelected: true,
+                                          isLeft: false, //don't know
+                                          addHandler: () {},
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: getProportionateScreenWidth(8),
+                                      ),
+                                      Expanded(
+                                        child: IndiDealCard(
+                                          noPadding: true,
+                                          isSelected: false,
+                                          isLeft: false,
+                                          addHandler: () {},
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: getProportionateScreenHeight(48),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: getProportionateScreenWidth(16.0),
+                      vertical: getProportionateScreenWidth(10.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: () {
+                              // Navigator.of(context)
+                              //     .pushNamed(OrderSummaryScreen.routeName);
+                            },
+                            child: SizedBox(
+                              width: getProportionateScreenWidth(32),
+                              child: const Icon(Icons.shopping_cart),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: getProportionateScreenWidth(16),
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              context.read<CartBloc>().add(AddToCart(
+                                    book.bookModel,
+                                    ProductCountCubit.get(context).state,
+                                  ));
+                            },
+                            child: const Text('Buy Now'),
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(16.0),
-                    vertical: getProportionateScreenWidth(10.0),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: OutlinedButton(
-                          onPressed: () {
-                            // Navigator.of(context)
-                            //     .pushNamed(OrderSummaryScreen.routeName);
-                          },
-                          child: SizedBox(
-                            width: getProportionateScreenWidth(32),
-                            child: const Icon(Icons.shopping_cart),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: getProportionateScreenWidth(16),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            context.read<CartBloc>().add(AddToCart(
-                                  book.bookModel,
-                                  ProductCountCubit.get(context).state,
-                                ));
-                          },
-                          child: const Text('Buy Now'),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            );
-          },
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

@@ -81,14 +81,14 @@ class CartScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Total (5)',
+                            'Total (${state.itemCount})',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline4!
                                 .copyWith(fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            '\$156',
+                            '${state.totalPrice} EGP',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline4!

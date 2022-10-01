@@ -20,8 +20,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     emit(state.copyWith(cartStatus: CartStatus.loading));
     return emit.onEach<List<CartItemModel>>(_databaseRepo.loadCartItems(),
         onData: (products) {
-      // print(products);
-
       if (products.isEmpty) {
         emit(state.copyWith(cartStatus: CartStatus.empty));
         return;
@@ -33,12 +31,20 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         bookData = bookData.copyWith(
           bookModel: bookData.bookModel.copyWith(quantity: item.quantity),
         );
-        print(bookData);
+
         emit(state.copyWith(
           books: booksData..add(bookData),
+          itemCount: booksData.fold<int>(
+              0,
+              (previousValue, element) =>
+                  previousValue + element.bookModel.quantity),
+          totalPrice: booksData.fold<double>(
+              0,
+              (previousValue, element) =>
+                  previousValue + element.bookModel.totalPrice),
           cartStatus: CartStatus.loaded,
         ));
-        print(booksData);
+        // print(booksData);
       });
     });
   }

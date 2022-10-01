@@ -119,7 +119,7 @@ class OrderCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '${book.bookModel.price * book.bookModel.quantity} EGP',
+                        '${book.bookModel.totalPrice} EGP',
                         style: TextStyle(
                           fontSize: getProportionateScreenWidth(20),
                           fontWeight: FontWeight.w700,

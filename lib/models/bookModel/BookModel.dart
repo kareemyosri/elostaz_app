@@ -45,6 +45,8 @@ class BookModel extends Equatable {
   bool get isNotEmpty => this != BookModel.empty;
 
   int get discountPercent => (((oldPrice! - price) / oldPrice!) * 100).toInt();
+
+  double get totalPrice => price.toDouble() * quantity.toDouble();
   @override
   List<Object?> get props => [
         bookId,

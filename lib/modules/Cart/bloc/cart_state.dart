@@ -13,12 +13,16 @@ enum CartItemAction { increment, decrement }
 class CartState extends Equatable {
   const CartState({
     this.books = const <BookModelWithCategory>[],
+    this.itemCount = 0,
+    this.totalPrice = 0.0,
     this.cartStatus = CartStatus.inital,
     this.addToCartStatus = AddToCartStatus.initial,
     this.updateCartItemStatus = UpdateCartItemStatus.initial,
     this.removeCartItemStatus = RemoveCartItemStatus.initial,
   });
   final List<BookModelWithCategory> books;
+  final int itemCount;
+  final double totalPrice;
   final CartStatus cartStatus;
   final AddToCartStatus addToCartStatus;
   final UpdateCartItemStatus updateCartItemStatus;
@@ -27,6 +31,8 @@ class CartState extends Equatable {
   List<Object> get props => [
         books,
         cartStatus,
+        itemCount,
+        totalPrice,
         addToCartStatus,
         updateCartItemStatus,
         removeCartItemStatus
@@ -38,10 +44,14 @@ class CartState extends Equatable {
     AddToCartStatus? addToCartStatus,
     UpdateCartItemStatus? updateCartItemStatus,
     RemoveCartItemStatus? removeCartItemStatus,
+    int? itemCount,
+    double? totalPrice,
   }) {
     return CartState(
       books: books ?? this.books,
       cartStatus: cartStatus ?? this.cartStatus,
+      itemCount: itemCount ?? this.itemCount,
+      totalPrice: totalPrice ?? this.totalPrice,
       addToCartStatus: addToCartStatus ?? this.addToCartStatus,
       updateCartItemStatus: updateCartItemStatus ?? this.updateCartItemStatus,
       removeCartItemStatus: removeCartItemStatus ?? this.removeCartItemStatus,
