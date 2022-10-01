@@ -16,6 +16,7 @@ class SmallQuantityInput extends StatelessWidget {
     return SizedBox(
       width: getProportionateScreenWidth(32),
       child: TextField(
+        enabled: false,
         controller: textController,
         decoration: InputDecoration(
           isCollapsed: true,
