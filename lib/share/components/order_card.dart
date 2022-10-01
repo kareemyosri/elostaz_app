@@ -137,9 +137,9 @@ class OrderCard extends StatelessWidget {
                       SizedBox(
                         width: getProportionateScreenWidth(4),
                       ),
-                      // SmallQuantityInput(
-                      //   textController: textController,
-                      // ),
+                      SmallQuantityInput(
+                        value: book.bookModel.quantity,
+                      ),
                       SizedBox(
                         width: getProportionateScreenWidth(4),
                       ),
