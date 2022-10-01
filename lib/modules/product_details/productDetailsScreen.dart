@@ -268,9 +268,9 @@ class ProductDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   BlocBuilder<CartBloc, CartState>(
-                    bloc: context.read<CartBloc>()
-                      ..add(LoadCart())
-                      ..add(CheckItem(book)),
+                    buildWhen: (previous, current) =>
+                        current.cartStatus == CartStatus.loaded,
+                    bloc: context.read<CartBloc>()..add(CheckItem(book)),
                     builder: (context, state) {
                       print(state.isExists);
                       if (!state.isExists) {

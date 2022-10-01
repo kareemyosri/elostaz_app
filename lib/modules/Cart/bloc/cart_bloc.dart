@@ -97,6 +97,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   Future<void> _onCheckItem(CheckItem event, Emitter<CartState> emit) async {
+    // if (state.cartStatus == CartStatus.inital) {
+    //   var value = add(LoadCart());
+    //   await value.first;
+    // }
     for (BookModelWithCategory book in state.books) {
       if (book.bookModel.bookId == event.item.bookModel.bookId) {
         emit(state.copyWith(isExists: true));
