@@ -5,13 +5,14 @@ import '../utils/screen_utils.dart';
 class SmallQuantityInput extends StatelessWidget {
   const SmallQuantityInput({
     Key? key,
-    required this.textController,
+    required this.value,
   }) : super(key: key);
-
-  final TextEditingController textController;
-
+  final int value;
   @override
   Widget build(BuildContext context) {
+    final TextEditingController textController =
+        TextEditingController(text: value.toString());
+
     return SizedBox(
       width: getProportionateScreenWidth(32),
       child: TextField(
