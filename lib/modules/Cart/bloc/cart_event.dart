@@ -27,11 +27,11 @@ class RemoveFromCart extends CartEvent {
 }
 
 class UpdateItemAmount extends CartEvent {
-  final String bookId;
+  final BookModelWithCategory book;
   final CartItemAction action;
-  const UpdateItemAmount(this.bookId, this.action);
+  const UpdateItemAmount(this.book, this.action);
   @override
-  List<Object> get props => [bookId, action];
+  List<Object> get props => [book, action];
 }
 
 class CheckItem extends CartEvent {

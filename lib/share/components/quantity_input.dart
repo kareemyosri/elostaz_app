@@ -15,6 +15,7 @@ class QuantityInput extends StatelessWidget {
     return SizedBox(
       width: getProportionateScreenWidth(40),
       child: TextField(
+        enabled: false,
         controller: textController,
         decoration: InputDecoration(
           border: OutlineInputBorder(

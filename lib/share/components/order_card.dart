@@ -129,8 +129,8 @@ class OrderCard extends StatelessWidget {
                       CustomIconButton(
                         Icons.remove,
                         () {
-                          context.read<CartBloc>().add(UpdateItemAmount(
-                              book.bookModel.bookId, CartItemAction.decrement));
+                          context.read<CartBloc>().add(
+                              UpdateItemAmount(book, CartItemAction.decrement));
                         },
                         size: 32,
                       ),
@@ -146,8 +146,8 @@ class OrderCard extends StatelessWidget {
                       CustomIconButton(
                         Icons.add,
                         () {
-                          context.read<CartBloc>().add(UpdateItemAmount(
-                              book.bookModel.bookId, CartItemAction.increment));
+                          context.read<CartBloc>().add(
+                              UpdateItemAmount(book, CartItemAction.increment));
                         },
                         size: 32,
                       ),

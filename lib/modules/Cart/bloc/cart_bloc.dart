@@ -74,10 +74,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
       switch (event.action) {
         case CartItemAction.increment:
-          await _databaseRepo.updateItemQuantity(event.bookId, 1);
+          await _databaseRepo.updateItemQuantity(
+              event.book.bookModel.bookId, 1);
           break;
         case CartItemAction.decrement:
-          await _databaseRepo.updateItemQuantity(event.bookId, -1);
+          if (event.book.bookModel.quantity > 1) {
+            await _databaseRepo.updateItemQuantity(
+                event.book.bookModel.bookId, -1);
+          }
           break;
       }
       emit(state.copyWith(updateCartItemStatus: UpdateCartItemStatus.success));

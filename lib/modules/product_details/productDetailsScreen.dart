@@ -123,26 +123,45 @@ class ProductDetailsScreen extends StatelessWidget {
                                     ),
                                     PriceTag(price: book.bookModel.price),
                                     const Spacer(),
-                                    CustomIconButton(Icons.remove, () {
-                                      ProductCountCubit.get(context)
-                                          .decrementCount();
-                                      HapticFeedback.heavyImpact();
-                                    }),
-                                    SizedBox(
-                                      width: getProportionateScreenWidth(4),
-                                    ),
-                                    QuantityInput(
-                                        textController:
-                                            ProductCountCubit.get(context)
-                                                .textController),
-                                    SizedBox(
-                                      width: getProportionateScreenWidth(4),
-                                    ),
-                                    CustomIconButton(Icons.add, () {
-                                      ProductCountCubit.get(context)
-                                          .incrementCount();
-                                      HapticFeedback.heavyImpact();
-                                    }),
+                                    BlocBuilder<CartBloc, CartState>(
+                                      bloc: context.watch<CartBloc>()
+                                        ..add(CheckItem(book)),
+                                      builder: (context, state) {
+                                        if (!state.isExists) {
+                                          return Row(
+                                            children: [
+                                              CustomIconButton(Icons.remove,
+                                                  () {
+                                                ProductCountCubit.get(context)
+                                                    .decrementCount();
+                                                HapticFeedback.heavyImpact();
+                                              }),
+                                              SizedBox(
+                                                width:
+                                                    getProportionateScreenWidth(
+                                                        4),
+                                              ),
+                                              QuantityInput(
+                                                  textController:
+                                                      ProductCountCubit.get(
+                                                              context)
+                                                          .textController),
+                                              SizedBox(
+                                                width:
+                                                    getProportionateScreenWidth(
+                                                        4),
+                                              ),
+                                              CustomIconButton(Icons.add, () {
+                                                ProductCountCubit.get(context)
+                                                    .incrementCount();
+                                                HapticFeedback.heavyImpact();
+                                              }),
+                                            ],
+                                          );
+                                        }
+                                        return Container();
+                                      },
+                                    )
                                   ],
                                 ),
                                 SizedBox(
