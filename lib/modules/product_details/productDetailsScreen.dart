@@ -268,9 +268,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   BlocBuilder<CartBloc, CartState>(
-                    buildWhen: (previous, current) =>
-                        current.cartStatus == CartStatus.loaded,
-                    bloc: context.read<CartBloc>()..add(CheckItem(book)),
+                    bloc: context.watch<CartBloc>()..add(CheckItem(book)),
                     builder: (context, state) {
                       if (!state.isExists) {
                         return Padding(

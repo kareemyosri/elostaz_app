@@ -58,6 +58,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       if (!state.books.contains(event.item)) {
         await _databaseRepo.addItemToCart(event.item.bookId, event.quantity);
         emit(state.copyWith(addToCartStatus: AddToCartStatus.success));
+        emit(state.copyWith(addToCartStatus: AddToCartStatus.initial));
       } else {
         emit(state.copyWith(addToCartStatus: AddToCartStatus.alreadyExists));
       }
@@ -80,6 +81,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           break;
       }
       emit(state.copyWith(updateCartItemStatus: UpdateCartItemStatus.success));
+      emit(state.copyWith(updateCartItemStatus: UpdateCartItemStatus.initial));
     } catch (_) {
       emit(state.copyWith(updateCartItemStatus: UpdateCartItemStatus.error));
     }
@@ -91,6 +93,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       emit(state.copyWith(removeCartItemStatus: RemoveCartItemStatus.loading));
       await _databaseRepo.removeItemFromCart(event.itemId);
       emit(state.copyWith(removeCartItemStatus: RemoveCartItemStatus.success));
+      emit(state.copyWith(removeCartItemStatus: RemoveCartItemStatus.initial));
     } catch (_) {
       emit(state.copyWith(removeCartItemStatus: RemoveCartItemStatus.error));
     }
